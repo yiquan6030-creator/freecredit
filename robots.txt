@@ -1,0 +1,6 @@
+# robots.txt for Malaysia Free Credit & 4D Payout Landing Page
+User-agent: *
+Allow: /
+
+# Sitemap Location
+Sitemap: https://example.com/sitemap.xml
