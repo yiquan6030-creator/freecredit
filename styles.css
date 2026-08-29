@@ -3,17 +3,17 @@
   --primary-color: #dc2626;
   --primary-hover: #b91c1c;
   --secondary-color: #f59e0b;
-  --accent-gold: #fbbf24;
-  --bg-gradient: linear-gradient(135deg, #180505 0%, #3f0909 40%, #1a0614 100%);
-  --card-bg: rgba(35, 15, 15, 0.75);
-  --card-border: rgba(239, 68, 68, 0.2);
-  --text-main: #f8fafc;
+  --accent-gold: #fde047;
+  --bg-gradient: linear-gradient(135deg, #120303 0%, #2e0707 50%, #150412 100%);
+  --card-bg: rgba(30, 10, 10, 0.85);
+  --card-border: rgba(239, 68, 68, 0.3);
+  --text-main: #ffffff;
   --text-muted: #cbd5e1;
   --text-highlight: #fde047;
   --radius-lg: 16px;
-  --radius-md: 10px;
+  --radius-md: 12px;
   --radius-sm: 6px;
-  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
   --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
@@ -31,19 +31,19 @@ body {
   font-family: var(--font-family);
   background: var(--bg-gradient);
   color: var(--text-main);
-  line-height: 1.6;
+  line-height: 1.5;
   min-height: 100vh;
 }
 
 .container {
   max-width: 1140px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 16px;
 }
 
 /* ===== 头部 Header ===== */
 .header {
-  background: rgba(24, 5, 5, 0.9);
+  background: rgba(18, 3, 3, 0.95);
   backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
@@ -55,38 +55,38 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 70px;
+  height: 60px;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 1.25rem;
-  font-weight: 700;
+  gap: 8px;
+  font-size: 1.2rem;
+  font-weight: 800;
   color: var(--text-main);
 }
 
 .logo-flag {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
 }
 
 .logo-text span {
   color: var(--accent-gold);
-  font-size: 0.9rem;
-  font-weight: 400;
+  font-size: 0.85rem;
+  font-weight: 500;
 }
 
 .nav {
   display: flex;
-  gap: 24px;
+  gap: 20px;
 }
 
 .nav-link {
   color: var(--text-muted);
   text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-size: 0.9rem;
+  font-weight: 600;
   transition: color 0.2s ease;
 }
 
@@ -96,109 +96,322 @@ body {
 
 /* ===== Hero 区域 ===== */
 .hero {
-  padding: 70px 0 40px;
+  padding: 30px 0 20px;
   text-align: center;
 }
 
 .badge {
   display: inline-block;
-  background: rgba(239, 68, 68, 0.2);
-  border: 1px solid rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.25);
+  border: 1px solid rgba(239, 68, 68, 0.5);
   color: #fca5a5;
-  padding: 6px 18px;
+  padding: 5px 14px;
   border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 14px;
 }
 
 .hero-title {
-  font-size: 2.8rem;
-  font-weight: 800;
+  font-size: 2.4rem;
+  font-weight: 900;
   letter-spacing: -0.02em;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
+  line-height: 1.2;
 }
 
 .hero-title span {
-  background: linear-gradient(90deg, #fde047, #f97316, #ef4444);
+  background: linear-gradient(90deg, #ffe600, #ff6b00, #ff0055);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .hero-subtitle {
-  font-size: 1.15rem;
+  font-size: 1rem;
   color: var(--text-muted);
-  max-width: 720px;
-  margin: 0 auto 35px;
-}
-
-.hero-stats {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  background: rgba(45, 10, 10, 0.7);
-  border: 1px solid var(--card-border);
-  padding: 20px 30px;
-  border-radius: var(--radius-lg);
   max-width: 650px;
-  margin: 0 auto;
+  margin: 0 auto 20px;
 }
 
-.stat-item {
+.top-links-header {
+  margin: 20px 0 15px;
+  text-align: center;
+}
+
+.top-links-header h2 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #ffe600;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 10px rgba(255, 230, 0, 0.5);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+.top-cards-grid {
+  margin-bottom: 30px;
+}
+
+/* ===== 核心卡片展示区 (紧凑设计 + 亮色大按钮) ===== */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  position: relative;
   display: flex;
   flex-direction: column;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
-.stat-number {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--accent-gold);
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(239, 68, 68, 0.3);
+  border-color: rgba(255, 230, 0, 0.8);
 }
 
-.stat-label {
-  font-size: 0.82rem;
+.featured-card {
+  border: 2px solid #ef4444;
+  background: linear-gradient(180deg, rgba(50, 10, 10, 0.95) 0%, rgba(80, 15, 15, 0.8) 100%);
+  box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
+}
+
+.card-tag {
+  position: absolute;
+  top: -10px;
+  right: 16px;
+  background: linear-gradient(90deg, #dc2626, #ef4444);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.tag-gold {
+  background: linear-gradient(90deg, #d97706, #ffb700);
+  color: #000000;
+}
+
+.tag-purple {
+  background: linear-gradient(90deg, #7c3aed, #c084fc);
+  color: #ffffff;
+}
+
+.tag-blue {
+  background: linear-gradient(90deg, #0284c7, #38bdf8);
+  color: #ffffff;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.card-title-group h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.rating {
+  font-size: 0.78rem;
+  color: #fbbf24;
+}
+
+.card-desc {
   color: var(--text-muted);
+  font-size: 0.88rem;
+  margin-bottom: 14px;
+  line-height: 1.4;
+  flex-grow: 1;
 }
 
-/* ===== 4D 赔率表展示区 (Red / Gold Theme) ===== */
+.card-benefits {
+  background: rgba(10, 3, 3, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  margin-bottom: 16px;
+  font-size: 0.85rem;
+}
+
+.benefit-item {
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #e2e8f0;
+}
+
+.benefit-item:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== 核心高亮亮色按钮 CSS (针对移动端与全浏览器强效兼容) ===== */
+.btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 14px 20px !important;
+  border-radius: 30px !important;
+  font-size: 1.05rem !important;
+  font-weight: 900 !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease-in-out !important;
+  cursor: pointer !important;
+  border: none !important;
+  text-align: center !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0.02em !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+.btn-block {
+  width: 100% !important;
+}
+
+/* 红色亮色主按钮 */
+.btn-primary, .btn-primary:visited, .btn-primary:hover, .btn-primary:active {
+  background: linear-gradient(90deg, #ff1a1a 0%, #ff5252 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 18px rgba(255, 26, 26, 0.6) !important;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(90deg, #e60000 0%, #ff3333 100%) !important;
+  transform: scale(1.02) !important;
+  box-shadow: 0 8px 24px rgba(255, 26, 26, 0.8) !important;
+}
+
+/* 黄金超亮按钮 (充20送20专用) */
+.btn-gold, .btn-gold:visited, .btn-gold:hover, .btn-gold:active {
+  background: linear-gradient(90deg, #ffb700 0%, #ff8800 100%) !important;
+  color: #000000 !important;
+  font-weight: 900 !important;
+  text-shadow: none !important;
+  box-shadow: 0 6px 20px rgba(255, 183, 0, 0.7) !important;
+}
+
+.btn-gold:hover {
+  background: linear-gradient(90deg, #ffa600 0%, #e67300 100%) !important;
+  transform: scale(1.02) !important;
+  box-shadow: 0 8px 28px rgba(255, 183, 0, 0.9) !important;
+}
+
+/* 紫色高亮按钮 */
+.btn-purple, .btn-purple:visited, .btn-purple:hover, .btn-purple:active {
+  background: linear-gradient(90deg, #a855f7 0%, #d8b4fe 100%) !important;
+  color: #000000 !important;
+  font-weight: 900 !important;
+  text-shadow: none !important;
+  box-shadow: 0 6px 18px rgba(168, 85, 247, 0.6) !important;
+}
+
+.btn-purple:hover {
+  background: linear-gradient(90deg, #9333ea 0%, #c084fc 100%) !important;
+  transform: scale(1.02) !important;
+}
+
+/* 蓝色高亮按钮 */
+.btn-blue, .btn-blue:visited, .btn-blue:hover, .btn-blue:active {
+  background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 18px rgba(0, 210, 255, 0.6) !important;
+}
+
+.btn-blue:hover {
+  background: linear-gradient(90deg, #00b8e6 0%, #2e6bc4 100%) !important;
+  transform: scale(1.02) !important;
+}
+
+.btn-large {
+  padding: 16px 28px !important;
+  font-size: 1.15rem !important;
+}
+
+/* ===== 4D 赔率表展示区 ===== */
 .payout-section {
-  padding: 50px 0;
-  background: rgba(20, 5, 5, 0.8);
+  padding: 40px 0;
+  background: rgba(18, 3, 3, 0.9);
   border-top: 1px solid var(--card-border);
   border-bottom: 1px solid var(--card-border);
 }
 
 .brand-badge {
   display: inline-block;
-  background: linear-gradient(90deg, #dc2626, #b91c1c);
-  color: #fff;
-  font-weight: 700;
-  padding: 4px 16px;
+  background: linear-gradient(90deg, #dc2626, #ef4444);
+  color: #ffffff;
+  font-weight: 800;
+  padding: 4px 14px;
   border-radius: 20px;
-  font-size: 0.85rem;
-  margin-bottom: 12px;
+  font-size: 0.82rem;
+  margin-bottom: 10px;
   box-shadow: 0 4px 12px rgba(220, 38, 38, 0.5);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.section-header h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.section-header p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
 }
 
 .operators-bar {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
-  margin-bottom: 30px;
+  gap: 8px;
+  margin-bottom: 20px;
 }
 
 .op-badge {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 700;
   color: var(--text-main);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .table-responsive {
@@ -206,8 +419,8 @@ body {
   overflow-x: auto;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
-  border: 2px solid #dc2626;
-  margin-bottom: 20px;
+  border: 2px solid #ef4444;
+  margin-bottom: 16px;
 }
 
 .payout-table {
@@ -215,36 +428,36 @@ body {
   border-collapse: collapse;
   background: #ffffff;
   color: #1e293b;
-  font-size: 1rem;
+  font-size: 0.95rem;
   text-align: center;
 }
 
 .payout-table th {
-  background: linear-gradient(180deg, #111827 0%, #000000 100%);
+  background: linear-gradient(180deg, #180303 0%, #000000 100%);
   color: #ffffff;
-  padding: 14px 12px;
-  font-weight: 800;
-  font-size: 0.95rem;
-  border-bottom: 3px solid #dc2626;
+  padding: 12px 8px;
+  font-weight: 900;
+  font-size: 0.9rem;
+  border-bottom: 3px solid #ef4444;
   white-space: nowrap;
 }
 
 .payout-table td {
-  padding: 14px 12px;
+  padding: 12px 8px;
   border: 1px solid #e2e8f0;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .cat-name {
   color: #991b1b;
   font-weight: 900 !important;
-  font-size: 1.1rem;
+  font-size: 1rem;
   background: #fef2f2;
 }
 
 .val {
   color: #0f172a;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .val-empty {
@@ -269,28 +482,28 @@ body {
 
 .badge-gold {
   color: #b45309 !important;
-  font-size: 1.2rem !important;
+  font-size: 1.15rem !important;
   font-weight: 900 !important;
 }
 
 .badge-purple {
   color: #7e22ce !important;
-  font-size: 1.25rem !important;
+  font-size: 1.2rem !important;
   font-weight: 900 !important;
 }
 
 .table-notes {
-  background: rgba(30, 10, 10, 0.7);
+  background: rgba(30, 10, 10, 0.8);
   border-left: 4px solid var(--primary-color);
-  padding: 16px 20px;
+  padding: 12px 16px;
   border-radius: var(--radius-sm);
-  margin-bottom: 24px;
-  font-size: 0.9rem;
+  margin-bottom: 20px;
+  font-size: 0.85rem;
   color: var(--text-muted);
 }
 
 .table-notes p {
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .table-notes p:last-child {
@@ -301,244 +514,9 @@ body {
   text-align: center;
 }
 
-.top-links-header {
-  margin: 35px 0 20px;
-  text-align: center;
-}
-
-.top-links-header h2 {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: var(--accent-gold);
-  letter-spacing: 0.05em;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.03); }
-  100% { transform: scale(1); }
-}
-
-.top-cards-grid {
-  margin-bottom: 20px;
-}
-
-.btn-purple {
-  background: linear-gradient(90deg, #7c3aed, #9333ea);
-  color: #ffffff;
-  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.4);
-}
-
-.btn-purple:hover {
-  background: linear-gradient(90deg, #6d28d9, #7c3aed);
-  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.6);
-}
-
-.btn-blue {
-  background: linear-gradient(90deg, #2563eb, #3b82f6);
-  color: #ffffff;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
-}
-
-.btn-blue:hover {
-  background: linear-gradient(90deg, #1d4ed8, #2563eb);
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
-}
-
-.btn-large {
-  padding: 16px 36px;
-  font-size: 1.1rem;
-  border-radius: 30px;
-}
-
-/* ===== 核心卡片展示区 ===== */
-.main-content {
-  padding: 60px 0;
-}
-
-.section-header {
-  text-align: center;
-  margin-bottom: 50px;
-}
-
-.section-header h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.section-header p {
-  color: var(--text-muted);
-  font-size: 1rem;
-}
-
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 30px;
-}
-
-.card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  backdrop-filter: blur(10px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
-  border-color: rgba(239, 68, 68, 0.5);
-}
-
-.featured-card {
-  border: 2px solid rgba(239, 68, 68, 0.8);
-  background: linear-gradient(180deg, rgba(45, 10, 10, 0.9) 0%, rgba(70, 15, 15, 0.6) 100%);
-}
-
-.card-tag {
-  position: absolute;
-  top: -12px;
-  right: 24px;
-  background: linear-gradient(90deg, #dc2626, #ef4444);
-  color: #fff;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 4px 12px;
-  border-radius: 12px;
-}
-
-.tag-purple {
-  background: linear-gradient(90deg, #7c3aed, #c084fc);
-}
-
-.tag-blue {
-  background: linear-gradient(90deg, #2563eb, #38bdf8);
-}
-
-.tag-green {
-  background: linear-gradient(90deg, #059669, #34d399);
-}
-
-.card-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 16px;
-}
-
-.card-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.card-title-group h3 {
-  font-size: 1.2rem;
-  font-weight: 700;
-}
-
-.rating {
-  font-size: 0.8rem;
-  color: #fbbf24;
-}
-
-.card-desc {
-  color: var(--text-muted);
-  font-size: 0.92rem;
-  margin-bottom: 20px;
-  flex-grow: 1;
-}
-
-.card-benefits {
-  background: rgba(15, 5, 5, 0.7);
-  border-radius: var(--radius-md);
-  padding: 14px 16px;
-  margin-bottom: 24px;
-  font-size: 0.88rem;
-}
-
-.benefit-item {
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.benefit-item:last-child {
-  margin-bottom: 0;
-}
-
-code {
-  background: rgba(239, 68, 68, 0.25);
-  color: #fca5a5;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: monospace;
-  font-weight: 600;
-}
-
-.copy-btn {
-  background: transparent;
-  border: 1px solid var(--card-border);
-  color: var(--text-muted);
-  font-size: 0.75rem;
-  padding: 2px 8px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-left: 6px;
-  transition: all 0.2s ease;
-}
-
-.copy-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text-main);
-}
-
-/* 按钮样式 */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 24px;
-  border-radius: var(--radius-md);
-  font-size: 1rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.25s ease;
-  cursor: pointer;
-  border: none;
-}
-
-.btn-primary {
-  background: linear-gradient(90deg, #dc2626, #ef4444);
-  color: #ffffff;
-  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.4);
-}
-
-.btn-primary:hover {
-  background: linear-gradient(90deg, #b91c1c, #dc2626);
-  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
-}
-
-.btn-block {
-  width: 100%;
-}
-
 /* ===== FAQ 区 ===== */
 .faq {
-  padding: 60px 0;
+  padding: 40px 0;
 }
 
 .faq-list {
@@ -546,7 +524,7 @@ code {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .faq-item {
@@ -558,12 +536,12 @@ code {
 
 .faq-question {
   width: 100%;
-  padding: 20px;
+  padding: 16px;
   background: transparent;
   border: none;
   color: var(--text-main);
-  font-size: 1.05rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
   text-align: left;
   display: flex;
   justify-content: space-between;
@@ -585,33 +563,34 @@ code {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease, padding 0.3s ease;
-  padding: 0 20px;
+  padding: 0 16px;
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 .faq-item.active .faq-answer {
-  max-height: 250px;
-  padding: 0 20px 20px 20px;
+  max-height: 200px;
+  padding: 0 16px 16px 16px;
 }
 
 /* ===== 页脚 Footer ===== */
 .footer {
-  background: #090303;
+  background: #080202;
   border-top: 1px solid var(--card-border);
-  padding: 40px 0;
+  padding: 30px 0;
   text-align: center;
 }
 
 .copyright {
   color: var(--text-main);
-  font-weight: 500;
-  margin-bottom: 8px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
 }
 
 .disclaimer {
   color: var(--text-muted);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   max-width: 700px;
   margin: 0 auto;
 }
@@ -619,16 +598,16 @@ code {
 /* ===== Toast 消息弹窗 ===== */
 .toast {
   position: fixed;
-  bottom: 30px;
+  bottom: 25px;
   left: 50%;
   transform: translateX(-50%) translateY(100px);
   background: #ef4444;
   color: #ffffff;
-  padding: 12px 24px;
+  padding: 10px 20px;
   border-radius: 30px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
   transition: transform 0.3s ease, opacity 0.3s ease;
   opacity: 0;
   z-index: 1000;
@@ -640,31 +619,84 @@ code {
   opacity: 1;
 }
 
-/* ===== 移动端响应式适配 ===== */
+/* ===== 📱 手机端专用优化 (全部电话看到很大 + 紧凑好看) ===== */
 @media (max-width: 768px) {
-  .hero-title {
-    font-size: 2rem;
+  .container {
+    padding: 0 12px;
   }
-  
+
+  .hero {
+    padding: 20px 0 15px;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+
   .nav {
     display: none;
-  }
-  
-  .hero-stats {
-    gap: 15px;
-    padding: 15px;
-  }
-  
-  .stat-number {
-    font-size: 1.1rem;
   }
 
   .cards-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
-  
-  .payout-table th, .payout-table td {
-    padding: 8px 6px;
+
+  .card {
+    padding: 16px;
+  }
+
+  .card-header {
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .card-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .card-title-group h3 {
+    font-size: 1.05rem;
+  }
+
+  .card-desc {
     font-size: 0.85rem;
+    margin-bottom: 10px;
+  }
+
+  .card-benefits {
+    padding: 8px 10px;
+    margin-bottom: 14px;
+    font-size: 0.8rem;
+  }
+
+  /* 📱 手机端按钮超大高亮超醒目 */
+  .btn {
+    padding: 16px 16px !important;
+    font-size: 1.1rem !important;
+    font-weight: 900 !important;
+    border-radius: 25px !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6) !important;
+  }
+
+  .btn-large {
+    padding: 16px 16px !important;
+    font-size: 1.05rem !important;
+  }
+
+  .payout-table th, .payout-table td {
+    padding: 8px 4px;
+    font-size: 0.82rem;
+  }
+
+  .top-links-header h2 {
+    font-size: 1.15rem;
   }
 }
