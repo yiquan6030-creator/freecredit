@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap Location
-Sitemap: https://example.com/sitemap.xml
+Sitemap: https://freecredit-4d88.vercel.app/sitemap.xml
