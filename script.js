@@ -1,15 +1,12 @@
 /**
- * 链接点击统计与辅助交互脚本
+ * 链接点击统计与辅助交互脚本 (全局委托版)
  */
 
-/**
- * 复制文本到剪贴板并弹出提示
- */
 function copyCode(elementId, text) {
   if (navigator.clipboard && window.isSecureContext) {
     navigator.clipboard.writeText(text).then(function () {
       showToast("Link/Code Copied: " + text);
-    }).catch(function (err) {
+    }).catch(function () {
       fallbackCopyTextToClipboard(text);
     });
   } else {
@@ -54,7 +51,6 @@ function showToast(message) {
 
 /**
  * 核心点击统计记录引擎
- * 针对 4 大卡片进行精确捕获并持久化到本地与后台
  */
 function trackLinkClick(linkKey, linkName, targetUrl) {
   try {
@@ -62,7 +58,6 @@ function trackLinkClick(linkKey, linkName, targetUrl) {
     var now = new Date();
     var timeString = now.toLocaleDateString() + " " + now.toLocaleTimeString();
 
-    // 1. 获取现有统计数据
     var analyticsData = JSON.parse(localStorage.getItem("link_click_analytics_v1") || "{}");
     if (!analyticsData.totalClicks) analyticsData.totalClicks = 0;
     if (!analyticsData.linkCounts) {
@@ -76,7 +71,6 @@ function trackLinkClick(linkKey, linkName, targetUrl) {
     if (!analyticsData.mobileClicks) analyticsData.mobileClicks = 0;
     if (!analyticsData.desktopClicks) analyticsData.desktopClicks = 0;
 
-    // 2. 更新累加数值
     analyticsData.totalClicks += 1;
     if (!analyticsData.linkCounts[linkKey]) analyticsData.linkCounts[linkKey] = 0;
     analyticsData.linkCounts[linkKey] += 1;
@@ -89,7 +83,6 @@ function trackLinkClick(linkKey, linkName, targetUrl) {
 
     localStorage.setItem("link_click_analytics_v1", JSON.stringify(analyticsData));
 
-    // 3. 记录日志明细 (保留最近 100 条)
     var clickLogs = JSON.parse(localStorage.getItem("link_click_logs_v1") || "[]");
     clickLogs.push({
       key: linkKey,
@@ -104,17 +97,47 @@ function trackLinkClick(linkKey, linkName, targetUrl) {
     }
     localStorage.setItem("link_click_logs_v1", JSON.stringify(clickLogs));
 
-    console.log("Recorded Link Click:", linkName, "Total:", analyticsData.totalClicks);
+    console.log("Recorded Link Click:", linkName, "Key:", linkKey, "Total:", analyticsData.totalClicks);
   } catch (err) {
     console.error("Tracking Error:", err);
   }
 }
 
 /**
- * DOM 加载完成初始化
+ * 全局点击监听委托（100% 无遗漏捕获所有注册链接）
+ */
+document.addEventListener("click", function (e) {
+  var anchor = e.target.closest("a");
+  if (!anchor) return;
+
+  var href = anchor.getAttribute("href") || "";
+  
+  if (href.includes("u2.live") || href.includes("vw0.ch") || anchor.classList.contains("btn")) {
+    var linkKey = "link-u2-rm10";
+    var linkName = anchor.innerText.trim() || "Register Link";
+
+    if (href.includes("ss.vw0.ch")) {
+      linkKey = "link-vw-topup20";
+      linkName = "VWorld Deposit RM20 Get RM20";
+    } else if (href.includes("pplu.u2.live")) {
+      linkKey = "link-u2-usdt";
+      linkName = "U2 USDT Crypto Portal";
+    } else if (linkName.toLowerCase().includes("4d") || href.includes("4d")) {
+      linkKey = "link-u2-4d";
+      linkName = "U2 4D Lottery Portal";
+    } else {
+      linkKey = "link-u2-rm10";
+      linkName = "U2 Free Credit RM10";
+    }
+
+    trackLinkClick(linkKey, linkName, href);
+  }
+});
+
+/**
+ * DOM 加载完成初始化 FAQ
  */
 document.addEventListener("DOMContentLoaded", function () {
-  // FAQ 手风琴效果
   var faqQuestions = document.querySelectorAll(".faq-question");
   faqQuestions.forEach(function (button) {
     button.addEventListener("click", function () {
@@ -128,37 +151,6 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!isActive) {
         faqItem.classList.add("active");
       }
-    });
-  });
-
-  // 绑定 4 大卡片与底部 4D 按钮的点击事件
-  var registerButtons = document.querySelectorAll('.card-footer a, .payout-cta a');
-  registerButtons.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var href = this.getAttribute('href');
-      var card = this.closest('.card');
-      var linkName = "Default Link";
-      var linkKey = "link-u2-rm10";
-
-      if (card) {
-        var h3 = card.querySelector('h3');
-        if (h3) linkName = h3.innerText;
-
-        if (href.includes("ss.vw0.ch")) {
-          linkKey = "link-vw-topup20";
-        } else if (href.includes("pplu.u2.live")) {
-          linkKey = "link-u2-usdt";
-        } else if (linkName.toLowerCase().includes("4d")) {
-          linkKey = "link-u2-4d";
-        } else {
-          linkKey = "link-u2-rm10";
-        }
-      } else if (this.closest('.payout-cta')) {
-        linkName = "4D Table Payout CTA Button";
-        linkKey = "link-u2-4d";
-      }
-
-      trackLinkClick(linkKey, linkName, href);
     });
   });
 });
