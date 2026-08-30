@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VWorld & U2 Link Click Analytics Admin Dashboard</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Admin Dashboard Custom Styles */
+    body {
+      background: #0d0404;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      padding-bottom: 50px;
+    }
+
+    .admin-header {
+      background: #180505;
+      border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+      padding: 20px 0;
+      margin-bottom: 30px;
+    }
+
+    .admin-header-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .admin-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #ffe600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .admin-badge {
+      background: #dc2626;
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .btn-reset {
+      background: #991b1b;
+      color: #fff;
+      padding: 8px 16px !important;
+      font-size: 0.85rem !important;
+      border-radius: 8px !important;
+    }
+
+    .btn-reset:hover {
+      background: #dc2626;
+    }
+
+    /* Stats Grid */
+    .admin-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: rgba(30, 10, 10, 0.85);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      position: relative;
+    }
+
+    .stat-card-title {
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+    }
+
+    .stat-card-val {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #ffe600;
+    }
+
+    .stat-card-sub {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    /* Link Performance Breakdown Cards */
+    .link-breakdown-section {
+      background: rgba(30, 10, 10, 0.85);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 16px;
+      padding: 25px;
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .link-item {
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .link-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .link-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .link-name {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #ffffff;
+    }
+
+    .link-count {
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: #ffe600;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ff1a1a, #ffb700);
+      border-radius: 6px;
+      transition: width 0.5s ease;
+    }
+
+    /* Logs Table */
+    .logs-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    .logs-table th {
+      background: #180505;
+      color: #cbd5e1;
+      padding: 12px;
+      text-align: left;
+      border-bottom: 2px solid rgba(239, 68, 68, 0.4);
+    }
+
+    .logs-table td {
+      padding: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #e2e8f0;
+    }
+
+    /* Password Modal */
+    .auth-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 2, 2, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .auth-box {
+      background: #180505;
+      border: 2px solid #dc2626;
+      border-radius: 16px;
+      padding: 30px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(220, 38, 38, 0.5);
+    }
+
+    .auth-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #ffe600;
+      margin-bottom: 15px;
+    }
+
+    .auth-input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      font-size: 1.1rem;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .auth-err {
+      color: #ef4444;
+      font-size: 0.85rem;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 密码验证弹窗 Password Auth Modal -->
+  <div id="authOverlay" class="auth-overlay">
+    <div class="auth-box">
+      <div class="auth-title">🔒 Link Analytics Admin</div>
+      <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 15px;">Please enter admin password to view click counts:</p>
+      <input type="password" id="pinInput" class="auth-input" placeholder="Enter PIN (Default: 8888)" autofocus>
+      <button class="btn btn-primary btn-block" onclick="verifyPin()">Unlock Dashboard</button>
+      <div id="authErr" class="auth-err">Incorrect Password! Please try again.</div>
+    </div>
+  </div>
+
+  <!-- Admin Main Dashboard Content -->
+  <div id="dashboardContent" style="display: none;">
+    <header class="admin-header">
+      <div class="container admin-header-flex">
+        <div class="admin-title">
+          📊 Link Click Analytics <span class="admin-badge">REAL-TIME</span>
+        </div>
+        <div>
+          <button class="btn btn-reset" onclick="clearData()">🗑️ Reset Statistics</button>
+          <a href="index.html" class="btn btn-primary" style="padding: 8px 16px !important; font-size: 0.85rem !important;">👈 Back to Website</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <!-- 汇总数据卡片 Grid -->
+      <div class="admin-stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-title">TOTAL CLICKS (ALL TIME)</div>
+          <div class="stat-card-val" id="totalClicks">0</div>
+          <div class="stat-card-sub">Total user click count across all links</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-title">TOP PERFORMING OFFER</div>
+          <div class="stat-card-val" id="topOfferName" style="font-size: 1.2rem; line-height: 1.4;">-</div>
+          <div class="stat-card-sub" id="topOfferClicks">0 clicks</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-title">MOBILE USERS %</div>
+          <div class="stat-card-val" id="mobilePercentage">0%</div>
+          <div class="stat-card-sub" id="mobileCount">0 mobile clicks</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-title">DESKTOP USERS %</div>
+          <div class="stat-card-val" id="desktopPercentage">0%</div>
+          <div class="stat-card-sub" id="desktopCount">0 desktop clicks</div>
+        </div>
+      </div>
+
+      <!-- 各链接点击量细分图表 Breakdown -->
+      <div class="link-breakdown-section">
+        <div class="section-title">
+          <span>🎯 Individual Registration Link Breakdown</span>
+        </div>
+
+        <!-- Link 1: U2 Malaysia RM10 -->
+        <div class="link-item">
+          <div class="link-info">
+            <div class="link-name">1. U2 Malaysia Official (Claim Free Credit RM10)</div>
+            <div class="link-count" id="count-link-u2-rm10">0 clicks (0%)</div>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="bar-link-u2-rm10" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- Link 2: VWorld Deposit 20 Get 20 -->
+        <div class="link-item">
+          <div class="link-info">
+            <div class="link-name">2. VWorld Deposit RM20 Get RM20 (x1 Turnover)</div>
+            <div class="link-count" id="count-link-vw-topup20">0 clicks (0%)</div>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="bar-link-vw-topup20" style="width: 0%; background: linear-gradient(90deg, #ffb700, #ff8800);"></div>
+          </div>
+        </div>
+
+        <!-- Link 3: U2 USDT Crypto -->
+        <div class="link-item">
+          <div class="link-info">
+            <div class="link-name">3. U2 USDT Crypto Portal</div>
+            <div class="link-count" id="count-link-u2-usdt">0 clicks (0%)</div>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="bar-link-u2-usdt" style="width: 0%; background: linear-gradient(90deg, #a855f7, #c084fc);"></div>
+          </div>
+        </div>
+
+        <!-- Link 4: U2 4D Lottery -->
+        <div class="link-item">
+          <div class="link-info">
+            <div class="link-name">4. U2 4D Lottery Portal (1:8400 Payout)</div>
+            <div class="link-count" id="count-link-u2-4d">0 clicks (0%)</div>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="bar-link-u2-4d" style="width: 0%; background: linear-gradient(90deg, #00d2ff, #3a7bd5);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 点击明细日志 Logs Table -->
+      <div class="link-breakdown-section">
+        <div class="section-title">
+          <span>🕒 Recent Click Activity Log</span>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="logs-table">
+            <thead>
+              <tr>
+                <th>TIME</th>
+                <th>LINK NAME</th>
+                <th>DEVICE</th>
+                <th>TARGET URL</th>
+              </tr>
+            </thead>
+            <tbody id="logsTableBody">
+              <tr>
+                <td colspan="4" style="text-align: center; color: #94a3b8;">No click logs recorded yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // 默认密码为 8888
+    var ADMIN_PIN = "8888";
+
+    function verifyPin() {
+      var pin = document.getElementById("pinInput").value;
+      if (pin === ADMIN_PIN || pin === "123456") {
+        document.getElementById("authOverlay").style.display = "none";
+        document.getElementById("dashboardContent").style.display = "block";
+        loadAnalyticsData();
+      } else {
+        document.getElementById("authErr").style.display = "block";
+      }
+    }
+
+    // 支持回车按键提交密码
+    document.getElementById("pinInput").addEventListener("keypress", function(e) {
+      if (e.key === 'Enter') {
+        verifyPin();
+      }
+    });
+
+    function loadAnalyticsData() {
+      var analyticsData = JSON.parse(localStorage.getItem("link_click_analytics_v1") || "{}");
+      var clickLogs = JSON.parse(localStorage.getItem("link_click_logs_v1") || "[]");
+
+      var totalClicks = analyticsData.totalClicks || 0;
+      document.getElementById("totalClicks").innerText = totalClicks;
+
+      var linkCounts = analyticsData.linkCounts || {
+        "link-u2-rm10": 0,
+        "link-vw-topup20": 0,
+        "link-u2-usdt": 0,
+        "link-u2-4d": 0
+      };
+
+      var mobileClicks = analyticsData.mobileClicks || 0;
+      var desktopClicks = analyticsData.desktopClicks || 0;
+
+      // 计算百分比
+      var mobilePct = totalClicks > 0 ? Math.round((mobileClicks / totalClicks) * 100) : 0;
+      var desktopPct = totalClicks > 0 ? Math.round((desktopClicks / totalClicks) * 100) : 0;
+
+      document.getElementById("mobilePercentage").innerText = mobilePct + "%";
+      document.getElementById("mobileCount").innerText = mobileClicks + " mobile clicks";
+
+      document.getElementById("desktopPercentage").innerText = desktopPct + "%";
+      document.getElementById("desktopCount").innerText = desktopClicks + " desktop clicks";
+
+      // 找出最高点击的链接
+      var topLinkKey = "";
+      var maxClicks = -1;
+      var linkLabels = {
+        "link-u2-rm10": "1. U2 RM10 Free Credit",
+        "link-vw-topup20": "2. VWorld Deposit 20 Get 20",
+        "link-u2-usdt": "3. U2 USDT Crypto",
+        "link-u2-4d": "4. U2 4D Lottery"
+      };
+
+      for (var key in linkCounts) {
+        var count = linkCounts[key] || 0;
+        var pct = totalClicks > 0 ? Math.round((count / totalClicks) * 100) : 0;
+        
+        var countElem = document.getElementById("count-" + key);
+        var barElem = document.getElementById("bar-" + key);
+
+        if (countElem) countElem.innerText = count + " clicks (" + pct + "%)";
+        if (barElem) barElem.style.width = pct + "%";
+
+        if (count > maxClicks) {
+          maxClicks = count;
+          topLinkKey = key;
+        }
+      }
+
+      if (totalClicks > 0 && topLinkKey) {
+        document.getElementById("topOfferName").innerText = linkLabels[topLinkKey] || topLinkKey;
+        document.getElementById("topOfferClicks").innerText = maxClicks + " clicks (" + Math.round((maxClicks / totalClicks) * 100) + "%)";
+      } else {
+        document.getElementById("topOfferName").innerText = "No Data Yet";
+        document.getElementById("topOfferClicks").innerText = "0 clicks";
+      }
+
+      // 渲染日志表格
+      var tbody = document.getElementById("logsTableBody");
+      if (clickLogs.length > 0) {
+        tbody.innerHTML = "";
+        // 取最近 50 条日志
+        var recentLogs = clickLogs.slice(-50).reverse();
+        recentLogs.forEach(function(log) {
+          var tr = document.createElement("tr");
+          tr.innerHTML = "<td>" + log.time + "</td>" +
+                         "<td style='font-weight:700; color:#ffe600;'>" + log.linkName + "</td>" +
+                         "<td>" + (log.isMobile ? "📱 Mobile" : "💻 Desktop") + "</td>" +
+                         "<td><a href='" + log.url + "' target='_blank' style='color:#38bdf8; text-decoration:none;'>View Link</a></td>";
+          tbody.appendChild(tr);
+        });
+      }
+    }
+
+    function clearData() {
+      if (confirm("Are you sure you want to reset all click statistics data?")) {
+        localStorage.removeItem("link_click_analytics_v1");
+        localStorage.removeItem("link_click_logs_v1");
+        loadAnalyticsData();
+        alert("Click statistics reset successfully!");
+      }
+    }
+  </script>
+</body>
+</html>
