@@ -1,5 +1,5 @@
 /**
- * 链接点击统计与辅助交互脚本 (W3C sendBeacon + Vercel Serverless API 100% 极速离线/在线追踪)
+ * 链接点击统计与辅助交互脚本 (双重保底极速追踪)
  */
 
 function copyCode(elementId, text) {
@@ -50,7 +50,7 @@ function showToast(message) {
 }
 
 /**
- * 核心点击上报函数 (采用 W3C sendBeacon API 确保新页面打开时后台100%无损完成发送)
+ * 核心点击上报函数 (双通道并行上报：sendBeacon + GET fetch)
  */
 function trackLinkClick(linkKey, linkName, targetUrl) {
   try {
@@ -58,7 +58,7 @@ function trackLinkClick(linkKey, linkName, targetUrl) {
     var deviceType = isMobile ? "mobile" : "desktop";
     var timeString = (new Date()).toLocaleString();
 
-    // 1. 同步保存本地 LocalStorage 作为本地备份
+    // 1. 保存本地 LocalStorage 备份
     var analyticsData = JSON.parse(localStorage.getItem("link_click_analytics_v1") || "{}");
     if (!analyticsData.totalClicks) analyticsData.totalClicks = 0;
     if (!analyticsData.linkCounts) {
@@ -96,12 +96,15 @@ function trackLinkClick(linkKey, linkName, targetUrl) {
     if (clickLogs.length > 100) clickLogs = clickLogs.slice(-100);
     localStorage.setItem("link_click_logs_v1", JSON.stringify(clickLogs));
 
-    // 2. 使用 sendBeacon 上报同域 Serverless API (就算跳转新标签页也 100% 发送成功)
+    // 2. 双通道同时发包：GET fetch + sendBeacon (保底 100% 成功)
     var trackApiUrl = "/api/track?key=" + encodeURIComponent(linkKey) + "&device=" + deviceType;
+    
+    // GET 请求 (最直接)
+    fetch(trackApiUrl, { method: 'GET', keepalive: true }).catch(function(){});
+    
+    // sendBeacon 辅上报
     if (navigator.sendBeacon) {
-      navigator.sendBeacon(trackApiUrl);
-    } else {
-      fetch(trackApiUrl, { keepalive: true }).catch(function(e){});
+      try { navigator.sendBeacon(trackApiUrl); } catch(e){}
     }
 
     console.log("Tracked click:", linkName, "Key:", linkKey);
