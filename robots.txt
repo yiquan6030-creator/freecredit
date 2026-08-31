@@ -1,6 +1,7 @@
-# robots.txt for Malaysia Free Credit & 4D Payout Landing Page
+# robots.txt for 4D88 Malaysia Free Credit & 4D Payout Portal (4D88.lol)
 User-agent: *
 Allow: /
 
 # Sitemap Location
-Sitemap: https://freecredit-4d88.vercel.app/sitemap.xml
+Sitemap: https://4d88.lol/sitemap.xml
+Sitemap: https://www.4d88.lol/sitemap.xml
