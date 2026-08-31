@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VWorld & U2 Link Click Analytics Admin Dashboard</title>
+  <title>4D88 Link Click Analytics Admin Dashboard (Global Cloud Sync)</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="styles.css">
   <style>
@@ -238,7 +238,7 @@
   <div id="authOverlay" class="auth-overlay">
     <div class="auth-box">
       <div class="auth-title">🔒 Link Analytics Admin</div>
-      <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 15px;">Please enter admin password to view click counts:</p>
+      <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 15px;">Please enter admin password to view global click counts:</p>
       <input type="password" id="pinInput" class="auth-input" placeholder="Enter PIN (Default: 8888)" autofocus>
       <button class="btn btn-primary btn-block" onclick="verifyPin()">Unlock Dashboard</button>
       <div id="authErr" class="auth-err">Incorrect Password! Please try again.</div>
@@ -250,7 +250,7 @@
     <header class="admin-header">
       <div class="container admin-header-flex">
         <div class="admin-title">
-          📊 Link Click Analytics <span class="admin-badge">REAL-TIME</span>
+          📊 Link Click Analytics <span class="admin-badge">GLOBAL CLOUD SYNC</span>
         </div>
         <div>
           <button class="btn btn-reset" onclick="clearData()">🗑️ Reset Statistics</button>
@@ -263,9 +263,9 @@
       <!-- 汇总数据卡片 Grid -->
       <div class="admin-stats-grid">
         <div class="stat-card">
-          <div class="stat-card-title">TOTAL CLICKS (ALL TIME)</div>
+          <div class="stat-card-title">TOTAL CLICKS (GLOBAL CLOUD)</div>
           <div class="stat-card-val" id="totalClicks">0</div>
-          <div class="stat-card-sub">Total user click count across all links</div>
+          <div class="stat-card-sub">Global click count across ALL users & devices</div>
         </div>
 
         <div class="stat-card">
@@ -290,7 +290,7 @@
       <!-- 各链接点击量细分图表 Breakdown -->
       <div class="link-breakdown-section">
         <div class="section-title">
-          <span>🎯 Individual Registration Link Breakdown</span>
+          <span>🎯 Individual Registration Link Breakdown (Cloud Real-Time)</span>
         </div>
 
         <!-- Link 1: U2 Malaysia RM10 -->
@@ -341,7 +341,7 @@
       <!-- 点击明细日志 Logs Table -->
       <div class="link-breakdown-section">
         <div class="section-title">
-          <span>🕒 Recent Click Activity Log</span>
+          <span>🕒 Recent Click Activity Log (Device Local History)</span>
         </div>
 
         <div style="overflow-x: auto;">
@@ -367,8 +367,8 @@
   </div>
 
   <script>
-    // 默认密码为 8888
     var ADMIN_PIN = "8888";
+    var NAMESPACE = "4d88_lol_analytics_v2";
 
     function verifyPin() {
       var pin = document.getElementById("pinInput").value;
@@ -381,31 +381,53 @@
       }
     }
 
-    // 支持回车按键提交密码
     document.getElementById("pinInput").addEventListener("keypress", function(e) {
       if (e.key === 'Enter') {
         verifyPin();
       }
     });
 
-    function loadAnalyticsData() {
-      var analyticsData = JSON.parse(localStorage.getItem("link_click_analytics_v1") || "{}");
-      var clickLogs = JSON.parse(localStorage.getItem("link_click_logs_v1") || "[]");
+    async function fetchCloudCount(key) {
+      try {
+        var res = await fetch("https://api.counterapi.dev/v1/" + NAMESPACE + "/" + key);
+        if (res.ok) {
+          var data = await res.json();
+          return data.count || 0;
+        }
+      } catch(e) {}
+      return 0;
+    }
 
-      var totalClicks = analyticsData.totalClicks || 0;
-      document.getElementById("totalClicks").innerText = totalClicks;
+    async function loadAnalyticsData() {
+      // 1. 读取云端数据库数据
+      var cloudTotal = await fetchCloudCount("total");
+      var cloudLinkRM10 = await fetchCloudCount("link-u2-rm10");
+      var cloudLinkVWorld = await fetchCloudCount("link-vw-topup20");
+      var cloudLinkUSDT = await fetchCloudCount("link-u2-usdt");
+      var cloudLink4D = await fetchCloudCount("link-u2-4d");
+      var cloudMobile = await fetchCloudCount("mobile");
+      var cloudDesktop = await fetchCloudCount("desktop");
 
-      var linkCounts = analyticsData.linkCounts || {
-        "link-u2-rm10": 0,
-        "link-vw-topup20": 0,
-        "link-u2-usdt": 0,
-        "link-u2-4d": 0
+      // 2. 读取本地数据作为 Fallback
+      var localData = JSON.parse(localStorage.getItem("link_click_analytics_v1") || "{}");
+      var localTotal = localData.totalClicks || 0;
+      var localCounts = localData.linkCounts || {};
+
+      // 优先取大的数 (云端 vs 本地合并)
+      var totalClicks = Math.max(cloudTotal, localTotal);
+
+      var linkCounts = {
+        "link-u2-rm10": Math.max(cloudLinkRM10, localCounts["link-u2-rm10"] || 0),
+        "link-vw-topup20": Math.max(cloudLinkVWorld, localCounts["link-vw-topup20"] || 0),
+        "link-u2-usdt": Math.max(cloudLinkUSDT, localCounts["link-u2-usdt"] || 0),
+        "link-u2-4d": Math.max(cloudLink4D, localCounts["link-u2-4d"] || 0)
       };
 
-      var mobileClicks = analyticsData.mobileClicks || 0;
-      var desktopClicks = analyticsData.desktopClicks || 0;
+      var mobileClicks = Math.max(cloudMobile, localData.mobileClicks || 0);
+      var desktopClicks = Math.max(cloudDesktop, localData.desktopClicks || 0);
 
-      // 计算百分比
+      document.getElementById("totalClicks").innerText = totalClicks;
+
       var mobilePct = totalClicks > 0 ? Math.round((mobileClicks / totalClicks) * 100) : 0;
       var desktopPct = totalClicks > 0 ? Math.round((desktopClicks / totalClicks) * 100) : 0;
 
@@ -415,7 +437,6 @@
       document.getElementById("desktopPercentage").innerText = desktopPct + "%";
       document.getElementById("desktopCount").innerText = desktopClicks + " desktop clicks";
 
-      // 找出最高点击的链接
       var topLinkKey = "";
       var maxClicks = -1;
       var linkLabels = {
@@ -449,11 +470,11 @@
         document.getElementById("topOfferClicks").innerText = "0 clicks";
       }
 
-      // 渲染日志表格
+      // 日志渲染
+      var clickLogs = JSON.parse(localStorage.getItem("link_click_logs_v1") || "[]");
       var tbody = document.getElementById("logsTableBody");
       if (clickLogs.length > 0) {
         tbody.innerHTML = "";
-        // 取最近 50 条日志
         var recentLogs = clickLogs.slice(-50).reverse();
         recentLogs.forEach(function(log) {
           var tr = document.createElement("tr");
@@ -471,7 +492,7 @@
         localStorage.removeItem("link_click_analytics_v1");
         localStorage.removeItem("link_click_logs_v1");
         loadAnalyticsData();
-        alert("Click statistics reset successfully!");
+        alert("Local click statistics reset successfully!");
       }
     }
   </script>

@@ -1,5 +1,5 @@
 /**
- * 链接点击统计与辅助交互脚本 (全局委托版)
+ * 链接点击统计与辅助交互脚本 (云端 Real-Time Cloud Engine)
  */
 
 function copyCode(elementId, text) {
@@ -50,7 +50,8 @@ function showToast(message) {
 }
 
 /**
- * 核心点击统计记录引擎
+ * 核心云端点击记录引擎 (Cloud Engine + Local Sync)
+ * 确保任何大马玩家在任何手机/电脑上点击，都能实时同步到云端数据库！
  */
 function trackLinkClick(linkKey, linkName, targetUrl) {
   try {
@@ -58,6 +59,7 @@ function trackLinkClick(linkKey, linkName, targetUrl) {
     var now = new Date();
     var timeString = now.toLocaleDateString() + " " + now.toLocaleTimeString();
 
+    // 1. 本地更新 LocalStorage
     var analyticsData = JSON.parse(localStorage.getItem("link_click_analytics_v1") || "{}");
     if (!analyticsData.totalClicks) analyticsData.totalClicks = 0;
     if (!analyticsData.linkCounts) {
@@ -83,6 +85,7 @@ function trackLinkClick(linkKey, linkName, targetUrl) {
 
     localStorage.setItem("link_click_analytics_v1", JSON.stringify(analyticsData));
 
+    // 2. 记录日志明细
     var clickLogs = JSON.parse(localStorage.getItem("link_click_logs_v1") || "[]");
     clickLogs.push({
       key: linkKey,
@@ -97,14 +100,23 @@ function trackLinkClick(linkKey, linkName, targetUrl) {
     }
     localStorage.setItem("link_click_logs_v1", JSON.stringify(clickLogs));
 
-    console.log("Recorded Link Click:", linkName, "Key:", linkKey, "Total:", analyticsData.totalClicks);
+    // 3. 实时推送到云端数据库 (Cloud DB - CounterAPI)
+    var namespace = "4d88_lol_analytics_v2";
+    var deviceKey = isMobile ? "mobile" : "desktop";
+
+    // 触发云端计数加 1
+    fetch("https://api.counterapi.dev/v1/" + namespace + "/" + linkKey + "/up").catch(function(e){});
+    fetch("https://api.counterapi.dev/v1/" + namespace + "/total/up").catch(function(e){});
+    fetch("https://api.counterapi.dev/v1/" + namespace + "/" + deviceKey + "/up").catch(function(e){});
+
+    console.log("Cloud Tracked Click:", linkName, "Key:", linkKey);
   } catch (err) {
     console.error("Tracking Error:", err);
   }
 }
 
 /**
- * 全局点击监听委托（100% 无遗漏捕获所有注册链接）
+ * 全局点击监听委托
  */
 document.addEventListener("click", function (e) {
   var anchor = e.target.closest("a");
