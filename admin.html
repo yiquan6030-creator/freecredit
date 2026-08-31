@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>4D88 Link Click Analytics Admin Dashboard (Global Cloud Sync)</title>
+  <title>4D88 Link Click Analytics Admin Dashboard (Serverless Cloud API)</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="styles.css">
   <style>
@@ -250,7 +250,7 @@
     <header class="admin-header">
       <div class="container admin-header-flex">
         <div class="admin-title">
-          📊 Link Click Analytics <span class="admin-badge">GLOBAL CLOUD SYNC</span>
+          📊 Link Click Analytics <span class="admin-badge">SERVERLESS API SYNC</span>
         </div>
         <div>
           <button class="btn btn-reset" onclick="clearData()">🗑️ Reset Statistics</button>
@@ -263,7 +263,7 @@
       <!-- 汇总数据卡片 Grid -->
       <div class="admin-stats-grid">
         <div class="stat-card">
-          <div class="stat-card-title">TOTAL CLICKS (GLOBAL CLOUD)</div>
+          <div class="stat-card-title">TOTAL CLICKS (SERVERLESS API)</div>
           <div class="stat-card-val" id="totalClicks">0</div>
           <div class="stat-card-sub">Global click count across ALL users & devices</div>
         </div>
@@ -290,7 +290,7 @@
       <!-- 各链接点击量细分图表 Breakdown -->
       <div class="link-breakdown-section">
         <div class="section-title">
-          <span>🎯 Individual Registration Link Breakdown (Cloud Real-Time)</span>
+          <span>🎯 Individual Registration Link Breakdown (Real-Time API)</span>
         </div>
 
         <!-- Link 1: U2 Malaysia RM10 -->
@@ -368,7 +368,6 @@
 
   <script>
     var ADMIN_PIN = "8888";
-    var NAMESPACE = "4d88_lol_analytics_v2";
 
     function verifyPin() {
       var pin = document.getElementById("pinInput").value;
@@ -387,44 +386,35 @@
       }
     });
 
-    async function fetchCloudCount(key) {
-      try {
-        var res = await fetch("https://api.counterapi.dev/v1/" + NAMESPACE + "/" + key);
-        if (res.ok) {
-          var data = await res.json();
-          return data.count || 0;
-        }
-      } catch(e) {}
-      return 0;
-    }
-
     async function loadAnalyticsData() {
-      // 1. 读取云端数据库数据
-      var cloudTotal = await fetchCloudCount("total");
-      var cloudLinkRM10 = await fetchCloudCount("link-u2-rm10");
-      var cloudLinkVWorld = await fetchCloudCount("link-vw-topup20");
-      var cloudLinkUSDT = await fetchCloudCount("link-u2-usdt");
-      var cloudLink4D = await fetchCloudCount("link-u2-4d");
-      var cloudMobile = await fetchCloudCount("mobile");
-      var cloudDesktop = await fetchCloudCount("desktop");
+      var apiData = null;
+      try {
+        var res = await fetch("/api/stats");
+        if (res.ok) {
+          apiData = await res.json();
+        }
+      } catch (e) {
+        console.log("Serverless API fetch error, fallback to local");
+      }
 
-      // 2. 读取本地数据作为 Fallback
       var localData = JSON.parse(localStorage.getItem("link_click_analytics_v1") || "{}");
       var localTotal = localData.totalClicks || 0;
       var localCounts = localData.linkCounts || {};
 
-      // 优先取大的数 (云端 vs 本地合并)
-      var totalClicks = Math.max(cloudTotal, localTotal);
+      var apiTotal = (apiData && apiData.totalClicks) ? apiData.totalClicks : 0;
+      var apiCounts = (apiData && apiData.linkCounts) ? apiData.linkCounts : {};
+
+      var totalClicks = Math.max(apiTotal, localTotal);
 
       var linkCounts = {
-        "link-u2-rm10": Math.max(cloudLinkRM10, localCounts["link-u2-rm10"] || 0),
-        "link-vw-topup20": Math.max(cloudLinkVWorld, localCounts["link-vw-topup20"] || 0),
-        "link-u2-usdt": Math.max(cloudLinkUSDT, localCounts["link-u2-usdt"] || 0),
-        "link-u2-4d": Math.max(cloudLink4D, localCounts["link-u2-4d"] || 0)
+        "link-u2-rm10": Math.max(apiCounts["link-u2-rm10"] || 0, localCounts["link-u2-rm10"] || 0),
+        "link-vw-topup20": Math.max(apiCounts["link-vw-topup20"] || 0, localCounts["link-vw-topup20"] || 0),
+        "link-u2-usdt": Math.max(apiCounts["link-u2-usdt"] || 0, localCounts["link-u2-usdt"] || 0),
+        "link-u2-4d": Math.max(apiCounts["link-u2-4d"] || 0, localCounts["link-u2-4d"] || 0)
       };
 
-      var mobileClicks = Math.max(cloudMobile, localData.mobileClicks || 0);
-      var desktopClicks = Math.max(cloudDesktop, localData.desktopClicks || 0);
+      var mobileClicks = Math.max((apiData && apiData.mobileClicks) ? apiData.mobileClicks : 0, localData.mobileClicks || 0);
+      var desktopClicks = Math.max((apiData && apiData.desktopClicks) ? apiData.desktopClicks : 0, localData.desktopClicks || 0);
 
       document.getElementById("totalClicks").innerText = totalClicks;
 
@@ -470,7 +460,6 @@
         document.getElementById("topOfferClicks").innerText = "0 clicks";
       }
 
-      // 日志渲染
       var clickLogs = JSON.parse(localStorage.getItem("link_click_logs_v1") || "[]");
       var tbody = document.getElementById("logsTableBody");
       if (clickLogs.length > 0) {

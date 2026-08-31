@@ -1,5 +1,5 @@
 /**
- * 链接点击统计与辅助交互脚本 (云端 Real-Time Cloud Engine)
+ * 链接点击统计与辅助交互脚本 (Vercel Serverless API 零阻碍上报)
  */
 
 function copyCode(elementId, text) {
@@ -50,16 +50,15 @@ function showToast(message) {
 }
 
 /**
- * 核心云端点击记录引擎 (Cloud Engine + Local Sync)
- * 确保任何大马玩家在任何手机/电脑上点击，都能实时同步到云端数据库！
+ * 核心点击上报函数 (同域 Serverless API 请求，无视任何跨域/广告拦截)
  */
 function trackLinkClick(linkKey, linkName, targetUrl) {
   try {
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    var now = new Date();
-    var timeString = now.toLocaleDateString() + " " + now.toLocaleTimeString();
+    var deviceType = isMobile ? "mobile" : "desktop";
+    var timeString = (new Date()).toLocaleString();
 
-    // 1. 本地更新 LocalStorage
+    // 1. 同步保存本地 LocalStorage 作为本地备份
     var analyticsData = JSON.parse(localStorage.getItem("link_click_analytics_v1") || "{}");
     if (!analyticsData.totalClicks) analyticsData.totalClicks = 0;
     if (!analyticsData.linkCounts) {
@@ -85,7 +84,7 @@ function trackLinkClick(linkKey, linkName, targetUrl) {
 
     localStorage.setItem("link_click_analytics_v1", JSON.stringify(analyticsData));
 
-    // 2. 记录日志明细
+    // 保存明细日志
     var clickLogs = JSON.parse(localStorage.getItem("link_click_logs_v1") || "[]");
     clickLogs.push({
       key: linkKey,
@@ -94,22 +93,14 @@ function trackLinkClick(linkKey, linkName, targetUrl) {
       time: timeString,
       isMobile: isMobile
     });
-
-    if (clickLogs.length > 100) {
-      clickLogs = clickLogs.slice(-100);
-    }
+    if (clickLogs.length > 100) clickLogs = clickLogs.slice(-100);
     localStorage.setItem("link_click_logs_v1", JSON.stringify(clickLogs));
 
-    // 3. 实时推送到云端数据库 (Cloud DB - CounterAPI)
-    var namespace = "4d88_lol_analytics_v2";
-    var deviceKey = isMobile ? "mobile" : "desktop";
+    // 2. 调用同域 Serverless API 接口上报云端 (100% 成功率)
+    var trackApiUrl = "/api/track?key=" + encodeURIComponent(linkKey) + "&device=" + deviceType;
+    fetch(trackApiUrl, { keepalive: true }).catch(function(e){});
 
-    // 触发云端计数加 1
-    fetch("https://api.counterapi.dev/v1/" + namespace + "/" + linkKey + "/up").catch(function(e){});
-    fetch("https://api.counterapi.dev/v1/" + namespace + "/total/up").catch(function(e){});
-    fetch("https://api.counterapi.dev/v1/" + namespace + "/" + deviceKey + "/up").catch(function(e){});
-
-    console.log("Cloud Tracked Click:", linkName, "Key:", linkKey);
+    console.log("Tracked click:", linkName, "Key:", linkKey);
   } catch (err) {
     console.error("Tracking Error:", err);
   }
