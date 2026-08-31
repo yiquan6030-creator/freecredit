@@ -1,5 +1,5 @@
 /**
- * 链接点击统计与辅助交互脚本 (双重保底极速追踪)
+ * 链接点击统计与辅助交互脚本 (100% 独立原生双引擎)
  */
 
 function copyCode(elementId, text) {
@@ -50,7 +50,7 @@ function showToast(message) {
 }
 
 /**
- * 核心点击上报函数 (双通道并行上报：sendBeacon + GET fetch)
+ * 核心点击上报函数 (LocalStorage + Serverless API 零依赖 100% 极速统计)
  */
 function trackLinkClick(linkKey, linkName, targetUrl) {
   try {
@@ -58,7 +58,7 @@ function trackLinkClick(linkKey, linkName, targetUrl) {
     var deviceType = isMobile ? "mobile" : "desktop";
     var timeString = (new Date()).toLocaleString();
 
-    // 1. 保存本地 LocalStorage 备份
+    // 1. 本地更新 LocalStorage
     var analyticsData = JSON.parse(localStorage.getItem("link_click_analytics_v1") || "{}");
     if (!analyticsData.totalClicks) analyticsData.totalClicks = 0;
     if (!analyticsData.linkCounts) {
@@ -96,18 +96,14 @@ function trackLinkClick(linkKey, linkName, targetUrl) {
     if (clickLogs.length > 100) clickLogs = clickLogs.slice(-100);
     localStorage.setItem("link_click_logs_v1", JSON.stringify(clickLogs));
 
-    // 2. 双通道同时发包：GET fetch + sendBeacon (保底 100% 成功)
+    // 2. 发送 Serverless API 请求 (GET + sendBeacon)
     var trackApiUrl = "/api/track?key=" + encodeURIComponent(linkKey) + "&device=" + deviceType;
-    
-    // GET 请求 (最直接)
     fetch(trackApiUrl, { method: 'GET', keepalive: true }).catch(function(){});
-    
-    // sendBeacon 辅上报
     if (navigator.sendBeacon) {
       try { navigator.sendBeacon(trackApiUrl); } catch(e){}
     }
 
-    console.log("Tracked click:", linkName, "Key:", linkKey);
+    console.log("Tracked click:", linkName, "Key:", linkKey, "Total:", analyticsData.totalClicks);
   } catch (err) {
     console.error("Tracking Error:", err);
   }
