@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>4D88 Link Click Analytics Admin Dashboard (Serverless Cloud API)</title>
+  <title>4D88 Link Click Analytics Admin Dashboard (Unified Serverless Sync)</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="styles.css">
   <style>
@@ -250,7 +250,7 @@
     <header class="admin-header">
       <div class="container admin-header-flex">
         <div class="admin-title">
-          📊 Link Click Analytics <span class="admin-badge">SERVERLESS API SYNC</span>
+          📊 Link Click Analytics <span class="admin-badge">UNIFIED SERVERLESS SYNC</span>
         </div>
         <div>
           <button class="btn btn-reset" onclick="clearData()">🗑️ Reset Statistics</button>
@@ -263,7 +263,7 @@
       <!-- 汇总数据卡片 Grid -->
       <div class="admin-stats-grid">
         <div class="stat-card">
-          <div class="stat-card-title">TOTAL CLICKS (SERVERLESS API)</div>
+          <div class="stat-card-title">TOTAL CLICKS (UNIFIED ENGINE)</div>
           <div class="stat-card-val" id="totalClicks">0</div>
           <div class="stat-card-sub">Global click count across ALL users & devices</div>
         </div>
@@ -389,12 +389,12 @@
     async function loadAnalyticsData() {
       var apiData = null;
       try {
-        var res = await fetch("/api/stats");
+        var res = await fetch("/api/analytics?action=stats");
         if (res.ok) {
           apiData = await res.json();
         }
       } catch (e) {
-        console.log("Serverless API fetch error, fallback to local");
+        console.log("Analytics API fetch error, fallback to local");
       }
 
       var localData = JSON.parse(localStorage.getItem("link_click_analytics_v1") || "{}");

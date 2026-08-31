@@ -1,5 +1,5 @@
 /**
- * 链接点击统计与辅助交互脚本 (100% 独立原生双引擎)
+ * 链接点击统计与辅助交互脚本 (Unified Serverless Analytics)
  */
 
 function copyCode(elementId, text) {
@@ -50,7 +50,7 @@ function showToast(message) {
 }
 
 /**
- * 核心点击上报函数 (LocalStorage + Serverless API 零依赖 100% 极速统计)
+ * 核心点击上报函数
  */
 function trackLinkClick(linkKey, linkName, targetUrl) {
   try {
@@ -96,8 +96,8 @@ function trackLinkClick(linkKey, linkName, targetUrl) {
     if (clickLogs.length > 100) clickLogs = clickLogs.slice(-100);
     localStorage.setItem("link_click_logs_v1", JSON.stringify(clickLogs));
 
-    // 2. 发送 Serverless API 请求 (GET + sendBeacon)
-    var trackApiUrl = "/api/track?key=" + encodeURIComponent(linkKey) + "&device=" + deviceType;
+    // 2. 发送统一 Serverless API 上报请求 (/api/analytics?action=track)
+    var trackApiUrl = "/api/analytics?action=track&key=" + encodeURIComponent(linkKey) + "&device=" + deviceType;
     fetch(trackApiUrl, { method: 'GET', keepalive: true }).catch(function(){});
     if (navigator.sendBeacon) {
       try { navigator.sendBeacon(trackApiUrl); } catch(e){}
