@@ -414,6 +414,26 @@ body {
   gap: 4px;
 }
 
+/* Promotional Poster Styling */
+.promo-poster-box {
+  text-align: center;
+  margin: 0 auto 30px auto;
+}
+
+.promo-poster-img {
+  width: 100%;
+  max-width: 680px;
+  height: auto;
+  border-radius: 16px;
+  border: 3px solid #ef4444;
+  box-shadow: 0 12px 35px rgba(239, 68, 68, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.promo-poster-img:hover {
+  transform: scale(1.015);
+}
+
 .table-responsive {
   width: 100%;
   overflow-x: auto;
