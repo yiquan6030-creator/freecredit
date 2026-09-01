@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://4d88.lol/</loc>
-    <lastmod>2026-08-31</lastmod>
-    <changefreq>daily</changefreq>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>always</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://4d88.lol/assets/u2_4d_payout.jpg</image:loc>
+      <image:title>U2 4D Highest Payout Poster 1:8400 - Sports Toto Damacai Magnum</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://4d88.lol/assets/vworld_topup20.png</image:loc>
+      <image:title>VWorld Top Up RM20 Get RM20 Instantly Banner - Free Credit Malaysia 2026</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.4d88.lol/</loc>
-    <lastmod>2026-08-31</lastmod>
-    <changefreq>daily</changefreq>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>always</changefreq>
     <priority>1.0</priority>
   </url>
 </urlset>

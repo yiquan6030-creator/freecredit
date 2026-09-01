@@ -1,7 +1,18 @@
-# robots.txt for 4D88 Malaysia Free Credit & 4D Payout Portal (4D88.lol)
+# robots.txt for 4D88 Malaysia Free Credit & 4D Portal (4D88.lol)
+# Accelerated Crawler Directives for Googlebot & Bingbot
+
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
 User-agent: *
 Allow: /
 
-# Sitemap Location
+# Canonical Host & Sitemap Locations
+Host: https://4d88.lol
 Sitemap: https://4d88.lol/sitemap.xml
 Sitemap: https://www.4d88.lol/sitemap.xml

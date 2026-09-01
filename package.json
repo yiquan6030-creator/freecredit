@@ -2,6 +2,6 @@
   "name": "malaysia-free-credit-4d",
   "version": "1.0.0",
   "scripts": {
-    "build": "mkdir -p dist && cp -r index.html admin.html styles.css script.js assets dist/"
+    "build": "mkdir -p dist && cp -r index.html styles.css script.js sitemap.xml robots.txt 75f3a0937a514d59ab5d606132d7335d.txt assets dist/"
   }
 }
