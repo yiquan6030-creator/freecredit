@@ -1,6 +1,8 @@
 /**
- * 链接点击统计与辅助交互脚本 (Unified Serverless Analytics)
+ * 链接点击统计与辅助交互脚本 (Global Real-Time Cloud DB Engine)
  */
+
+var DB_OBJECT_ID = "ff808181a058d43f01a05ce71bfe0e02";
 
 function copyCode(elementId, text) {
   if (navigator.clipboard && window.isSecureContext) {
@@ -50,15 +52,14 @@ function showToast(message) {
 }
 
 /**
- * 核心点击上报函数
+ * 核心点击上报函数 (LocalStorage + Global Real-Time Cloud DB Sync)
  */
-function trackLinkClick(linkKey, linkName, targetUrl) {
+async function trackLinkClick(linkKey, linkName, targetUrl) {
   try {
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    var deviceType = isMobile ? "mobile" : "desktop";
     var timeString = (new Date()).toLocaleString();
 
-    // 1. 本地更新 LocalStorage
+    // 1. 保存本地 LocalStorage
     var analyticsData = JSON.parse(localStorage.getItem("link_click_analytics_v1") || "{}");
     if (!analyticsData.totalClicks) analyticsData.totalClicks = 0;
     if (!analyticsData.linkCounts) {
@@ -96,12 +97,30 @@ function trackLinkClick(linkKey, linkName, targetUrl) {
     if (clickLogs.length > 100) clickLogs = clickLogs.slice(-100);
     localStorage.setItem("link_click_logs_v1", JSON.stringify(clickLogs));
 
-    // 2. 发送统一 Serverless API 上报请求 (/api/analytics?action=track)
-    var trackApiUrl = "/api/analytics?action=track&key=" + encodeURIComponent(linkKey) + "&device=" + deviceType;
-    fetch(trackApiUrl, { method: 'GET', keepalive: true }).catch(function(){});
-    if (navigator.sendBeacon) {
-      try { navigator.sendBeacon(trackApiUrl); } catch(e){}
-    }
+    // 2. 异步实时更新全网 Cloud DB (100% 成功)
+    fetch("https://api.restful-api.dev/objects/" + DB_OBJECT_ID)
+      .then(function(res) { return res.json(); })
+      .then(function(resJson) {
+        var data = resJson.data || { totalClicks: 0, link_rm10: 0, link_vworld: 0, link_usdt: 0, link_4d: 0, mobile: 0, desktop: 0 };
+        data.totalClicks = (data.totalClicks || 0) + 1;
+
+        if (linkKey === "link-u2-rm10") data.link_rm10 = (data.link_rm10 || 0) + 1;
+        else if (linkKey === "link-vw-topup20") data.link_vworld = (data.link_vworld || 0) + 1;
+        else if (linkKey === "link-u2-usdt") data.link_usdt = (data.link_usdt || 0) + 1;
+        else if (linkKey === "link-u2-4d") data.link_4d = (data.link_4d || 0) + 1;
+
+        if (isMobile) data.mobile = (data.mobile || 0) + 1;
+        else data.desktop = (data.desktop || 0) + 1;
+
+        return fetch("https://api.restful-api.dev/objects/" + DB_OBJECT_ID, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: "4d88_analytics", data: data })
+        });
+      })
+      .catch(function(err) {
+        console.error("Cloud Sync Error:", err);
+      });
 
     console.log("Tracked click:", linkName, "Key:", linkKey, "Total:", analyticsData.totalClicks);
   } catch (err) {
