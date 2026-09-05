@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background Dark Red Glossy Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a0808" />
+      <stop offset="50%" stop-color="#140303" />
+      <stop offset="100%" stop-color="#050101" />
+    </linearGradient>
+
+    <!-- Gold Text Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="20%" stop-color="#fff566" />
+      <stop offset="50%" stop-color="#ffcc00" />
+      <stop offset="80%" stop-color="#e69900" />
+      <stop offset="100%" stop-color="#995c00" />
+    </linearGradient>
+
+    <!-- Red Accent Gradient -->
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff4d4d" />
+      <stop offset="100%" stop-color="#cc0000" />
+    </linearGradient>
+
+    <!-- Gold Border Gradient -->
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe600" />
+      <stop offset="50%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#ffb700" />
+    </linearGradient>
+
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="8" flood-color="#000000" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+
+  <!-- Background Base Container -->
+  <rect x="16" y="16" width="480" height="480" rx="108" fill="url(#bgGrad)" stroke="url(#borderGrad)" stroke-width="16" filter="url(#shadow)" />
+  <rect x="32" y="32" width="448" height="448" rx="92" fill="none" stroke="#ffe600" stroke-width="4" opacity="0.6" />
+
+  <!-- Central "4D" Big Bold Text -->
+  <g font-family="Impact, 'Arial Black', sans-serif" font-weight="900" text-anchor="middle">
+    <!-- 3D Shadow Layer -->
+    <text x="256" y="315" font-size="250" fill="#000000" opacity="0.95">4D</text>
+    <text x="256" y="307" font-size="250" fill="#7a0000">4D</text>
+    <!-- Red Glowing Outline -->
+    <text x="256" y="300" font-size="250" fill="url(#redGrad)" stroke="#ffffff" stroke-width="6">4D</text>
+    <!-- Gold Main Top Text -->
+    <text x="256" y="295" font-size="245" fill="url(#goldGrad)">4D</text>
+  </g>
+
+  <!-- 4D88 Brand Ribbon Badge -->
+  <g transform="translate(256, 415)" text-anchor="middle" font-family="'Arial Black', sans-serif" font-weight="900">
+    <rect x="-110" y="-32" width="220" height="48" rx="24" fill="url(#redGrad)" stroke="#ffe600" stroke-width="5" />
+    <text x="0" y="3" font-size="30" fill="#ffffff" letter-spacing="3">4D88</text>
+  </g>
+</svg>
