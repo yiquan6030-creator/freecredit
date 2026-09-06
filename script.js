@@ -137,11 +137,14 @@ document.addEventListener("click", function (e) {
 
   var href = anchor.getAttribute("href") || "";
   
-  if (href.includes("u2.live") || href.includes("vw0.ch") || anchor.classList.contains("btn")) {
+  if (href.includes("u2.live") || href.includes("vw0.ch") || href.includes("t.me") || anchor.classList.contains("btn")) {
     var linkKey = "link-u2-rm10";
     var linkName = anchor.innerText.trim() || "Register Link";
 
-    if (href.includes("ss.vw0.ch")) {
+    if (href.includes("t.me")) {
+      linkKey = "link-telegram";
+      linkName = "Join Telegram Official Channel (@freerm10_4d168)";
+    } else if (href.includes("ss.vw0.ch")) {
       linkKey = "link-vw-topup20";
       linkName = "VWorld Deposit RM20 Get RM20";
     } else if (href.includes("pplu.u2.live")) {
