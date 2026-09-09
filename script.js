@@ -1,5 +1,5 @@
 /**
- * 链接点击统计与辅助交互脚本 (Global Real-Time Cloud DB Engine)
+ * 链接点击统计与页面浏览量 (PV) 追踪引擎 (Global Real-Time Cloud DB Engine)
  */
 
 var DB_OBJECT_ID = "ff808181a058d43f01a05ce71bfe0e02";
@@ -52,6 +52,35 @@ function showToast(message) {
 }
 
 /**
+ * 核心页面浏览量 (PV) 实时上报函数
+ */
+function trackPageView() {
+  try {
+    var analyticsData = JSON.parse(localStorage.getItem("link_click_analytics_v1") || "{}");
+    analyticsData.pageViews = (analyticsData.pageViews || 0) + 1;
+    localStorage.setItem("link_click_analytics_v1", JSON.stringify(analyticsData));
+
+    fetch("https://api.restful-api.dev/objects/" + DB_OBJECT_ID)
+      .then(function(res) { return res.json(); })
+      .then(function(resJson) {
+        var data = resJson.data || { totalClicks: 0, pageViews: 0, link_rm10: 0, link_vworld: 0, link_usdt: 0, link_4d: 0, mobile: 0, desktop: 0 };
+        data.pageViews = (data.pageViews || 0) + 1;
+
+        return fetch("https://api.restful-api.dev/objects/" + DB_OBJECT_ID, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: "4d88_analytics", data: data })
+        });
+      })
+      .catch(function(err) {
+        console.error("Page View Cloud Sync Error:", err);
+      });
+  } catch (e) {
+    console.error("Page View Error:", e);
+  }
+}
+
+/**
  * 核心点击上报函数 (LocalStorage + Global Real-Time Cloud DB Sync)
  */
 async function trackLinkClick(linkKey, linkName, targetUrl) {
@@ -101,7 +130,7 @@ async function trackLinkClick(linkKey, linkName, targetUrl) {
     fetch("https://api.restful-api.dev/objects/" + DB_OBJECT_ID)
       .then(function(res) { return res.json(); })
       .then(function(resJson) {
-        var data = resJson.data || { totalClicks: 0, link_rm10: 0, link_vworld: 0, link_usdt: 0, link_4d: 0, mobile: 0, desktop: 0 };
+        var data = resJson.data || { totalClicks: 0, pageViews: 0, link_rm10: 0, link_vworld: 0, link_usdt: 0, link_4d: 0, mobile: 0, desktop: 0 };
         data.totalClicks = (data.totalClicks || 0) + 1;
 
         if (linkKey === "link-u2-rm10") data.link_rm10 = (data.link_rm10 || 0) + 1;
@@ -163,9 +192,12 @@ document.addEventListener("click", function (e) {
 });
 
 /**
- * DOM 加载完成初始化 FAQ
+ * DOM 加载完成初始化 FAQ & 自动上报 PV
  */
 document.addEventListener("DOMContentLoaded", function () {
+  // 自动上报页面浏览量 (PV)
+  trackPageView();
+
   var faqQuestions = document.querySelectorAll(".faq-question");
   faqQuestions.forEach(function (button) {
     button.addEventListener("click", function () {
