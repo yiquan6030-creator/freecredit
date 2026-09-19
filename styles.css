@@ -434,24 +434,30 @@ body {
   transform: scale(1.015);
 }
 
-/* Card Banner Image Styling */
+/* Card Banner Image Styling (Compact Shrunk Design) */
 .card-banner-box {
-  margin: 12px 0 16px 0;
-  border-radius: 12px;
+  margin: 10px 0 12px 0;
+  border-radius: 10px;
   overflow: hidden;
-  border: 2px solid #f59e0b;
-  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+  border: 1.5px solid #f59e0b;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+  max-height: 135px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .card-banner-img {
   width: 100%;
-  height: auto;
+  height: 135px;
+  object-fit: contain;
   display: block;
   transition: transform 0.3s ease;
 }
 
 .card-banner-img:hover {
-  transform: scale(1.03);
+  transform: scale(1.04);
 }
 
 /* Telegram Official Banner Styling */
@@ -834,6 +840,15 @@ body {
   .payout-table th, .payout-table td {
     padding: 8px 4px;
     font-size: 0.82rem;
+  }
+
+  .card-banner-box {
+    max-height: 115px;
+    margin: 8px 0 10px 0;
+  }
+
+  .card-banner-img {
+    height: 115px;
   }
 
   .top-links-header h2 {
