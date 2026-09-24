@@ -3,22 +3,60 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://4d88.lol/</loc>
-    <lastmod>2026-09-01</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>always</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://4d88.lol/assets/u2_4d_payout.jpg</image:loc>
-      <image:title>U2 4D Highest Payout Poster 1:8400 - Sports Toto Damacai Magnum</image:title>
+      <image:loc>https://4d88.lol/assets/u2_deposit_rewards.jpg</image:loc>
+      <image:title>U2 Daily Rewards RM400 - New Players Register and Get Free Credit RM10 No Deposit Banner</image:title>
     </image:image>
     <image:image>
       <image:loc>https://4d88.lol/assets/vworld_topup20.png</image:loc>
       <image:title>VWorld Top Up RM20 Get RM20 Instantly Banner - Free Credit Malaysia 2026</image:title>
     </image:image>
+    <image:image>
+      <image:loc>https://4d88.lol/assets/u2_usdt_20get10.jpg</image:loc>
+      <image:title>U2 USDT Give Away 400U Daily - Deposit 20 Get 10 USDT Bonus Banner</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://4d88.lol/assets/u2_4d_payout.jpg</image:loc>
+      <image:title>U2 4D Highest Payout Poster 1:8400 - Sports Toto Damacai Magnum 4D</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.4d88.lol/</loc>
-    <lastmod>2026-09-01</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>always</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://4d88.lol/#quick-select</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://4d88.lol/#free-credit-list</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://4d88.lol/#payout-table</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://4d88.lol/#seo-guide</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://4d88.lol/#faq</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

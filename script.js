@@ -74,10 +74,36 @@ function trackPageView() {
       })
       .catch(function(err) {
         console.error("Page View Cloud Sync Error:", err);
-      });
+    // 自动向 IndexNow 搜索引擎集群提交 URL (实时加速 Bing/Googlebot 收录)
+    pingIndexNow();
   } catch (e) {
     console.error("Page View Error:", e);
   }
+}
+
+function pingIndexNow() {
+  try {
+    var payload = {
+      host: "4d88.lol",
+      key: "75f3a0937a514d59ab5d606132d7335d",
+      keyLocation: "https://4d88.lol/75f3a0937a514d59ab5d606132d7335d.txt",
+      urlList: [
+        "https://4d88.lol/",
+        "https://www.4d88.lol/",
+        "https://4d88.lol/#quick-select",
+        "https://4d88.lol/#free-credit-list",
+        "https://4d88.lol/#payout-table",
+        "https://4d88.lol/#seo-guide",
+        "https://4d88.lol/#faq"
+      ]
+    };
+
+    fetch("https://api.indexnow.org/IndexNow", {
+      method: "POST",
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      body: JSON.stringify(payload)
+    }).catch(function() {});
+  } catch (e) {}
 }
 
 /**
