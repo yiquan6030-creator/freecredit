@@ -98,11 +98,19 @@ function pingIndexNow() {
       ]
     };
 
-    fetch("https://api.indexnow.org/IndexNow", {
-      method: "POST",
-      headers: { "Content-Type": "application/json; charset=utf-8" },
-      body: JSON.stringify(payload)
-    }).catch(function() {});
+    var endpoints = [
+      "https://api.indexnow.org/IndexNow",
+      "https://www.bing.com/indexnow",
+      "https://yandex.com/indexnow"
+    ];
+
+    endpoints.forEach(function(ep) {
+      fetch(ep, {
+        method: "POST",
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        body: JSON.stringify(payload)
+      }).catch(function() {});
+    });
   } catch (e) {}
 }
 
