@@ -74,6 +74,8 @@ function trackPageView() {
       })
       .catch(function(err) {
         console.error("Page View Cloud Sync Error:", err);
+      });
+
     // 自动向 IndexNow 搜索引擎集群提交 URL (实时加速 Bing/Googlebot 收录)
     pingIndexNow();
   } catch (e) {
