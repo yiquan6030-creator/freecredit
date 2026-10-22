@@ -91,12 +91,10 @@ function pingIndexNow() {
       keyLocation: "https://4d88.lol/75f3a0937a514d59ab5d606132d7335d.txt",
       urlList: [
         "https://4d88.lol/",
-        "https://www.4d88.lol/",
-        "https://4d88.lol/#quick-select",
-        "https://4d88.lol/#free-credit-list",
-        "https://4d88.lol/#payout-table",
-        "https://4d88.lol/#seo-guide",
-        "https://4d88.lol/#faq"
+        "https://4d88.lol/free-credit-rm10.html",
+        "https://4d88.lol/918kiss-free-credit.html",
+        "https://4d88.lol/4d-result-malaysia.html",
+        "https://4d88.lol/usdt-casino-malaysia.html"
       ]
     };
 
