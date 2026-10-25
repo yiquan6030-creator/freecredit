@@ -1,5 +1,5 @@
 /**
- * 链接点击统计与页面浏览量 (PV) 追踪引擎 (Global Real-Time Cloud DB Engine)
+ * 链接点击统计、页面浏览量 (PV) 与全网访客 IP 归属地实时追踪引擎 (Global Real-Time Cloud DB Engine)
  */
 
 var DB_OBJECT_ID = "ff808181a058d43f01a05ce71bfe0e02";
@@ -52,19 +52,107 @@ function showToast(message) {
 }
 
 /**
- * 核心页面浏览量 (PV) 实时上报函数
+ * 获取访客真实 IP 地址与国家/城市/运营商归属地 (带缓存与多重容灾)
  */
-function trackPageView() {
+async function getVisitorIpInfo() {
   try {
+    var cached = sessionStorage.getItem("visitor_ip_info_v1");
+    if (cached) {
+      return JSON.parse(cached);
+    }
+  } catch (e) {}
+
+  var info = {
+    ip: "Unknown IP",
+    location: "Malaysia / Global"
+  };
+
+  try {
+    var res = await fetch("https://ipwho.is/");
+    if (res.ok) {
+      var data = await res.json();
+      if (data && data.ip) {
+        var flag = (data.flag && data.flag.emoji) ? data.flag.emoji + " " : "";
+        var city = data.city || data.region || "";
+        var country = data.country || "";
+        var isp = (data.connection && data.connection.isp) ? " (" + data.connection.isp + ")" : "";
+        info.ip = data.ip;
+        info.location = flag + (city ? city + ", " : "") + country + isp;
+        try {
+          sessionStorage.setItem("visitor_ip_info_v1", JSON.stringify(info));
+        } catch (e) {}
+        return info;
+      }
+    }
+  } catch (err) {}
+
+  try {
+    var res2 = await fetch("https://ipapi.co/json/");
+    if (res2.ok) {
+      var data2 = await res2.json();
+      if (data2 && data2.ip) {
+        info.ip = data2.ip;
+        info.location = (data2.city ? data2.city + ", " : "") + (data2.country_name || "Malaysia") + (data2.org ? " (" + data2.org + ")" : "");
+        try {
+          sessionStorage.setItem("visitor_ip_info_v1", JSON.stringify(info));
+        } catch (e) {}
+        return info;
+      }
+    }
+  } catch (err2) {}
+
+  try {
+    var res3 = await fetch("https://api.ipify.org?format=json");
+    if (res3.ok) {
+      var data3 = await res3.json();
+      if (data3 && data3.ip) {
+        info.ip = data3.ip;
+      }
+    }
+  } catch (err3) {}
+
+  return info;
+}
+
+/**
+ * 核心页面浏览量 (PV) + 访客 IP 实时上报函数
+ */
+async function trackPageView() {
+  try {
+    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    var timeString = (new Date()).toLocaleString();
+
     var analyticsData = JSON.parse(localStorage.getItem("link_click_analytics_v1") || "{}");
     analyticsData.pageViews = (analyticsData.pageViews || 0) + 1;
     localStorage.setItem("link_click_analytics_v1", JSON.stringify(analyticsData));
 
+    var ipInfo = await getVisitorIpInfo();
+    var pagePath = window.location.pathname || "/";
+    var visitLog = {
+      key: "page-view",
+      linkName: "👁️ Page View (" + pagePath + ")",
+      url: window.location.href,
+      ip: ipInfo.ip,
+      location: ipInfo.location,
+      time: timeString,
+      isMobile: isMobile
+    };
+
+    var clickLogs = JSON.parse(localStorage.getItem("link_click_logs_v1") || "[]");
+    clickLogs.push(visitLog);
+    if (clickLogs.length > 50) clickLogs = clickLogs.slice(-50);
+    localStorage.setItem("link_click_logs_v1", JSON.stringify(clickLogs));
+
     fetch("https://api.restful-api.dev/objects/" + DB_OBJECT_ID)
       .then(function(res) { return res.json(); })
       .then(function(resJson) {
-        var data = resJson.data || { totalClicks: 0, pageViews: 0, link_rm10: 0, link_vworld: 0, link_usdt: 0, link_4d: 0, mobile: 0, desktop: 0 };
+        var data = resJson.data || { totalClicks: 0, pageViews: 0, link_rm10: 0, link_vworld: 0, link_usdt: 0, link_4d: 0, link_telegram: 0, mobile: 0, desktop: 0, recentLogs: [] };
         data.pageViews = (data.pageViews || 0) + 1;
+        if (!Array.isArray(data.recentLogs)) data.recentLogs = [];
+        data.recentLogs.push(visitLog);
+        if (data.recentLogs.length > 50) {
+          data.recentLogs = data.recentLogs.slice(-50);
+        }
 
         return fetch("https://api.restful-api.dev/objects/" + DB_OBJECT_ID, {
           method: "PUT",
@@ -76,7 +164,7 @@ function trackPageView() {
         console.error("Page View Cloud Sync Error:", err);
       });
 
-    // 自动向 IndexNow 搜索引擎集群提交 URL (实时加速 Bing/Googlebot 收录)
+    // 自动向 IndexNow 搜索引擎集群提交 URL
     pingIndexNow();
   } catch (e) {
     console.error("Page View Error:", e);
@@ -115,7 +203,7 @@ function pingIndexNow() {
 }
 
 /**
- * 核心点击上报函数 (LocalStorage + Global Real-Time Cloud DB Sync)
+ * 核心点击上报函数 + 访客 IP 归属地实时同步 (LocalStorage + Global Real-Time Cloud DB Sync)
  */
 async function trackLinkClick(linkKey, linkName, targetUrl) {
   try {
@@ -130,7 +218,8 @@ async function trackLinkClick(linkKey, linkName, targetUrl) {
         "link-u2-rm10": 0,
         "link-vw-topup20": 0,
         "link-u2-usdt": 0,
-        "link-u2-4d": 0
+        "link-u2-4d": 0,
+        "link-telegram": 0
       };
     }
     if (!analyticsData.mobileClicks) analyticsData.mobileClicks = 0;
@@ -148,32 +237,44 @@ async function trackLinkClick(linkKey, linkName, targetUrl) {
 
     localStorage.setItem("link_click_analytics_v1", JSON.stringify(analyticsData));
 
-    // 保存明细日志
-    var clickLogs = JSON.parse(localStorage.getItem("link_click_logs_v1") || "[]");
-    clickLogs.push({
+    var ipInfo = await getVisitorIpInfo();
+    var clickLogEntry = {
       key: linkKey,
-      linkName: linkName,
+      linkName: "👆 " + linkName,
       url: targetUrl,
+      ip: ipInfo.ip,
+      location: ipInfo.location,
       time: timeString,
       isMobile: isMobile
-    });
-    if (clickLogs.length > 100) clickLogs = clickLogs.slice(-100);
+    };
+
+    // 保存明细日志
+    var clickLogs = JSON.parse(localStorage.getItem("link_click_logs_v1") || "[]");
+    clickLogs.push(clickLogEntry);
+    if (clickLogs.length > 50) clickLogs = clickLogs.slice(-50);
     localStorage.setItem("link_click_logs_v1", JSON.stringify(clickLogs));
 
-    // 2. 异步实时更新全网 Cloud DB (100% 成功)
+    // 2. 异步实时更新全网 Cloud DB (包含 IP 与归属地日志)
     fetch("https://api.restful-api.dev/objects/" + DB_OBJECT_ID)
       .then(function(res) { return res.json(); })
       .then(function(resJson) {
-        var data = resJson.data || { totalClicks: 0, pageViews: 0, link_rm10: 0, link_vworld: 0, link_usdt: 0, link_4d: 0, mobile: 0, desktop: 0 };
+        var data = resJson.data || { totalClicks: 0, pageViews: 0, link_rm10: 0, link_vworld: 0, link_usdt: 0, link_4d: 0, link_telegram: 0, mobile: 0, desktop: 0, recentLogs: [] };
         data.totalClicks = (data.totalClicks || 0) + 1;
 
         if (linkKey === "link-u2-rm10") data.link_rm10 = (data.link_rm10 || 0) + 1;
         else if (linkKey === "link-vw-topup20") data.link_vworld = (data.link_vworld || 0) + 1;
         else if (linkKey === "link-u2-usdt") data.link_usdt = (data.link_usdt || 0) + 1;
         else if (linkKey === "link-u2-4d") data.link_4d = (data.link_4d || 0) + 1;
+        else if (linkKey === "link-telegram") data.link_telegram = (data.link_telegram || 0) + 1;
 
         if (isMobile) data.mobile = (data.mobile || 0) + 1;
         else data.desktop = (data.desktop || 0) + 1;
+
+        if (!Array.isArray(data.recentLogs)) data.recentLogs = [];
+        data.recentLogs.push(clickLogEntry);
+        if (data.recentLogs.length > 50) {
+          data.recentLogs = data.recentLogs.slice(-50);
+        }
 
         return fetch("https://api.restful-api.dev/objects/" + DB_OBJECT_ID, {
           method: "PUT",
@@ -185,7 +286,7 @@ async function trackLinkClick(linkKey, linkName, targetUrl) {
         console.error("Cloud Sync Error:", err);
       });
 
-    console.log("Tracked click:", linkName, "Key:", linkKey, "Total:", analyticsData.totalClicks);
+    console.log("Tracked click:", linkName, "IP:", ipInfo.ip, "Location:", ipInfo.location);
   } catch (err) {
     console.error("Tracking Error:", err);
   }
@@ -229,7 +330,7 @@ document.addEventListener("click", function (e) {
  * DOM 加载完成初始化 FAQ & 自动上报 PV
  */
 document.addEventListener("DOMContentLoaded", function () {
-  // 自动上报页面浏览量 (PV)
+  // 自动上报页面浏览量 (PV) 与访客 IP
   trackPageView();
 
   var faqQuestions = document.querySelectorAll(".faq-question");

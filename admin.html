@@ -350,27 +350,40 @@
             <div class="progress-bar-fill" id="bar-link-u2-4d" style="width: 0%; background: linear-gradient(90deg, #00d2ff, #3a7bd5);"></div>
           </div>
         </div>
+
+        <!-- Link 5: Official Telegram Channel -->
+        <div class="link-item">
+          <div class="link-info">
+            <div class="link-name">5. Official Telegram Channel (@freerm10_4d168)</div>
+            <div class="link-count" id="count-link-telegram">0 clicks (0%)</div>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="bar-link-telegram" style="width: 0%; background: linear-gradient(90deg, #0088cc, #38bdf8);"></div>
+          </div>
+        </div>
       </div>
 
-      <!-- 点击明细日志 Logs Table -->
+      <!-- 全网访客与点击 IP 归属地明细日志 Logs Table -->
       <div class="link-breakdown-section">
         <div class="section-title">
-          <span>🕒 Recent Click Activity Log (Device Local History)</span>
+          <span>🌍 Global Real-Time Visitor &amp; Click IP Log (全网访客与点击 IP 归属地实时记录)</span>
         </div>
 
         <div style="overflow-x: auto;">
           <table class="logs-table">
             <thead>
               <tr>
-                <th>TIME</th>
-                <th>LINK NAME</th>
-                <th>DEVICE</th>
+                <th>TIME (时间)</th>
+                <th>ACTION / LINK NAME (动作/点击项目)</th>
+                <th>IP ADDRESS (访客 IP)</th>
+                <th>LOCATION &amp; ISP (国家/城市/网络)</th>
+                <th>DEVICE (设备)</th>
                 <th>TARGET URL</th>
               </tr>
             </thead>
             <tbody id="logsTableBody">
               <tr>
-                <td colspan="4" style="text-align: center; color: #94a3b8;">No click logs recorded yet.</td>
+                <td colspan="6" style="text-align: center; color: #94a3b8;">Waiting for new visitor IP logs...</td>
               </tr>
             </tbody>
           </table>
@@ -426,11 +439,20 @@
       var totalClicks = Math.max(cloudTotal, localTotal);
       var totalPageViews = Math.max(cloudPV, localPV);
 
+      var knownSum = ((cloudData && cloudData.link_rm10) || 0) +
+                     ((cloudData && cloudData.link_vworld) || 0) +
+                     ((cloudData && cloudData.link_usdt) || 0) +
+                     ((cloudData && cloudData.link_4d) || 0);
+      var inferredTelegram = (cloudData && typeof cloudData.link_telegram === "number")
+        ? cloudData.link_telegram
+        : Math.max(0, cloudTotal - knownSum);
+
       var linkCounts = {
         "link-u2-rm10": Math.max((cloudData && cloudData.link_rm10) || 0, localCounts["link-u2-rm10"] || 0),
         "link-vw-topup20": Math.max((cloudData && cloudData.link_vworld) || 0, localCounts["link-vw-topup20"] || 0),
         "link-u2-usdt": Math.max((cloudData && cloudData.link_usdt) || 0, localCounts["link-u2-usdt"] || 0),
-        "link-u2-4d": Math.max((cloudData && cloudData.link_4d) || 0, localCounts["link-u2-4d"] || 0)
+        "link-u2-4d": Math.max((cloudData && cloudData.link_4d) || 0, localCounts["link-u2-4d"] || 0),
+        "link-telegram": Math.max(inferredTelegram, localCounts["link-telegram"] || 0)
       };
 
       var mobileClicks = Math.max((cloudData && cloudData.mobile) || 0, localData.mobileClicks || 0);
@@ -457,7 +479,8 @@
         "link-u2-rm10": "1. U2 RM10 Free Credit",
         "link-vw-topup20": "2. VWorld Deposit 20 Get 20",
         "link-u2-usdt": "3. U2 USDT Crypto",
-        "link-u2-4d": "4. U2 4D Lottery"
+        "link-u2-4d": "4. U2 4D Lottery",
+        "link-telegram": "5. Official Telegram Channel"
       };
 
       for (var key in linkCounts) {
@@ -484,24 +507,33 @@
         document.getElementById("topOfferClicks").innerText = "0 clicks";
       }
 
-      var clickLogs = JSON.parse(localStorage.getItem("link_click_logs_v1") || "[]");
+      var cloudLogs = (cloudData && Array.isArray(cloudData.recentLogs)) ? cloudData.recentLogs : [];
+      var localLogs = JSON.parse(localStorage.getItem("link_click_logs_v1") || "[]");
+      var combinedLogs = cloudLogs.length > 0 ? cloudLogs : localLogs;
+
       var tbody = document.getElementById("logsTableBody");
-      if (clickLogs.length > 0) {
+      if (combinedLogs.length > 0) {
         tbody.innerHTML = "";
-        var recentLogs = clickLogs.slice(-50).reverse();
+        var recentLogs = combinedLogs.slice(-50).reverse();
         recentLogs.forEach(function(log) {
           var tr = document.createElement("tr");
-          tr.innerHTML = "<td>" + log.time + "</td>" +
-                         "<td style='font-weight:700; color:#ffe600;'>" + log.linkName + "</td>" +
+          var ipText = log.ip || "Unknown IP";
+          var locText = log.location || "🇲🇾 Malaysia";
+          tr.innerHTML = "<td style='white-space:nowrap;'>" + (log.time || "-") + "</td>" +
+                         "<td style='font-weight:700; color:#ffe600;'>" + (log.linkName || "Visit") + "</td>" +
+                         "<td style='font-family:monospace; color:#38bdf8; font-weight:700;'>" + ipText + "</td>" +
+                         "<td style='color:#4ade80; font-weight:600;'>" + locText + "</td>" +
                          "<td>" + (log.isMobile ? "📱 Mobile" : "💻 Desktop") + "</td>" +
-                         "<td><a href='" + log.url + "' target='_blank' style='color:#38bdf8; text-decoration:none;'>View Link</a></td>";
+                         "<td><a href='" + (log.url || "#") + "' target='_blank' style='color:#38bdf8; text-decoration:none;'>View Link</a></td>";
           tbody.appendChild(tr);
         });
+      } else {
+        tbody.innerHTML = "<tr><td colspan='6' style='text-align: center; color: #94a3b8;'>No visitor IP logs recorded yet. Visit the main page to generate live IP records!</td></tr>";
       }
     }
 
     async function clearData() {
-      if (confirm("Are you sure you want to reset all click & page view statistics data?")) {
+      if (confirm("Are you sure you want to reset all click, page view & IP log statistics data?")) {
         localStorage.removeItem("link_click_analytics_v1");
         localStorage.removeItem("link_click_logs_v1");
         try {
@@ -510,7 +542,7 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               name: "4d88_analytics",
-              data: { totalClicks: 0, pageViews: 0, link_rm10: 0, link_vworld: 0, link_usdt: 0, link_4d: 0, mobile: 0, desktop: 0 }
+              data: { totalClicks: 0, pageViews: 0, link_rm10: 0, link_vworld: 0, link_usdt: 0, link_4d: 0, link_telegram: 0, mobile: 0, desktop: 0, recentLogs: [] }
             })
           });
         } catch (e) {}
