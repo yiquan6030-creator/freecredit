@@ -1,16 +1,16 @@
-/* ===== 全局 CSS 变量与重置 ===== */
+/* ===== 全局 CSS 变量与重置 (Luxury Dark Charcoal + Emerald + Gold Theme) ===== */
 :root {
-  --primary-color: #dc2626;
-  --primary-hover: #b91c1c;
+  --primary-color: #00c47c;
+  --primary-hover: #00a86b;
   --secondary-color: #f59e0b;
-  --accent-gold: #fde047;
-  --bg-gradient: linear-gradient(135deg, #120303 0%, #2e0707 50%, #150412 100%);
-  --card-bg: rgba(30, 10, 10, 0.85);
-  --card-border: rgba(239, 68, 68, 0.3);
+  --accent-gold: #fbbf24;
+  --bg-gradient: linear-gradient(180deg, #121316 0%, #0d0f12 50%, #121316 100%);
+  --card-bg: #181b20;
+  --card-border: rgba(0, 196, 124, 0.28);
   --text-main: #ffffff;
-  --text-muted: #cbd5e1;
-  --text-highlight: #fde047;
-  --radius-lg: 16px;
+  --text-muted: #9ca3af;
+  --text-highlight: #fbbf24;
+  --radius-lg: 14px;
   --radius-md: 12px;
   --radius-sm: 6px;
   --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
@@ -43,12 +43,12 @@ body {
 
 /* ===== 头部 Header ===== */
 .header {
-  background: rgba(18, 3, 3, 0.95);
+  background: rgba(18, 19, 22, 0.96);
   backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
   z-index: 100;
-  border-bottom: 1px solid var(--card-border);
+  border-bottom: 1px solid rgba(0, 196, 124, 0.25);
 }
 
 .header-container {
@@ -72,9 +72,9 @@ body {
 }
 
 .logo-text span {
-  color: var(--accent-gold);
+  color: #00e699;
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .nav {
@@ -91,65 +91,451 @@ body {
 }
 
 .nav-link:hover {
-  color: var(--accent-gold);
+  color: #00e699;
+}
+
+/* ===== V12BET-Style Luxury 4D & Free Credit Showcase ===== */
+.v12-showcase {
+  max-width: 960px;
+  margin: 0 auto 28px auto;
+  text-align: left;
+}
+
+.v12-hero-header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.v12-hero-title {
+  font-size: 2.1rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.v12-hero-sub {
+  font-size: 0.92rem;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+/* Top Wide Casino Promo Banner */
+.v12-top-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  background: radial-gradient(circle at 20% 50%, rgba(0, 196, 124, 0.28) 0%, rgba(7, 25, 19, 0.96) 55%, #0b130f 100%);
+  border: 1.5px solid rgba(0, 230, 153, 0.45);
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin-bottom: 16px;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.v12-top-banner:hover {
+  transform: translateY(-2px);
+  border-color: #fbbf24;
+  box-shadow: 0 14px 36px rgba(0, 196, 124, 0.3);
+}
+
+.v12-banner-left {
+  flex: 1;
+  z-index: 2;
+}
+
+.v12-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.v12-brand-pill {
+  background: linear-gradient(90deg, #00c47c, #009e63);
+  color: #04160e;
+  font-weight: 900;
+  font-size: 0.72rem;
+  padding: 2px 9px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.v12-brand-tag {
+  color: #fde047;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.v12-banner-headline {
+  font-size: 1.5rem;
+  font-weight: 900;
+  background: linear-gradient(180deg, #fffbeb 0%, #fbbf24 55%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.01em;
+  margin-bottom: 10px;
+  line-height: 1.15;
+}
+
+.v12-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.v12-rate-pill {
+  background: rgba(4, 20, 14, 0.85);
+  border: 1px solid rgba(251, 191, 36, 0.55);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.v12-rate-pill strong {
+  color: #fbbf24;
+}
+
+.v12-banner-bottom {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.v12-try-btn {
+  background: linear-gradient(180deg, #fde047 0%, #eab308 50%, #ca8a04 100%);
+  color: #111827;
+  font-weight: 900;
+  font-size: 0.82rem;
+  padding: 6px 18px;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 14px rgba(234, 179, 8, 0.45);
+  border: 1px solid #fef08a;
+}
+
+.v12-mini-ops {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.v12-banner-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 2;
+}
+
+.v12-banner-thumb {
+  width: 190px;
+  height: 108px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1.5px solid #fbbf24;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+}
+
+/* Two Giant Side-by-Side Neon CTA Buttons */
+.v12-dual-cta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 16px 0 20px 0;
+}
+
+.v12-btn-gold,
+.v12-btn-mint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 18px;
+  border-radius: 14px;
+  text-decoration: none !important;
+  text-align: center;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  cursor: pointer;
+}
+
+.v12-btn-gold {
+  background: linear-gradient(180deg, #ffd43b 0%, #f59e0b 100%);
+  border: 2px solid #fde047;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.35);
+  color: #111827 !important;
+}
+
+.v12-btn-gold:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 12px 30px rgba(245, 158, 11, 0.55);
+}
+
+.v12-btn-mint {
+  background: linear-gradient(180deg, #00e699 0%, #00b377 100%);
+  border: 2.5px solid #ffffff;
+  box-shadow: 0 8px 25px rgba(0, 230, 153, 0.4);
+  color: #051b11 !important;
+}
+
+.v12-btn-mint:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 12px 32px rgba(0, 230, 153, 0.6);
+}
+
+.v12-free-badge {
+  position: absolute;
+  top: -11px;
+  right: 14px;
+  background: linear-gradient(90deg, #ff5722, #ff3d00);
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 900;
+  padding: 2px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.06em;
+  box-shadow: 0 3px 10px rgba(255, 61, 0, 0.5);
+  border: 1.5px solid #ffffff;
+}
+
+.v12-cta-main {
+  font-size: 1.22rem;
+  font-weight: 900;
+  line-height: 1.25;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.v12-rm-box {
+  background: #111827;
+  color: #fbbf24;
+  padding: 2px 9px;
+  border-radius: 6px;
+  font-weight: 900;
+  font-size: 1.15rem;
+  display: inline-block;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.15);
+}
+
+.v12-cta-sub {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+  opacity: 0.85;
+  text-transform: uppercase;
+}
+
+/* Signature Emerald-Header Payout Table Card */
+.v12-payout-card {
+  background: #071712;
+  border: 1.5px solid rgba(0, 196, 124, 0.32);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 18px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+}
+
+.v12-card-header {
+  background: linear-gradient(90deg, #00c47c 0%, #00b371 100%);
+  padding: 11px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.v12-op-logos {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.v12-op-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 900;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.op-magnum { background: #facc15; color: #111827; }
+.op-damacai { background: #1d4ed8; color: #ffffff; border-color: #f87171; }
+.op-toto { background: #dc2626; color: #ffffff; }
+.op-sg { background: #0284c7; color: #ffffff; }
+.op-88 { background: #16a34a; color: #ffffff; }
+.op-stc { background: #ffffff; color: #dc2626; }
+.op-gdlotto { background: #b91c1c; color: #fde047; border-color: #fde047; }
+
+.v12-header-title {
+  color: #04160e;
+  font-size: 1.08rem;
+  font-weight: 900;
+  margin-left: 4px;
+  letter-spacing: -0.01em;
+}
+
+.v12-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.v12-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 0.94rem;
+}
+
+.v12-table thead th {
+  background: #06130e;
+  color: #9ca3af;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 11px 10px;
+  border-bottom: 1px solid rgba(0, 196, 124, 0.2);
+  white-space: nowrap;
+}
+
+.v12-table thead th:first-child {
+  text-align: left;
+  padding-left: 18px;
+}
+
+.v12-table tbody tr {
+  border-bottom: 1px solid rgba(0, 196, 124, 0.12);
+  transition: background 0.15s ease;
+}
+
+.v12-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.v12-table tbody tr:hover {
+  background: rgba(0, 196, 124, 0.08);
+}
+
+.v12-table td {
+  padding: 12px 10px;
+  color: #f3f4f6;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.v12-table td:first-child {
+  text-align: left;
+  padding-left: 18px;
+  color: #d1d5db;
+  font-weight: 700;
+}
+
+/* 1st Prize Row Gold Highlight */
+.v12-row-1st {
+  background: rgba(251, 191, 36, 0.06);
+}
+
+.v12-row-1st td {
+  color: #fbbf24 !important;
+  font-weight: 900 !important;
+  font-size: 1.04rem;
+}
+
+.v12-row-1st td:first-child {
+  color: #ffffff !important;
+  font-weight: 900 !important;
+}
+
+.v12-dash {
+  color: #4b5563 !important;
+  font-weight: 500 !important;
 }
 
 /* ===== Hero 区域 ===== */
 .hero {
-  padding: 30px 0 20px;
+  padding: 24px 0 20px;
   text-align: center;
 }
 
 .badge {
   display: inline-block;
-  background: rgba(239, 68, 68, 0.25);
-  border: 1px solid rgba(239, 68, 68, 0.5);
-  color: #fca5a5;
+  background: rgba(0, 196, 124, 0.15);
+  border: 1px solid rgba(0, 230, 153, 0.45);
+  color: #00e699;
   padding: 5px 14px;
   border-radius: 20px;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .hero-title {
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   font-weight: 900;
   letter-spacing: -0.02em;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   line-height: 1.2;
 }
 
 .hero-title span {
-  background: linear-gradient(90deg, #ffe600, #ff6b00, #ff0055);
+  background: linear-gradient(90deg, #00e699, #fbbf24);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .hero-subtitle {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
-  max-width: 650px;
-  margin: 0 auto 20px;
+  max-width: 720px;
+  margin: 0 auto 18px;
 }
 
 .top-links-header {
-  margin: 20px 0 15px;
+  margin: 22px 0 15px;
   text-align: center;
 }
 
 .top-links-header h2 {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 900;
-  color: #ffe600;
-  letter-spacing: 0.05em;
-  text-shadow: 0 0 10px rgba(255, 230, 0, 0.5);
-  animation: pulse 1.5s infinite;
+  color: #fbbf24;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 12px rgba(251, 191, 36, 0.35);
 }
 
 @keyframes pulse {
   0% { transform: scale(1); }
-  50% { transform: scale(1.04); }
+  50% { transform: scale(1.03); }
   100% { transform: scale(1); }
 }
 
@@ -157,46 +543,47 @@ body {
   margin-bottom: 30px;
 }
 
-/* ===== 核心卡片展示区 (紧凑设计 + 亮色大按钮) ===== */
+/* ===== 核心卡片展示区 (Dark Luxury Emerald & Gold) ===== */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
 }
 
 .card {
-  background: var(--card-bg);
-  border: 1.5px solid var(--card-border);
+  background: #16191e;
+  border: 1.5px solid rgba(0, 196, 124, 0.28);
   border-radius: var(--radius-lg);
-  padding: 20px;
+  padding: 18px;
   position: relative;
   display: flex;
   flex-direction: column;
   backdrop-filter: blur(10px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  text-align: left;
 }
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(239, 68, 68, 0.3);
-  border-color: rgba(255, 230, 0, 0.8);
+  box-shadow: 0 14px 30px rgba(0, 196, 124, 0.22);
+  border-color: #00e699;
 }
 
 .featured-card {
-  border: 2px solid #ef4444;
-  background: linear-gradient(180deg, rgba(50, 10, 10, 0.95) 0%, rgba(80, 15, 15, 0.8) 100%);
-  box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
+  border: 2px solid #00e699;
+  background: linear-gradient(180deg, #0b2219 0%, #12161b 100%);
+  box-shadow: 0 10px 30px rgba(0, 230, 153, 0.25);
 }
 
 .card-tag {
   position: absolute;
   top: -10px;
   right: 16px;
-  background: linear-gradient(90deg, #dc2626, #ef4444);
-  color: #ffffff;
+  background: linear-gradient(90deg, #00c47c, #00e699);
+  color: #04160e;
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 900;
   padding: 3px 10px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
@@ -255,8 +642,8 @@ body {
 }
 
 .card-benefits {
-  background: rgba(10, 3, 3, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(7, 23, 18, 0.85);
+  border: 1px solid rgba(0, 196, 124, 0.2);
   border-radius: var(--radius-md);
   padding: 10px 12px;
   margin-bottom: 16px;
@@ -281,8 +668,8 @@ body {
   align-items: center !important;
   justify-content: center !important;
   padding: 14px 20px !important;
-  border-radius: 30px !important;
-  font-size: 1.05rem !important;
+  border-radius: 12px !important;
+  font-size: 1.02rem !important;
   font-weight: 900 !important;
   text-decoration: none !important;
   transition: all 0.2s ease-in-out !important;
@@ -291,39 +678,40 @@ body {
   text-align: center !important;
   line-height: 1.3 !important;
   letter-spacing: 0.02em !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
 }
 
 .btn-block {
   width: 100% !important;
 }
 
-/* 红色亮色主按钮 */
+/* 翡翠绿亮色主按钮 */
 .btn-primary, .btn-primary:visited, .btn-primary:hover, .btn-primary:active {
-  background: linear-gradient(90deg, #ff1a1a 0%, #ff5252 100%) !important;
-  color: #ffffff !important;
-  box-shadow: 0 6px 18px rgba(255, 26, 26, 0.6) !important;
+  background: linear-gradient(180deg, #00e699 0%, #00b377 100%) !important;
+  color: #04160e !important;
+  border: 1.5px solid #ffffff !important;
+  text-shadow: none !important;
+  box-shadow: 0 6px 18px rgba(0, 230, 153, 0.45) !important;
 }
 
 .btn-primary:hover {
-  background: linear-gradient(90deg, #e60000 0%, #ff3333 100%) !important;
+  background: linear-gradient(180deg, #1affb2 0%, #00c482 100%) !important;
   transform: scale(1.02) !important;
-  box-shadow: 0 8px 24px rgba(255, 26, 26, 0.8) !important;
+  box-shadow: 0 8px 24px rgba(0, 230, 153, 0.7) !important;
 }
 
 /* 黄金超亮按钮 (充20送20专用) */
 .btn-gold, .btn-gold:visited, .btn-gold:hover, .btn-gold:active {
-  background: linear-gradient(90deg, #ffb700 0%, #ff8800 100%) !important;
-  color: #000000 !important;
+  background: linear-gradient(180deg, #ffd43b 0%, #f59e0b 100%) !important;
+  color: #111827 !important;
   font-weight: 900 !important;
   text-shadow: none !important;
-  box-shadow: 0 6px 20px rgba(255, 183, 0, 0.7) !important;
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5) !important;
 }
 
 .btn-gold:hover {
-  background: linear-gradient(90deg, #ffa600 0%, #e67300 100%) !important;
+  background: linear-gradient(180deg, #ffe066 0%, #d97706 100%) !important;
   transform: scale(1.02) !important;
-  box-shadow: 0 8px 28px rgba(255, 183, 0, 0.9) !important;
+  box-shadow: 0 8px 28px rgba(245, 158, 11, 0.75) !important;
 }
 
 /* 紫色高亮按钮 */
@@ -332,7 +720,7 @@ body {
   color: #000000 !important;
   font-weight: 900 !important;
   text-shadow: none !important;
-  box-shadow: 0 6px 18px rgba(168, 85, 247, 0.6) !important;
+  box-shadow: 0 6px 18px rgba(168, 85, 247, 0.5) !important;
 }
 
 .btn-purple:hover {
@@ -344,7 +732,7 @@ body {
 .btn-blue, .btn-blue:visited, .btn-blue:hover, .btn-blue:active {
   background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%) !important;
   color: #ffffff !important;
-  box-shadow: 0 6px 18px rgba(0, 210, 255, 0.6) !important;
+  box-shadow: 0 6px 18px rgba(0, 210, 255, 0.5) !important;
 }
 
 .btn-blue:hover {
@@ -360,21 +748,21 @@ body {
 /* ===== 4D 赔率表展示区 ===== */
 .payout-section {
   padding: 40px 0;
-  background: rgba(18, 3, 3, 0.9);
+  background: #0e1013;
   border-top: 1px solid var(--card-border);
   border-bottom: 1px solid var(--card-border);
 }
 
 .brand-badge {
   display: inline-block;
-  background: linear-gradient(90deg, #dc2626, #ef4444);
-  color: #ffffff;
-  font-weight: 800;
+  background: linear-gradient(90deg, #00c47c, #009e63);
+  color: #04160e;
+  font-weight: 900;
   padding: 4px 14px;
   border-radius: 20px;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   margin-bottom: 10px;
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 196, 124, 0.35);
 }
 
 .section-header {
@@ -721,7 +1109,7 @@ body {
 
 /* ===== 页脚 Footer ===== */
 .footer {
-  background: #080202;
+  background: #0a0c0e;
   border-top: 1px solid var(--card-border);
   padding: 30px 0;
   text-align: center;
@@ -747,12 +1135,12 @@ body {
   bottom: 25px;
   left: 50%;
   transform: translateX(-50%) translateY(100px);
-  background: #ef4444;
-  color: #ffffff;
+  background: #00c47c;
+  color: #04160e;
   padding: 10px 20px;
   border-radius: 30px;
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 800;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
   transition: transform 0.3s ease, opacity 0.3s ease;
   opacity: 0;
@@ -772,15 +1160,65 @@ body {
   }
 
   .hero {
-    padding: 20px 0 15px;
+    padding: 18px 0 15px;
+  }
+
+  .v12-hero-title {
+    font-size: 1.55rem;
+  }
+
+  .v12-top-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px 16px;
+    gap: 12px;
+  }
+
+  .v12-banner-headline {
+    font-size: 1.25rem;
+  }
+
+  .v12-banner-right {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .v12-banner-thumb {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+  }
+
+  .v12-dual-cta {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .v12-cta-main {
+    font-size: 1.12rem;
+  }
+
+  .v12-table thead th,
+  .v12-table td {
+    padding: 10px 6px;
+    font-size: 0.82rem;
+  }
+
+  .v12-table thead th:first-child,
+  .v12-table td:first-child {
+    padding-left: 10px;
+  }
+
+  .v12-row-1st td {
+    font-size: 0.92rem;
   }
 
   .hero-title {
-    font-size: 1.8rem;
+    font-size: 1.65rem;
   }
 
   .hero-subtitle {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     margin-bottom: 15px;
   }
 
@@ -825,16 +1263,16 @@ body {
 
   /* 📱 手机端按钮超大高亮超醒目 */
   .btn {
-    padding: 16px 16px !important;
-    font-size: 1.1rem !important;
+    padding: 15px 16px !important;
+    font-size: 1.05rem !important;
     font-weight: 900 !important;
-    border-radius: 25px !important;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5) !important;
   }
 
   .btn-large {
     padding: 16px 16px !important;
-    font-size: 1.05rem !important;
+    font-size: 1.02rem !important;
   }
 
   .payout-table th, .payout-table td {
