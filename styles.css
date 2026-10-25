@@ -94,390 +94,373 @@ body {
   color: #fbbf24;
 }
 
-/* ===== Luxury Royal Gold & Ruby-Crimson 4D Showcase ===== */
-.v12-showcase {
-  max-width: 960px;
-  margin: 0 auto 28px auto;
+/* ===== 4D88 Original VIP Luxury Command Deck & Odds Matrix ===== */
+.vip-hub {
+  max-width: 1060px;
+  margin: 0 auto 30px auto;
   text-align: left;
 }
 
-.v12-hero-header {
+.vip-hero-box {
   text-align: center;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
-.v12-hero-title {
-  font-size: 2.1rem;
+.vip-status-strip {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(20, 24, 38, 0.9);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 30px;
+  padding: 6px 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+}
+
+.vip-status-item {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #e2e8f0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.vip-status-dot {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px #22c55e;
+}
+
+.vip-main-title {
+  font-size: 2.25rem;
   font-weight: 900;
   color: #ffffff;
   letter-spacing: -0.02em;
   line-height: 1.2;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
-.v12-hero-sub {
-  font-size: 0.92rem;
+.vip-main-title span {
+  background: linear-gradient(90deg, #fde047 0%, #f59e0b 50%, #ff4d6d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.vip-main-sub {
+  font-size: 0.95rem;
   color: #94a3b8;
-  font-weight: 500;
+  max-width: 760px;
+  margin: 0 auto;
 }
 
-/* Top Wide Casino Promo Banner (Royal Ruby-Crimson & Gold) */
-.v12-top-banner {
+/* Original 3-Column VIP Quick-Action Deck */
+.vip-action-deck {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 20px 0 24px 0;
+}
+
+.vip-action-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px 18px 16px 18px;
+  border-radius: 16px;
+  text-decoration: none !important;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+  overflow: hidden;
+}
+
+.vip-action-card:hover {
+  transform: translateY(-4px);
+  filter: brightness(1.06);
+}
+
+.vip-action-ruby {
+  background: linear-gradient(145deg, #b91c1c 0%, #dc2626 45%, #7f1d1d 100%);
+  border: 2px solid #fde047;
+  box-shadow: 0 10px 28px rgba(220, 38, 38, 0.4);
+  color: #ffffff !important;
+}
+
+.vip-action-gold {
+  background: linear-gradient(145deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%);
+  border: 2px solid #fef08a;
+  box-shadow: 0 10px 28px rgba(245, 158, 11, 0.35);
+  color: #111827 !important;
+}
+
+.vip-action-royal {
+  background: linear-gradient(145deg, #1e3a8a 0%, #2563eb 50%, #4f46e5 100%);
+  border: 2px solid #38bdf8;
+  box-shadow: 0 10px 28px rgba(37, 99, 235, 0.38);
+  color: #ffffff !important;
+}
+
+.vip-action-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
-  background: radial-gradient(circle at 20% 50%, rgba(220, 38, 38, 0.35) 0%, rgba(24, 15, 32, 0.96) 55%, #0d101b 100%);
-  border: 1.5px solid rgba(251, 191, 36, 0.5);
-  border-radius: 14px;
-  padding: 18px 22px;
-  margin-bottom: 16px;
-  text-decoration: none;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 10px;
 }
 
-.v12-top-banner:hover {
-  transform: translateY(-2px);
-  border-color: #fde047;
-  box-shadow: 0 14px 36px rgba(239, 68, 68, 0.35);
-}
-
-.v12-banner-left {
-  flex: 1;
-  z-index: 2;
-}
-
-.v12-brand-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;
-}
-
-.v12-brand-pill {
-  background: linear-gradient(90deg, #ef4444, #dc2626);
-  color: #ffffff;
+.vip-pill-tag {
+  font-size: 0.68rem;
   font-weight: 900;
-  font-size: 0.72rem;
-  padding: 2px 9px;
-  border-radius: 6px;
+  padding: 3px 10px;
+  border-radius: 20px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
-.v12-brand-tag {
+.vip-action-ruby .vip-pill-tag {
+  background: #fde047;
+  color: #111827;
+}
+
+.vip-action-gold .vip-pill-tag {
+  background: #111827;
   color: #fde047;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
 }
 
-.v12-banner-headline {
-  font-size: 1.5rem;
+.vip-action-royal .vip-pill-tag {
+  background: #38bdf8;
+  color: #0f172a;
+}
+
+.vip-action-arrow {
+  font-size: 1.1rem;
   font-weight: 900;
-  background: linear-gradient(180deg, #fffbeb 0%, #fbbf24 55%, #d97706 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: 0.01em;
-  margin-bottom: 10px;
-  line-height: 1.15;
+  opacity: 0.85;
 }
 
-.v12-pills-row {
+.vip-action-title {
+  font-size: 1.18rem;
+  font-weight: 900;
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+
+.vip-action-desc {
+  font-size: 0.78rem;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+/* Original 4D88 3-Pillar Jackpot Highlight Strip */
+.vip-jackpot-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.vip-jackpot-box {
+  background: linear-gradient(180deg, rgba(24, 29, 46, 0.95) 0%, rgba(14, 17, 28, 0.98) 100%);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 14px;
+  padding: 14px 16px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.v12-rate-pill {
-  background: rgba(15, 18, 30, 0.9);
-  border: 1px solid rgba(251, 191, 36, 0.55);
-  border-radius: 20px;
-  padding: 4px 12px;
-  font-size: 0.8rem;
-  font-weight: 800;
-  color: #ffffff;
-  display: inline-flex;
   align-items: center;
-  gap: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  gap: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
 }
 
-.v12-rate-pill strong {
+.vip-jp-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(251, 191, 36, 0.14);
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.vip-jp-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.vip-jp-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.vip-jp-val {
+  font-size: 1.25rem;
+  font-weight: 900;
   color: #fbbf24;
+  line-height: 1.2;
 }
 
-.v12-banner-bottom {
+.vip-jp-val small {
+  font-size: 0.72rem;
+  color: #cbd5e1;
+  font-weight: 600;
+}
+
+/* Original 4D88 VIP Glassmorphism Odds Matrix Card */
+.vip-matrix-card {
+  background: #111522;
+  border: 1.5px solid rgba(251, 191, 36, 0.35);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.65);
+}
+
+.vip-matrix-header {
+  background: linear-gradient(90deg, #181d2f 0%, #231624 50%, #181d2f 100%);
+  border-bottom: 2px solid #f59e0b;
+  padding: 14px 20px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
 }
 
-.v12-try-btn {
-  background: linear-gradient(180deg, #fde047 0%, #eab308 50%, #ca8a04 100%);
-  color: #111827;
-  font-weight: 900;
-  font-size: 0.82rem;
-  padding: 6px 18px;
-  border-radius: 20px;
-  letter-spacing: 0.05em;
-  box-shadow: 0 4px 14px rgba(234, 179, 8, 0.45);
-  border: 1px solid #fef08a;
-}
-
-.v12-mini-ops {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.v12-banner-right {
+.vip-matrix-title-group {
   display: flex;
   align-items: center;
   gap: 10px;
-  z-index: 2;
 }
 
-.v12-banner-thumb {
-  width: 190px;
-  height: 108px;
-  object-fit: cover;
-  border-radius: 10px;
-  border: 1.5px solid #fbbf24;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
-}
-
-/* Two Giant Side-by-Side Neon CTA Buttons (Imperial Gold + Royal Ruby-Crimson) */
-.v12-dual-cta {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin: 16px 0 20px 0;
-}
-
-.v12-btn-gold,
-.v12-btn-mint {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 15px 18px;
-  border-radius: 14px;
-  text-decoration: none !important;
-  text-align: center;
-  position: relative;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-  cursor: pointer;
-}
-
-.v12-btn-gold {
-  background: linear-gradient(180deg, #ffd43b 0%, #f59e0b 100%);
-  border: 2px solid #fde047;
-  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.35);
-  color: #111827 !important;
-}
-
-.v12-btn-gold:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.05);
-  box-shadow: 0 12px 30px rgba(245, 158, 11, 0.55);
-}
-
-.v12-btn-mint {
-  background: linear-gradient(180deg, #ff2a55 0%, #dc2626 100%);
-  border: 2.5px solid #fde047;
-  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.45);
-  color: #ffffff !important;
-}
-
-.v12-btn-mint:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.08);
-  box-shadow: 0 12px 32px rgba(239, 68, 68, 0.65);
-}
-
-.v12-free-badge {
-  position: absolute;
-  top: -11px;
-  right: 14px;
-  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+.vip-matrix-badge {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
   color: #111827;
-  font-size: 0.68rem;
   font-weight: 900;
-  padding: 2px 10px;
-  border-radius: 20px;
-  letter-spacing: 0.06em;
-  box-shadow: 0 3px 10px rgba(245, 158, 11, 0.55);
-  border: 1.5px solid #ffffff;
-}
-
-.v12-cta-main {
-  font-size: 1.22rem;
-  font-weight: 900;
-  line-height: 1.25;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.v12-rm-box {
-  background: #111827;
-  color: #fde047;
-  padding: 2px 9px;
-  border-radius: 6px;
-  font-weight: 900;
-  font-size: 1.15rem;
-  display: inline-block;
-  border: 1px solid rgba(253, 224, 71, 0.5);
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.15);
-}
-
-.v12-cta-sub {
   font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  margin-top: 4px;
-  opacity: 0.9;
+  padding: 3px 10px;
+  border-radius: 6px;
   text-transform: uppercase;
 }
 
-/* Signature Imperial-Gold & Royal-Crimson Header Payout Table Card */
-.v12-payout-card {
-  background: #111420;
-  border: 1.5px solid rgba(251, 191, 36, 0.35);
-  border-radius: 14px;
-  overflow: hidden;
-  margin-bottom: 18px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+.vip-matrix-title {
+  color: #ffffff;
+  font-size: 1.08rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
 }
 
-.v12-card-header {
-  background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%);
-  padding: 11px 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.v12-op-logos {
+.vip-op-pills {
   display: flex;
   align-items: center;
   gap: 6px;
   flex-wrap: wrap;
 }
 
-.v12-op-logo {
-  width: 28px;
-  height: 28px;
-  border-radius: 7px;
+.vip-op-pill {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #f8fafc;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 20px;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  font-size: 0.65rem;
-  font-weight: 900;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
-  border: 1.5px solid rgba(255, 255, 255, 0.9);
-  flex-shrink: 0;
-  line-height: 1;
+  gap: 4px;
 }
 
-.op-magnum { background: #111827; color: #facc15; border-color: #facc15; }
-.op-damacai { background: #1d4ed8; color: #ffffff; border-color: #f87171; }
-.op-toto { background: #dc2626; color: #ffffff; }
-.op-sg { background: #0284c7; color: #ffffff; }
-.op-88 { background: #16a34a; color: #ffffff; }
-.op-stc { background: #ffffff; color: #dc2626; }
-.op-gdlotto { background: #b91c1c; color: #fde047; border-color: #fde047; }
-
-.v12-header-title {
-  color: #111827;
-  font-size: 1.08rem;
-  font-weight: 900;
-  margin-left: 4px;
-  letter-spacing: -0.01em;
-}
-
-.v12-table-wrap {
+.vip-table-wrap {
   width: 100%;
   overflow-x: auto;
 }
 
-.v12-table {
+.vip-table {
   width: 100%;
   border-collapse: collapse;
   text-align: center;
   font-size: 0.94rem;
 }
 
-.v12-table thead th {
+.vip-table thead th {
   background: #0b0e17;
-  color: #94a3b8;
-  font-size: 0.76rem;
+  color: #cbd5e1;
+  font-size: 0.78rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  padding: 11px 10px;
+  padding: 12px 10px;
   border-bottom: 1px solid rgba(251, 191, 36, 0.22);
   white-space: nowrap;
 }
 
-.v12-table thead th:first-child {
+.vip-table thead th:first-child {
   text-align: left;
-  padding-left: 18px;
+  padding-left: 20px;
 }
 
-.v12-table tbody tr {
+.vip-table tbody tr {
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   transition: background 0.15s ease;
 }
 
-.v12-table tbody tr:last-child {
+.vip-table tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.vip-table tbody tr:last-child {
   border-bottom: none;
 }
 
-.v12-table tbody tr:hover {
-  background: rgba(251, 191, 36, 0.07);
+.vip-table tbody tr:hover {
+  background: rgba(251, 191, 36, 0.08);
 }
 
-.v12-table td {
-  padding: 12px 10px;
+.vip-table td {
+  padding: 13px 10px;
   color: #f3f4f6;
   font-weight: 700;
   white-space: nowrap;
 }
 
-.v12-table td:first-child {
+.vip-table td:first-child {
   text-align: left;
-  padding-left: 18px;
-  color: #cbd5e1;
-  font-weight: 700;
+  padding-left: 20px;
+  color: #e2e8f0;
+  font-weight: 800;
 }
 
 /* 1st Prize Row Gold Highlight */
-.v12-row-1st {
-  background: rgba(251, 191, 36, 0.09);
+.vip-row-1st {
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.16) 0%, rgba(239, 68, 68, 0.12) 100%) !important;
 }
 
-.v12-row-1st td {
-  color: #fbbf24 !important;
+.vip-row-1st td {
+  color: #fde047 !important;
   font-weight: 900 !important;
-  font-size: 1.04rem;
+  font-size: 1.06rem;
 }
 
-.v12-row-1st td:first-child {
+.vip-row-1st td:first-child {
   color: #ffffff !important;
-  font-weight: 900 !important;
 }
 
-.v12-dash {
+.vip-peak-badge {
+  background: rgba(251, 191, 36, 0.2);
+  border: 1px solid #fbbf24;
+  color: #fde047;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.vip-dash {
   color: #475569 !important;
   font-weight: 500 !important;
 }
@@ -1164,53 +1147,36 @@ body {
     padding: 18px 0 15px;
   }
 
-  .v12-hero-title {
-    font-size: 1.55rem;
+  .vip-main-title {
+    font-size: 1.65rem;
   }
 
-  .v12-top-banner {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 14px 16px;
+  .vip-action-deck {
+    grid-template-columns: 1fr;
     gap: 12px;
   }
 
-  .v12-banner-headline {
-    font-size: 1.25rem;
-  }
-
-  .v12-banner-right {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .v12-banner-thumb {
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-  }
-
-  .v12-dual-cta {
+  .vip-jackpot-grid {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 10px;
   }
 
-  .v12-cta-main {
-    font-size: 1.12rem;
+  .vip-matrix-header {
+    padding: 12px 14px;
   }
 
-  .v12-table thead th,
-  .v12-table td {
+  .vip-table thead th,
+  .vip-table td {
     padding: 10px 6px;
     font-size: 0.82rem;
   }
 
-  .v12-table thead th:first-child,
-  .v12-table td:first-child {
+  .vip-table thead th:first-child,
+  .vip-table td:first-child {
     padding-left: 10px;
   }
 
-  .v12-row-1st td {
+  .vip-row-1st td {
     font-size: 0.92rem;
   }
 
