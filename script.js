@@ -115,15 +115,84 @@ async function getVisitorIpInfo() {
 }
 
 /**
- * 核心页面浏览量 (PV) + 访客 IP 实时上报函数
+ * 识别访客流量来源：区分 Google/Bing 自然搜索 (Organic Search) vs 社交裂变 vs 直接访问
+ */
+function getTrafficSource() {
+  try {
+    var cachedSource = sessionStorage.getItem("visitor_traffic_source_v1");
+    var ref = (document.referrer || "").toLowerCase();
+    var ua = (navigator.userAgent || "").toLowerCase();
+
+    // 如果当前页面有外部 referrer（非本站内部跳转），优先解析并缓存该会话最初来源
+    if (ref && !ref.includes("4d88.lol")) {
+      var detected = { label: "🌐 External Referral", isOrganic: false };
+      if (ref.includes("google.")) {
+        detected = { label: "🔍 Google Search (谷歌自然搜索)", isOrganic: true };
+      } else if (ref.includes("bing.")) {
+        detected = { label: "🔍 Bing Search (必应自然搜索)", isOrganic: true };
+      } else if (ref.includes("yahoo.") || ref.includes("duckduckgo.") || ref.includes("yandex.") || ref.includes("baidu.")) {
+        detected = { label: "🔍 Organic Search (自然搜索)", isOrganic: true };
+      } else if (ref.includes("t.me") || ref.includes("telegram") || ref.includes("tdesktop")) {
+        detected = { label: "✈️ Telegram (TG频道/群组)", isOrganic: false };
+      } else if (ref.includes("whatsapp") || ref.includes("wa.me")) {
+        detected = { label: "💬 WhatsApp (群组转发)", isOrganic: false };
+      } else if (ref.includes("facebook.") || ref.includes("fb.") || ref.includes("instagram.")) {
+        detected = { label: "📘 Facebook / IG (社交引流)", isOrganic: false };
+      } else if (ref.includes("tiktok.")) {
+        detected = { label: "🎵 TikTok (短视频引流)", isOrganic: false };
+      } else {
+        try {
+          var host = (new URL(document.referrer)).hostname;
+          detected = { label: "🌐 Referral (" + host + ")", isOrganic: false };
+        } catch (e) {}
+      }
+      try {
+        sessionStorage.setItem("visitor_traffic_source_v1", JSON.stringify(detected));
+      } catch (e) {}
+      return detected;
+    }
+
+    if (cachedSource) {
+      return JSON.parse(cachedSource);
+    }
+
+    // 针对 App 内置浏览器无 Referrer 的智能识别
+    if (ua.includes("telegram")) {
+      return { label: "✈️ Telegram App (TG内置打开)", isOrganic: false };
+    } else if (ua.includes("whatsapp")) {
+      return { label: "💬 WhatsApp App (WA内置打开)", isOrganic: false };
+    } else if (ua.includes("fban") || ua.includes("fbav") || ua.includes("instagram")) {
+      return { label: "📘 FB / IG App (社交内置打开)", isOrganic: false };
+    } else if (ua.includes("musical_ly") || ua.includes("tiktok") || ua.includes("bytedance")) {
+      return { label: "🎵 TikTok App (内置打开)", isOrganic: false };
+    } else if (ua.includes("micromessenger")) {
+      return { label: "💚 WeChat (微信内置打开)", isOrganic: false };
+    }
+
+    var fallback = { label: "⚡ Direct / Bookmark (直接输入网址)", isOrganic: false };
+    try {
+      sessionStorage.setItem("visitor_traffic_source_v1", JSON.stringify(fallback));
+    } catch (e) {}
+    return fallback;
+  } catch (e) {
+    return { label: "⚡ Direct Visit", isOrganic: false };
+  }
+}
+
+/**
+ * 核心页面浏览量 (PV) + 访客 IP + 流量来源实时上报函数
  */
 async function trackPageView() {
   try {
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     var timeString = (new Date()).toLocaleString();
+    var sourceInfo = getTrafficSource();
 
     var analyticsData = JSON.parse(localStorage.getItem("link_click_analytics_v1") || "{}");
     analyticsData.pageViews = (analyticsData.pageViews || 0) + 1;
+    if (sourceInfo.isOrganic) {
+      analyticsData.organicViews = (analyticsData.organicViews || 0) + 1;
+    }
     localStorage.setItem("link_click_analytics_v1", JSON.stringify(analyticsData));
 
     var ipInfo = await getVisitorIpInfo();
@@ -134,6 +203,8 @@ async function trackPageView() {
       url: window.location.href,
       ip: ipInfo.ip,
       location: ipInfo.location,
+      source: sourceInfo.label,
+      isOrganic: sourceInfo.isOrganic,
       time: timeString,
       isMobile: isMobile
     };
@@ -146,8 +217,11 @@ async function trackPageView() {
     fetch("https://api.restful-api.dev/objects/" + DB_OBJECT_ID)
       .then(function(res) { return res.json(); })
       .then(function(resJson) {
-        var data = resJson.data || { totalClicks: 0, pageViews: 0, link_rm10: 0, link_vworld: 0, link_usdt: 0, link_4d: 0, link_telegram: 0, mobile: 0, desktop: 0, recentLogs: [] };
+        var data = resJson.data || { totalClicks: 0, pageViews: 0, organicViews: 0, link_rm10: 0, link_vworld: 0, link_usdt: 0, link_4d: 0, link_telegram: 0, mobile: 0, desktop: 0, recentLogs: [] };
         data.pageViews = (data.pageViews || 0) + 1;
+        if (sourceInfo.isOrganic) {
+          data.organicViews = (data.organicViews || 0) + 1;
+        }
         if (!Array.isArray(data.recentLogs)) data.recentLogs = [];
         data.recentLogs.push(visitLog);
         if (data.recentLogs.length > 50) {
@@ -238,12 +312,15 @@ async function trackLinkClick(linkKey, linkName, targetUrl) {
     localStorage.setItem("link_click_analytics_v1", JSON.stringify(analyticsData));
 
     var ipInfo = await getVisitorIpInfo();
+    var sourceInfo = getTrafficSource();
     var clickLogEntry = {
       key: linkKey,
       linkName: "👆 " + linkName,
       url: targetUrl,
       ip: ipInfo.ip,
       location: ipInfo.location,
+      source: sourceInfo.label,
+      isOrganic: sourceInfo.isOrganic,
       time: timeString,
       isMobile: isMobile
     };

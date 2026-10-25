@@ -269,6 +269,13 @@
           <div class="stat-card-sub">Total page visits across ALL users &amp; devices</div>
         </div>
 
+        <!-- 核心新增卡片：自然搜索流量 (Organic Search PV) -->
+        <div class="stat-card" style="border-color: #f59e0b;">
+          <div class="stat-card-title">ORGANIC SEARCH (Google/Bing 自然搜索流量)</div>
+          <div class="stat-card-val" id="organicSearchViews" style="color: #f59e0b;">0</div>
+          <div class="stat-card-sub" id="organicSub">0% of total visits from Search Engines</div>
+        </div>
+
         <div class="stat-card">
           <div class="stat-card-title">TOTAL CLICKS (全网实时总点击量)</div>
           <div class="stat-card-val" id="totalClicks">0</div>
@@ -366,7 +373,7 @@
       <!-- 全网访客与点击 IP 归属地明细日志 Logs Table -->
       <div class="link-breakdown-section">
         <div class="section-title">
-          <span>🌍 Global Real-Time Visitor &amp; Click IP Log (全网访客与点击 IP 归属地实时记录)</span>
+          <span>🌍 Global Real-Time Visitor IP &amp; Traffic Source Log (全网访客 IP 归属地与自然搜索来源记录)</span>
         </div>
 
         <div style="overflow-x: auto;">
@@ -374,16 +381,16 @@
             <thead>
               <tr>
                 <th>TIME (时间)</th>
+                <th>TRAFFIC SOURCE (流量来源)</th>
                 <th>ACTION / LINK NAME (动作/点击项目)</th>
                 <th>IP ADDRESS (访客 IP)</th>
                 <th>LOCATION &amp; ISP (国家/城市/网络)</th>
                 <th>DEVICE (设备)</th>
-                <th>TARGET URL</th>
               </tr>
             </thead>
             <tbody id="logsTableBody">
               <tr>
-                <td colspan="6" style="text-align: center; color: #94a3b8;">Waiting for new visitor IP logs...</td>
+                <td colspan="6" style="text-align: center; color: #94a3b8;">Waiting for new visitor IP &amp; source logs...</td>
               </tr>
             </tbody>
           </table>
@@ -431,13 +438,16 @@
       var localData = JSON.parse(localStorage.getItem("link_click_analytics_v1") || "{}");
       var localTotal = localData.totalClicks || 0;
       var localPV = localData.pageViews || 0;
+      var localOrganic = localData.organicViews || 0;
       var localCounts = localData.linkCounts || {};
 
       var cloudTotal = (cloudData && cloudData.totalClicks) ? cloudData.totalClicks : 0;
       var cloudPV = (cloudData && cloudData.pageViews) ? cloudData.pageViews : 0;
+      var cloudOrganic = (cloudData && cloudData.organicViews) ? cloudData.organicViews : 0;
 
       var totalClicks = Math.max(cloudTotal, localTotal);
       var totalPageViews = Math.max(cloudPV, localPV);
+      var totalOrganicViews = Math.max(cloudOrganic, localOrganic);
 
       var knownSum = ((cloudData && cloudData.link_rm10) || 0) +
                      ((cloudData && cloudData.link_vworld) || 0) +
@@ -460,6 +470,10 @@
 
       document.getElementById("totalPageViews").innerText = totalPageViews;
       document.getElementById("totalClicks").innerText = totalClicks;
+
+      var organicPct = totalPageViews > 0 ? Math.round((totalOrganicViews / totalPageViews) * 100) : 0;
+      document.getElementById("organicSearchViews").innerText = totalOrganicViews;
+      document.getElementById("organicSub").innerText = organicPct + "% from Google/Bing Organic Search";
 
       var ctr = totalPageViews > 0 ? Math.round((totalClicks / totalPageViews) * 100) : 0;
       document.getElementById("ctrPercentage").innerText = ctr + "%";
@@ -519,16 +533,19 @@
           var tr = document.createElement("tr");
           var ipText = log.ip || "Unknown IP";
           var locText = log.location || "🇲🇾 Malaysia";
+          var srcText = log.source || "⚡ Direct / URL";
+          var srcColor = log.isOrganic ? "#fde047" : "#cbd5e1";
+          var srcBg = log.isOrganic ? "rgba(245, 158, 11, 0.25)" : "rgba(255, 255, 255, 0.08)";
           tr.innerHTML = "<td style='white-space:nowrap;'>" + (log.time || "-") + "</td>" +
+                         "<td><span style='background:" + srcBg + "; color:" + srcColor + "; padding:4px 10px; border-radius:12px; font-weight:700; font-size:0.82rem; display:inline-block;'>" + srcText + "</span></td>" +
                          "<td style='font-weight:700; color:#ffe600;'>" + (log.linkName || "Visit") + "</td>" +
                          "<td style='font-family:monospace; color:#38bdf8; font-weight:700;'>" + ipText + "</td>" +
                          "<td style='color:#4ade80; font-weight:600;'>" + locText + "</td>" +
-                         "<td>" + (log.isMobile ? "📱 Mobile" : "💻 Desktop") + "</td>" +
-                         "<td><a href='" + (log.url || "#") + "' target='_blank' style='color:#38bdf8; text-decoration:none;'>View Link</a></td>";
+                         "<td>" + (log.isMobile ? "📱 Mobile" : "💻 Desktop") + "</td>";
           tbody.appendChild(tr);
         });
       } else {
-        tbody.innerHTML = "<tr><td colspan='6' style='text-align: center; color: #94a3b8;'>No visitor IP logs recorded yet. Visit the main page to generate live IP records!</td></tr>";
+        tbody.innerHTML = "<tr><td colspan='6' style='text-align: center; color: #94a3b8;'>No visitor IP logs recorded yet. Visit the main page to generate live IP &amp; Traffic Source records!</td></tr>";
       }
     }
 
@@ -542,7 +559,7 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               name: "4d88_analytics",
-              data: { totalClicks: 0, pageViews: 0, link_rm10: 0, link_vworld: 0, link_usdt: 0, link_4d: 0, link_telegram: 0, mobile: 0, desktop: 0, recentLogs: [] }
+              data: { totalClicks: 0, pageViews: 0, organicViews: 0, link_rm10: 0, link_vworld: 0, link_usdt: 0, link_4d: 0, link_telegram: 0, mobile: 0, desktop: 0, recentLogs: [] }
             })
           });
         } catch (e) {}
