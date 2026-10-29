@@ -159,66 +159,56 @@ body {
   margin: 0 auto;
 }
 
-/* Original 3-Column VIP Quick-Action Deck */
+/* Original 2-Column Side-by-Side VIP Quick-Action Deck (Mobile & Desktop) */
 .vip-action-deck {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin: 20px 0 24px 0;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 16px 0 18px 0;
 }
 
 .vip-action-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 18px 18px 16px 18px;
-  border-radius: 16px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 14px 12px;
+  border-radius: 14px;
   text-decoration: none !important;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
   overflow: hidden;
 }
 
 .vip-action-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
   filter: brightness(1.06);
 }
 
 .vip-action-ruby {
-  background: linear-gradient(145deg, #b91c1c 0%, #dc2626 45%, #7f1d1d 100%);
+  background: linear-gradient(180deg, #ff2a55 0%, #dc2626 100%);
   border: 2px solid #fde047;
-  box-shadow: 0 10px 28px rgba(220, 38, 38, 0.4);
+  box-shadow: 0 8px 22px rgba(220, 38, 38, 0.45);
   color: #ffffff !important;
 }
 
 .vip-action-gold {
-  background: linear-gradient(145deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%);
+  background: linear-gradient(180deg, #ffd43b 0%, #f59e0b 100%);
   border: 2px solid #fef08a;
-  box-shadow: 0 10px 28px rgba(245, 158, 11, 0.35);
+  box-shadow: 0 8px 22px rgba(245, 158, 11, 0.4);
   color: #111827 !important;
 }
 
-.vip-action-royal {
-  background: linear-gradient(145deg, #1e3a8a 0%, #2563eb 50%, #4f46e5 100%);
-  border: 2px solid #38bdf8;
-  box-shadow: 0 10px 28px rgba(37, 99, 235, 0.38);
-  color: #ffffff !important;
-}
-
-.vip-action-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
 .vip-pill-tag {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 900;
-  padding: 3px 10px;
+  padding: 2px 9px;
   border-radius: 20px;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
+  margin-bottom: 5px;
+  display: inline-block;
 }
 
 .vip-action-ruby .vip-pill-tag {
@@ -231,28 +221,17 @@ body {
   color: #fde047;
 }
 
-.vip-action-royal .vip-pill-tag {
-  background: #38bdf8;
-  color: #0f172a;
-}
-
-.vip-action-arrow {
-  font-size: 1.1rem;
-  font-weight: 900;
-  opacity: 0.85;
-}
-
 .vip-action-title {
-  font-size: 1.18rem;
+  font-size: 1.15rem;
   font-weight: 900;
-  line-height: 1.25;
-  margin-bottom: 6px;
+  line-height: 1.2;
+  margin-bottom: 3px;
 }
 
 .vip-action-desc {
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   font-weight: 700;
-  opacity: 0.9;
+  opacity: 0.92;
 }
 
 /* Original 4D88 3-Pillar Jackpot Highlight Strip */
@@ -1137,126 +1116,300 @@ body {
   opacity: 1;
 }
 
-/* ===== 📱 手机端专用优化 (全部电话看到很大 + 紧凑好看) ===== */
+/* ===== 📱 手机端专用优化 (原生 App 级紧凑排版 · 一屏尽览 · 零横向滚动) ===== */
 @media (max-width: 768px) {
   .container {
-    padding: 0 12px;
+    padding: 0 10px;
+  }
+
+  .header-container {
+    height: 50px;
+  }
+
+  .logo {
+    font-size: 1.05rem;
+  }
+
+  .logo-text span {
+    display: none;
+  }
+
+  .nav {
+    display: flex;
+    gap: 8px;
+  }
+
+  .nav-link {
+    display: none;
+  }
+
+  .nav-link:first-child {
+    display: inline-flex;
+    background: linear-gradient(90deg, #ff2a55, #dc2626);
+    color: #ffffff !important;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    border: 1px solid #fde047;
   }
 
   .hero {
-    padding: 18px 0 15px;
+    padding: 12px 0 14px;
+  }
+
+  .vip-hub {
+    margin-bottom: 18px;
+  }
+
+  .vip-hero-box {
+    margin-bottom: 12px;
+  }
+
+  .vip-status-strip {
+    padding: 4px 12px;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .vip-status-item {
+    font-size: 0.7rem;
+  }
+
+  /* 隐藏多余的状态标签，手机端只保留最核心的2个，避免换行杂乱 */
+  .vip-status-item:nth-child(3),
+  .vip-status-item:nth-child(4) {
+    display: none;
   }
 
   .vip-main-title {
-    font-size: 1.65rem;
+    font-size: 1.38rem;
+    margin-bottom: 4px;
   }
 
+  .vip-main-sub {
+    font-size: 0.78rem;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* 手机端保持左右并排双大按钮，紧凑高转化 */
   .vip-action-deck {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin: 12px 0 12px 0;
   }
 
+  .vip-action-card {
+    padding: 11px 8px;
+    border-radius: 12px;
+  }
+
+  .vip-pill-tag {
+    font-size: 0.58rem;
+    padding: 2px 7px;
+    margin-bottom: 4px;
+  }
+
+  .vip-action-title {
+    font-size: 0.92rem;
+    margin-bottom: 2px;
+  }
+
+  .vip-action-desc {
+    font-size: 0.65rem;
+  }
+
+  /* 手机端保持 3 列迷你头奖看板，一行排开不占高度 */
   .vip-jackpot-grid {
-    grid-template-columns: 1fr;
-    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .vip-jackpot-box {
+    flex-direction: column;
+    text-align: center;
+    padding: 8px 4px;
+    gap: 4px;
+    border-radius: 10px;
+  }
+
+  .vip-jp-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 0.95rem;
+    border-radius: 8px;
+  }
+
+  .vip-jp-label {
+    font-size: 0.6rem;
+    line-height: 1.1;
+  }
+
+  .vip-jp-val {
+    font-size: 0.88rem;
+  }
+
+  .vip-jp-val small {
+    display: none;
+  }
+
+  /* 手机端 4D 赔率表：8列100%适配一屏，零横向滚动条 */
+  .vip-matrix-card {
+    border-radius: 12px;
+    margin-bottom: 14px;
   }
 
   .vip-matrix-header {
-    padding: 12px 14px;
+    padding: 10px 12px;
+    gap: 6px;
   }
 
-  .vip-table thead th,
+  .vip-matrix-badge {
+    font-size: 0.62rem;
+    padding: 2px 6px;
+  }
+
+  .vip-matrix-title {
+    font-size: 0.85rem;
+  }
+
+  .vip-op-pills {
+    gap: 4px;
+  }
+
+  .vip-op-pill {
+    font-size: 0.62rem;
+    padding: 2px 7px;
+  }
+
+  .vip-table {
+    font-size: 0.74rem;
+  }
+
+  .vip-table thead th {
+    padding: 8px 2px;
+    font-size: 0.64rem;
+    letter-spacing: 0;
+  }
+
   .vip-table td {
-    padding: 10px 6px;
-    font-size: 0.82rem;
+    padding: 9px 2px;
+    font-size: 0.75rem;
   }
 
   .vip-table thead th:first-child,
   .vip-table td:first-child {
-    padding-left: 10px;
+    padding-left: 6px;
   }
 
   .vip-row-1st td {
-    font-size: 0.92rem;
+    font-size: 0.78rem;
   }
 
-  .hero-title {
-    font-size: 1.65rem;
+  .vip-peak-badge {
+    padding: 1px 4px;
+    font-size: 0.75rem;
   }
 
-  .hero-subtitle {
-    font-size: 0.88rem;
-    margin-bottom: 15px;
-  }
-
-  .nav {
-    display: none;
-  }
-
-  .cards-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .card {
-    padding: 16px;
-  }
-
-  .card-header {
-    gap: 10px;
-    margin-bottom: 8px;
-  }
-
-  .card-icon {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
-  }
-
-  .card-title-group h3 {
-    font-size: 1.05rem;
-  }
-
-  .card-desc {
-    font-size: 0.85rem;
-    margin-bottom: 10px;
-  }
-
-  .card-benefits {
-    padding: 8px 10px;
-    margin-bottom: 14px;
-    font-size: 0.8rem;
-  }
-
-  /* 📱 手机端按钮超大高亮超醒目 */
-  .btn {
-    padding: 15px 16px !important;
-    font-size: 1.05rem !important;
-    font-weight: 900 !important;
-    border-radius: 12px !important;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5) !important;
-  }
-
-  .btn-large {
-    padding: 16px 16px !important;
-    font-size: 1.02rem !important;
-  }
-
-  .payout-table th, .payout-table td {
-    padding: 8px 4px;
-    font-size: 0.82rem;
-  }
-
-  .card-banner-box {
-    max-height: 115px;
-    margin: 8px 0 10px 0;
-  }
-
-  .card-banner-img {
-    height: 115px;
+  /* 手机端 4 大活动卡片改为 2x2 双列海报橱窗，彻底告别冗长文字 */
+  .top-links-header {
+    margin: 12px 0 10px;
   }
 
   .top-links-header h2 {
-    font-size: 1.15rem;
+    font-size: 0.95rem;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .card {
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  .card-tag {
+    font-size: 0.62rem;
+    padding: 2px 7px;
+    right: 8px;
+    top: -8px;
+  }
+
+  .card-header {
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .card-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+    border-radius: 7px;
+  }
+
+  .card-title-group h3 {
+    font-size: 0.82rem;
+    line-height: 1.2;
+  }
+
+  .rating {
+    font-size: 0.62rem;
+  }
+
+  .card-banner-box {
+    max-height: 88px;
+    margin: 4px 0 8px 0;
+    border-radius: 8px;
+  }
+
+  .card-banner-img {
+    height: 88px;
+    object-fit: cover;
+  }
+
+  /* 手机端隐藏冗长段落与列表，直接突出海报与一键领取按钮 */
+  .card-desc,
+  .card-benefits {
+    display: none;
+  }
+
+  .btn {
+    padding: 10px 8px !important;
+    font-size: 0.78rem !important;
+    font-weight: 900 !important;
+    border-radius: 8px !important;
+  }
+
+  .telegram-banner-box {
+    padding: 12px 14px;
+    margin: 12px 0 16px 0;
+    border-radius: 12px;
+  }
+
+  .telegram-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 1.4rem;
+  }
+
+  .telegram-text h3 {
+    font-size: 0.9rem;
+  }
+
+  .telegram-text p {
+    font-size: 0.72rem;
+  }
+
+  .btn-telegram {
+    width: 100%;
+    justify-content: center;
+    padding: 8px 14px;
+    font-size: 0.82rem;
   }
 }
