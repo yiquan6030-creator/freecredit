@@ -245,6 +245,23 @@ async function trackPageView() {
   }
 }
 
+function update4DCalc(val) {
+  var stake = parseFloat(val);
+  if (isNaN(stake) || stake <= 0) stake = 1;
+  var bigEl = document.getElementById("calcBigVal");
+  var smallEl = document.getElementById("calcSmallVal");
+  var saEl = document.getElementById("calcSaVal");
+  if (bigEl) bigEl.innerText = "RM " + Math.round(stake * 4000).toLocaleString();
+  if (smallEl) smallEl.innerText = "RM " + Math.round(stake * 5200).toLocaleString();
+  if (saEl) saEl.innerText = "RM " + Math.round(stake * 8400).toLocaleString();
+}
+
+function set4DStake(val) {
+  var input = document.getElementById("calcStakeInput");
+  if (input) input.value = val;
+  update4DCalc(val);
+}
+
 function pingIndexNow() {
   try {
     var payload = {
@@ -254,8 +271,12 @@ function pingIndexNow() {
       urlList: [
         "https://4d88.lol/",
         "https://4d88.lol/free-credit-rm10.html",
+        "https://4d88.lol/kredit-percuma-rm10-tanpa-deposit.html",
         "https://4d88.lol/918kiss-free-credit.html",
+        "https://4d88.lol/vworld-register-login-malaysia.html",
         "https://4d88.lol/4d-result-malaysia.html",
+        "https://4d88.lol/beli-4d-online-malaysia.html",
+        "https://4d88.lol/u2-wallet-login-register-malaysia.html",
         "https://4d88.lol/usdt-casino-malaysia.html"
       ]
     };

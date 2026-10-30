@@ -1,7 +1,8 @@
 {
   "name": "malaysia-free-credit-4d",
   "version": "1.0.0",
+  "private": true,
   "scripts": {
-    "build": "mkdir -p dist && cp -r index.html admin.html free-credit-rm10.html 918kiss-free-credit.html 4d-result-malaysia.html usdt-casino-malaysia.html styles.css script.js sitemap.xml robots.txt 75f3a0937a514d59ab5d606132d7335d.txt favicon.ico assets dist/"
+    "build": "mkdir -p dist && cp -r index.html admin.html free-credit-rm10.html kredit-percuma-rm10-tanpa-deposit.html 918kiss-free-credit.html vworld-register-login-malaysia.html 4d-result-malaysia.html beli-4d-online-malaysia.html u2-wallet-login-register-malaysia.html usdt-casino-malaysia.html styles.css script.js sitemap.xml robots.txt 75f3a0937a514d59ab5d606132d7335d.txt favicon.ico assets dist/"
   }
 }
