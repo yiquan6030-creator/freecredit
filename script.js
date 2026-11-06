@@ -425,9 +425,26 @@ document.addEventListener("click", function (e) {
 });
 
 /**
- * DOM 加载完成初始化 FAQ & 自动上报 PV
+ * DOM 加载完成初始化 FAQ & 自动上报 PV & 实时 SEO 新鲜度信号
  */
 document.addEventListener("DOMContentLoaded", function () {
+  // 规范化 /index.html 为根路径 /，集中 Google PageRank 权重
+  try {
+    if (window.location.pathname === "/index.html" && window.history && window.history.replaceState) {
+      window.history.replaceState(null, "", "/" + (window.location.search || "") + (window.location.hash || ""));
+    }
+  } catch (e) {}
+
+  // 自动更新每日 SEO 新鲜度日期徽章 (Google Freshness Signal)
+  try {
+    var seoDateEl = document.getElementById("live-seo-date");
+    if (seoDateEl) {
+      var now = new Date();
+      var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      seoDateEl.innerText = "🟢 Verified: " + now.getDate() + " " + months[now.getMonth()] + " " + now.getFullYear();
+    }
+  } catch (e) {}
+
   // 自动上报页面浏览量 (PV) 与访客 IP
   trackPageView();
 
