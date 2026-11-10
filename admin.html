@@ -1,25 +1,25 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>4D88 Link Click Analytics Admin Dashboard (Global Real-Time Cloud DB)</title>
+  <title>4D88 Link Click & Traffic Source Analytics Admin (Dual-Cloud Real-Time DB)</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="styles.css">
   <style>
     /* Admin Dashboard Custom Styles */
     body {
-      background: #0d0404;
+      background: #0b0d14;
       color: #f8fafc;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       padding-bottom: 50px;
     }
 
     .admin-header {
-      background: #180505;
-      border-bottom: 1px solid rgba(239, 68, 68, 0.3);
-      padding: 20px 0;
-      margin-bottom: 30px;
+      background: #121521;
+      border-bottom: 1.5px solid rgba(251, 191, 36, 0.35);
+      padding: 18px 0;
+      margin-bottom: 26px;
     }
 
     .admin-header-flex {
@@ -27,32 +27,54 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 15px;
+      gap: 12px;
     }
 
     .admin-title {
-      font-size: 1.5rem;
+      font-size: 1.35rem;
       font-weight: 800;
-      color: #ffe600;
+      color: #fde047;
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
     .admin-badge {
-      background: #dc2626;
+      background: linear-gradient(135deg, #10b981, #059669);
       color: #fff;
-      font-size: 0.75rem;
-      padding: 3px 8px;
-      border-radius: 6px;
+      font-size: 0.72rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 800;
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-test {
+      background: linear-gradient(135deg, #2563eb, #0284c7);
+      color: #fff;
+      padding: 8px 14px !important;
+      font-size: 0.82rem !important;
+      border-radius: 8px !important;
+      border: none;
+      cursor: pointer;
+      font-weight: 800;
     }
 
     .btn-reset {
       background: #991b1b;
       color: #fff;
-      padding: 8px 16px !important;
-      font-size: 0.85rem !important;
+      padding: 8px 14px !important;
+      font-size: 0.82rem !important;
       border-radius: 8px !important;
+      border: none;
+      cursor: pointer;
+      font-weight: 800;
     }
 
     .btn-reset:hover {
@@ -62,60 +84,71 @@
     /* Stats Grid */
     .admin-stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-bottom: 26px;
     }
 
     .stat-card {
-      background: rgba(30, 10, 10, 0.85);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      border-radius: 12px;
-      padding: 20px;
+      background: #141824;
+      border: 1.5px solid rgba(251, 191, 36, 0.28);
+      border-radius: 14px;
+      padding: 18px;
       position: relative;
     }
 
     .stat-card-title {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: #cbd5e1;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+      font-weight: 700;
     }
 
     .stat-card-val {
-      font-size: 2.2rem;
+      font-size: 2.1rem;
       font-weight: 900;
-      color: #ffe600;
+      color: #fde047;
     }
 
     .stat-card-sub {
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       color: #94a3b8;
       margin-top: 4px;
     }
 
-    /* Link Performance Breakdown Cards */
+    /* Two-Column Breakdown Grid */
+    .breakdown-grid-2col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 20px;
+      margin-bottom: 26px;
+    }
+
+    /* Link & Source Breakdown Cards */
     .link-breakdown-section {
-      background: rgba(30, 10, 10, 0.85);
-      border: 1px solid rgba(239, 68, 68, 0.3);
+      background: #141824;
+      border: 1.5px solid rgba(251, 191, 36, 0.28);
       border-radius: 16px;
-      padding: 25px;
-      margin-bottom: 30px;
+      padding: 22px;
+      margin-bottom: 24px;
     }
 
     .section-title {
-      font-size: 1.2rem;
+      font-size: 1.12rem;
       font-weight: 800;
       color: #ffffff;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 8px;
+      flex-wrap: wrap;
     }
 
     .link-item {
-      margin-bottom: 20px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     }
 
     .link-item:last-child {
@@ -128,54 +161,57 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
+      gap: 8px;
     }
 
     .link-name {
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 0.94rem;
       color: #ffffff;
     }
 
     .link-count {
       font-weight: 900;
-      font-size: 1.1rem;
-      color: #ffe600;
+      font-size: 0.98rem;
+      color: #fde047;
+      white-space: nowrap;
     }
 
     .progress-bar-bg {
       width: 100%;
-      height: 12px;
-      background: rgba(255, 255, 255, 0.1);
+      height: 10px;
+      background: rgba(255, 255, 255, 0.09);
       border-radius: 6px;
       overflow: hidden;
     }
 
     .progress-bar-fill {
       height: 100%;
-      background: linear-gradient(90deg, #ff1a1a, #ffb700);
+      background: linear-gradient(90deg, #ef4444, #fbbf24);
       border-radius: 6px;
-      transition: width 0.5s ease;
+      transition: width 0.4s ease;
     }
 
     /* Logs Table */
     .logs-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.88rem;
+      font-size: 0.84rem;
     }
 
     .logs-table th {
-      background: #180505;
-      color: #cbd5e1;
-      padding: 12px;
+      background: #0b0d14;
+      color: #fde047;
+      padding: 11px 10px;
       text-align: left;
-      border-bottom: 2px solid rgba(239, 68, 68, 0.4);
+      border-bottom: 2px solid rgba(251, 191, 36, 0.35);
+      white-space: nowrap;
     }
 
     .logs-table td {
-      padding: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       color: #e2e8f0;
     }
 
@@ -186,7 +222,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(10, 2, 2, 0.95);
+      background: rgba(8, 10, 16, 0.96);
       backdrop-filter: blur(10px);
       display: flex;
       justify-content: center;
@@ -195,20 +231,20 @@
     }
 
     .auth-box {
-      background: #180505;
-      border: 2px solid #dc2626;
+      background: #141824;
+      border: 2px solid #fbbf24;
       border-radius: 16px;
       padding: 30px;
       width: 90%;
       max-width: 400px;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(220, 38, 38, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
     }
 
     .auth-title {
       font-size: 1.3rem;
       font-weight: 800;
-      color: #ffe600;
+      color: #fde047;
       margin-bottom: 15px;
     }
 
@@ -237,8 +273,8 @@
   <!-- 密码验证弹窗 Password Auth Modal -->
   <div id="authOverlay" class="auth-overlay">
     <div class="auth-box">
-      <div class="auth-title">🔒 Link Analytics Admin</div>
-      <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 15px;">Please enter admin password to view global click counts &amp; page views:</p>
+      <div class="auth-title">🔒 4D88 Cloud Analytics Admin</div>
+      <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 15px;">Enter admin PIN to view real-time global traffic sources, website visits &amp; link clicks:</p>
       <input type="password" id="pinInput" class="auth-input" placeholder="Enter PIN (Default: 8888)" autofocus>
       <button class="btn btn-primary btn-block" onclick="verifyPin()">Unlock Dashboard</button>
       <div id="authErr" class="auth-err">Incorrect Password! Please try again.</div>
@@ -250,11 +286,13 @@
     <header class="admin-header">
       <div class="container admin-header-flex">
         <div class="admin-title">
-          📊 Link Click &amp; Page View Analytics <span class="admin-badge">GLOBAL REAL-TIME CLOUD DB</span>
+          📊 4D88 Real-Time Traffic &amp; Click Dashboard
+          <span class="admin-badge" id="syncStatusBadge">🟢 LIVE STREAM CONNECTED</span>
         </div>
-        <div>
-          <button class="btn btn-reset" onclick="clearData()">🗑️ Reset Statistics</button>
-          <a href="/" class="btn btn-primary" style="padding: 8px 16px !important; font-size: 0.85rem !important;">👈 Back to Website</a>
+        <div class="admin-actions">
+          <button class="btn-test" onclick="sendTestSignal()">⚡ Test Click &amp; Visit (测试上报)</button>
+          <button class="btn-reset" onclick="clearData()">🗑️ Reset Statistics</button>
+          <a href="/" class="btn btn-primary" style="padding: 8px 14px !important; font-size: 0.82rem !important;">👈 Back to Website</a>
         </div>
       </div>
     </header>
@@ -262,118 +300,181 @@
     <div class="container">
       <!-- 汇总数据卡片 Grid -->
       <div class="admin-stats-grid">
-        <!-- 核心新增卡片：总浏览量 (PV) -->
+        <!-- 总浏览量 (PV) -->
         <div class="stat-card" style="border-color: #38bdf8;">
-          <div class="stat-card-title">TOTAL PAGE VIEWS (全网实时总浏览量 PV)</div>
+          <div class="stat-card-title">TOTAL WEBSITE VISITS (全网网站总访问次数 PV)</div>
           <div class="stat-card-val" id="totalPageViews" style="color: #38bdf8;">0</div>
-          <div class="stat-card-sub">Total page visits across ALL users &amp; devices</div>
+          <div class="stat-card-sub" id="pvSubText">Total page visits across all pages &amp; devices</div>
         </div>
 
-        <!-- 核心新增卡片：自然搜索流量 (Organic Search PV) -->
+        <!-- 自然搜索流量 (Organic Search PV) -->
         <div class="stat-card" style="border-color: #f59e0b;">
-          <div class="stat-card-title">ORGANIC SEARCH (Google/Bing 自然搜索流量)</div>
+          <div class="stat-card-title">ORGANIC SEARCH (Google/Bing 自然搜索访问)</div>
           <div class="stat-card-val" id="organicSearchViews" style="color: #f59e0b;">0</div>
           <div class="stat-card-sub" id="organicSub">0% of total visits from Search Engines</div>
         </div>
 
-        <div class="stat-card">
-          <div class="stat-card-title">TOTAL CLICKS (全网实时总点击量)</div>
-          <div class="stat-card-val" id="totalClicks">0</div>
-          <div class="stat-card-sub">Global click count across ALL offer buttons</div>
+        <!-- 推广按钮总点击量 -->
+        <div class="stat-card" style="border-color: #ef4444;">
+          <div class="stat-card-title">TOTAL OFFER CLICKS (注册/领彩金按钮总点击量)</div>
+          <div class="stat-card-val" id="totalClicks" style="color: #fde047;">0</div>
+          <div class="stat-card-sub">Total clicks on U2 RM10, VWorld, USDT, 4D &amp; TG</div>
         </div>
 
-        <!-- 核心新增卡片：点击转化率 (CTR %) -->
+        <!-- 点击转化率 (CTR %) -->
         <div class="stat-card" style="border-color: #4ade80;">
           <div class="stat-card-title">CLICK CONVERSION (CTR 点击转化率)</div>
           <div class="stat-card-val" id="ctrPercentage" style="color: #4ade80;">0%</div>
-          <div class="stat-card-sub">Percentage of visitors clicking register links</div>
+          <div class="stat-card-sub">Percentage of visitors clicking offer links</div>
         </div>
 
         <div class="stat-card">
-          <div class="stat-card-title">TOP PERFORMING OFFER</div>
-          <div class="stat-card-val" id="topOfferName" style="font-size: 1.2rem; line-height: 1.4;">-</div>
+          <div class="stat-card-title">TOP PERFORMING OFFER (最高点击项目)</div>
+          <div class="stat-card-val" id="topOfferName" style="font-size: 1.15rem; line-height: 1.35;">-</div>
           <div class="stat-card-sub" id="topOfferClicks">0 clicks</div>
         </div>
 
         <div class="stat-card">
-          <div class="stat-card-title">MOBILE USERS %</div>
-          <div class="stat-card-val" id="mobilePercentage">0%</div>
-          <div class="stat-card-sub" id="mobileCount">0 mobile clicks</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-card-title">DESKTOP USERS %</div>
-          <div class="stat-card-val" id="desktopPercentage">0%</div>
-          <div class="stat-card-sub" id="desktopCount">0 desktop clicks</div>
+          <div class="stat-card-title">MOBILE vs DESKTOP (手机/电脑占比)</div>
+          <div class="stat-card-val" id="mobilePercentage" style="font-size: 1.55rem;">0% Mobile</div>
+          <div class="stat-card-sub" id="deviceCountSub">0 Mobile · 0 Desktop</div>
         </div>
       </div>
 
-      <!-- 各链接点击量细分图表 Breakdown -->
-      <div class="link-breakdown-section">
-        <div class="section-title">
-          <span>🎯 Individual Registration Link Breakdown (Real-Time Cloud DB)</span>
+      <!-- 双栏图表：左边各推广按钮点击细分，右边全网流量来源细分 -->
+      <div class="breakdown-grid-2col">
+
+        <!-- 左栏：各注册推广链接点击量细分 -->
+        <div class="link-breakdown-section" style="margin-bottom: 0;">
+          <div class="section-title">
+            <span>🎯 Offer Button Clicks Breakdown (各推广链接点击次数)</span>
+          </div>
+
+          <!-- Link 1: U2 Malaysia RM10 -->
+          <div class="link-item">
+            <div class="link-info">
+              <div class="link-name">1. 🎁 U2 Malaysia (Claim Free Credit RM10)</div>
+              <div class="link-count" id="count-link-u2-rm10">0 clicks (0%)</div>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="bar-link-u2-rm10" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <!-- Link 2: VWorld Deposit 20 Get 20 -->
+          <div class="link-item">
+            <div class="link-info">
+              <div class="link-name">2. 💰 VWorld Deposit RM20 Get RM20 (x1)</div>
+              <div class="link-count" id="count-link-vw-topup20">0 clicks (0%)</div>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="bar-link-vw-topup20" style="width: 0%; background: linear-gradient(90deg, #f59e0b, #fde047);"></div>
+            </div>
+          </div>
+
+          <!-- Link 3: U2 USDT Crypto -->
+          <div class="link-item">
+            <div class="link-info">
+              <div class="link-name">3. 🪙 U2 USDT Crypto (Deposit 20U Get 10U)</div>
+              <div class="link-count" id="count-link-u2-usdt">0 clicks (0%)</div>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="bar-link-u2-usdt" style="width: 0%; background: linear-gradient(90deg, #8b5cf6, #c084fc);"></div>
+            </div>
+          </div>
+
+          <!-- Link 4: U2 4D Lottery -->
+          <div class="link-item">
+            <div class="link-info">
+              <div class="link-name">4. 🎲 U2 4D Lottery Portal (1:8400 Payout)</div>
+              <div class="link-count" id="count-link-u2-4d">0 clicks (0%)</div>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="bar-link-u2-4d" style="width: 0%; background: linear-gradient(90deg, #0284c7, #38bdf8);"></div>
+            </div>
+          </div>
+
+          <!-- Link 5: Official Telegram Channel -->
+          <div class="link-item">
+            <div class="link-info">
+              <div class="link-name">5. ✈️ Official Telegram (@freerm10_4d168)</div>
+              <div class="link-count" id="count-link-telegram">0 clicks (0%)</div>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="bar-link-telegram" style="width: 0%; background: linear-gradient(90deg, #0088cc, #38bdf8);"></div>
+            </div>
+          </div>
         </div>
 
-        <!-- Link 1: U2 Malaysia RM10 -->
-        <div class="link-item">
-          <div class="link-info">
-            <div class="link-name">1. U2 Malaysia Official (Claim Free Credit RM10)</div>
-            <div class="link-count" id="count-link-u2-rm10">0 clicks (0%)</div>
+        <!-- 右栏：全网流量来源统计明细 (Traffic Source Breakdown) -->
+        <div class="link-breakdown-section" style="margin-bottom: 0;">
+          <div class="section-title">
+            <span>🌐 Traffic Source Breakdown (全网访客流量来源统计)</span>
           </div>
-          <div class="progress-bar-bg">
-            <div class="progress-bar-fill" id="bar-link-u2-rm10" style="width: 0%;"></div>
+
+          <!-- Source 1: Google Organic Search -->
+          <div class="link-item">
+            <div class="link-info">
+              <div class="link-name">🔍 Google Search (谷歌自然搜索)</div>
+              <div class="link-count" id="count-src-google">0 visits (0%)</div>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="bar-src-google" style="width: 0%; background: linear-gradient(90deg, #f59e0b, #fde047);"></div>
+            </div>
+          </div>
+
+          <!-- Source 2: Bing / Yahoo / Other Search -->
+          <div class="link-item">
+            <div class="link-info">
+              <div class="link-name">🔍 Bing / Yahoo / Other Search (必应等搜索)</div>
+              <div class="link-count" id="count-src-bing">0 visits (0%)</div>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="bar-src-bing" style="width: 0%; background: linear-gradient(90deg, #10b981, #34d399);"></div>
+            </div>
+          </div>
+
+          <!-- Source 3: Telegram -->
+          <div class="link-item">
+            <div class="link-info">
+              <div class="link-name">✈️ Telegram Channel / App (TG 频道与群组)</div>
+              <div class="link-count" id="count-src-telegram">0 visits (0%)</div>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="bar-src-telegram" style="width: 0%; background: linear-gradient(90deg, #0284c7, #38bdf8);"></div>
+            </div>
+          </div>
+
+          <!-- Source 4: WhatsApp / Facebook / TikTok / Social -->
+          <div class="link-item">
+            <div class="link-info">
+              <div class="link-name">💬 WhatsApp / FB / TikTok (社交转发引流)</div>
+              <div class="link-count" id="count-src-social">0 visits (0%)</div>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="bar-src-social" style="width: 0%; background: linear-gradient(90deg, #ec4899, #f43f5e);"></div>
+            </div>
+          </div>
+
+          <!-- Source 5: Direct / Bookmark -->
+          <div class="link-item">
+            <div class="link-info">
+              <div class="link-name">⚡ Direct / Bookmark (直接输入网址/书签)</div>
+              <div class="link-count" id="count-src-direct">0 visits (0%)</div>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="bar-src-direct" style="width: 0%; background: linear-gradient(90deg, #64748b, #94a3b8);"></div>
+            </div>
           </div>
         </div>
 
-        <!-- Link 2: VWorld Deposit 20 Get 20 -->
-        <div class="link-item">
-          <div class="link-info">
-            <div class="link-name">2. VWorld Deposit RM20 Get RM20 (x1 Turnover)</div>
-            <div class="link-count" id="count-link-vw-topup20">0 clicks (0%)</div>
-          </div>
-          <div class="progress-bar-bg">
-            <div class="progress-bar-fill" id="bar-link-vw-topup20" style="width: 0%; background: linear-gradient(90deg, #ffb700, #ff8800);"></div>
-          </div>
-        </div>
-
-        <!-- Link 3: U2 USDT Crypto -->
-        <div class="link-item">
-          <div class="link-info">
-            <div class="link-name">3. U2 USDT Crypto Portal (Deposit 20 Get 10 USDT)</div>
-            <div class="link-count" id="count-link-u2-usdt">0 clicks (0%)</div>
-          </div>
-          <div class="progress-bar-bg">
-            <div class="progress-bar-fill" id="bar-link-u2-usdt" style="width: 0%; background: linear-gradient(90deg, #a855f7, #c084fc);"></div>
-          </div>
-        </div>
-
-        <!-- Link 4: U2 4D Lottery -->
-        <div class="link-item">
-          <div class="link-info">
-            <div class="link-name">4. U2 4D Lottery Portal (1:8400 Payout)</div>
-            <div class="link-count" id="count-link-u2-4d">0 clicks (0%)</div>
-          </div>
-          <div class="progress-bar-bg">
-            <div class="progress-bar-fill" id="bar-link-u2-4d" style="width: 0%; background: linear-gradient(90deg, #00d2ff, #3a7bd5);"></div>
-          </div>
-        </div>
-
-        <!-- Link 5: Official Telegram Channel -->
-        <div class="link-item">
-          <div class="link-info">
-            <div class="link-name">5. Official Telegram Channel (@freerm10_4d168)</div>
-            <div class="link-count" id="count-link-telegram">0 clicks (0%)</div>
-          </div>
-          <div class="progress-bar-bg">
-            <div class="progress-bar-fill" id="bar-link-telegram" style="width: 0%; background: linear-gradient(90deg, #0088cc, #38bdf8);"></div>
-          </div>
-        </div>
       </div>
 
       <!-- 全网访客与点击 IP 归属地明细日志 Logs Table -->
       <div class="link-breakdown-section">
         <div class="section-title">
-          <span>🌍 Global Real-Time Visitor IP &amp; Traffic Source Log (全网访客 IP 归属地与自然搜索来源记录)</span>
+          <span>🌍 Global Real-Time Visitor IP, Traffic Source &amp; Click Log (最新 80 条全网访客与点击明细)</span>
+          <span style="font-size: 0.78rem; color: #34d399; font-weight: 700;" id="lastRefreshTime">Auto-refreshing every 6s...</span>
         </div>
 
         <div style="overflow-x: auto;">
@@ -382,7 +483,7 @@
               <tr>
                 <th>TIME (时间)</th>
                 <th>TRAFFIC SOURCE (流量来源)</th>
-                <th>ACTION / LINK NAME (动作/点击项目)</th>
+                <th>ACTION / LINK CLICKED (访问页面 / 点击项目)</th>
                 <th>IP ADDRESS (访客 IP)</th>
                 <th>LOCATION &amp; ISP (国家/城市/网络)</th>
                 <th>DEVICE (设备)</th>
@@ -390,7 +491,7 @@
             </thead>
             <tbody id="logsTableBody">
               <tr>
-                <td colspan="6" style="text-align: center; color: #94a3b8;">Waiting for new visitor IP &amp; source logs...</td>
+                <td colspan="6" style="text-align: center; color: #94a3b8;">Loading real-time cloud logs...</td>
               </tr>
             </tbody>
           </table>
@@ -403,104 +504,239 @@
   <script>
     var ADMIN_PIN = "8888";
     var DB_OBJECT_ID = "ff808181a058d43f01a05ce71bfe0e02";
+    var NTFY_STREAM_TOPIC = "4d88_lol_analytics_stream_v3";
+    var NTFY_POLL_URL = "https://ntfy.sh/" + NTFY_STREAM_TOPIC + "/json?poll=1&since=all";
+
+    // 缓存持久层快照，避免每 6 秒高频请求 restful-api.dev 触发每日 100 次限额
+    var cachedSnapshotData = null;
+    var lastSnapshotFetchTime = 0;
 
     function verifyPin() {
       var pin = document.getElementById("pinInput").value;
       if (pin === ADMIN_PIN || pin === "123456") {
         document.getElementById("authOverlay").style.display = "none";
         document.getElementById("dashboardContent").style.display = "block";
-        loadAnalyticsData();
-        // 5秒自动定时刷新
-        setInterval(loadAnalyticsData, 5000);
+        loadAnalyticsData(true);
+        // 每 6 秒从无限制的 ntfy.sh 实时云流拉取最新访问与点击事件
+        setInterval(function () {
+          loadAnalyticsData(false);
+        }, 6000);
       } else {
         document.getElementById("authErr").style.display = "block";
       }
     }
 
-    document.getElementById("pinInput").addEventListener("keypress", function(e) {
-      if (e.key === 'Enter') {
+    document.getElementById("pinInput").addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
         verifyPin();
       }
     });
 
-    async function loadAnalyticsData() {
-      var cloudData = null;
-      try {
-        var res = await fetch("https://api.restful-api.dev/objects/" + DB_OBJECT_ID);
-        if (res.ok) {
-          var resJson = await res.json();
-          cloudData = resJson.data;
-        }
-      } catch (e) {
-        console.log("Cloud DB Fetch Error:", e);
+    /**
+     * 根据日志文本推断流量分类 (兼容旧版日志格式)
+     */
+    function inferSourceCategory(log) {
+      if (log.sourceCategory) return log.sourceCategory;
+      var s = (log.source || "").toLowerCase();
+      if (s.includes("google")) return "google";
+      if (s.includes("bing") || s.includes("search") || s.includes("yahoo") || s.includes("baidu") || log.isOrganic) return "bing";
+      if (s.includes("telegram") || s.includes("tg")) return "telegram";
+      if (s.includes("whatsapp") || s.includes("facebook") || s.includes("fb") || s.includes("tiktok") || s.includes("wechat") || s.includes("referral")) return "social";
+      return "direct";
+    }
+
+    /**
+     * 核心双云端数据聚合引擎：合并 restful-api.dev 历史快照 + ntfy.sh 实时事件流 + 本地缓存
+     */
+    async function loadAnalyticsData(forceSnapshot) {
+      var nowMs = Date.now();
+
+      // 1. 每 60 秒或首次解锁时读取一次 restful-api.dev 历史快照
+      if (forceSnapshot || !cachedSnapshotData || (nowMs - lastSnapshotFetchTime > 60000)) {
+        try {
+          var res = await fetch("https://api.restful-api.dev/objects/" + DB_OBJECT_ID, { cache: "no-store" });
+          if (res.ok) {
+            var resJson = await res.json();
+            if (resJson && resJson.data) {
+              cachedSnapshotData = resJson.data;
+              lastSnapshotFetchTime = nowMs;
+            }
+          }
+        } catch (e) {}
       }
 
-      var localData = JSON.parse(localStorage.getItem("link_click_analytics_v1") || "{}");
-      var localTotal = localData.totalClicks || 0;
-      var localPV = localData.pageViews || 0;
-      var localOrganic = localData.organicViews || 0;
-      var localCounts = localData.linkCounts || {};
+      // 2. 实时拉取 ntfy.sh 云端事件流（无每日 100 次限制，零延迟）
+      var streamEvents = [];
+      try {
+        var streamRes = await fetch(NTFY_POLL_URL, { cache: "no-store" });
+        if (streamRes.ok) {
+          var text = await streamRes.text();
+          var lines = text.split("\n");
+          for (var i = 0; i < lines.length; i++) {
+            var line = lines[i].trim();
+            if (!line) continue;
+            try {
+              var envelope = JSON.parse(line);
+              if (envelope && envelope.event === "message" && envelope.message) {
+                var parsedEvt = JSON.parse(envelope.message);
+                if (parsedEvt && typeof parsedEvt === "object") {
+                  if (!parsedEvt.id) parsedEvt.id = "ntfy_" + envelope.id;
+                  streamEvents.push(parsedEvt);
+                }
+              }
+            } catch (errLine) {}
+          }
+          document.getElementById("syncStatusBadge").innerText = "🟢 LIVE CLOUD CONNECTED";
+        }
+      } catch (errStream) {
+        document.getElementById("syncStatusBadge").innerText = "🟡 LOCAL + SNAPSHOT MODE";
+      }
 
-      var cloudTotal = (cloudData && cloudData.totalClicks) ? cloudData.totalClicks : 0;
-      var cloudPV = (cloudData && cloudData.pageViews) ? cloudData.pageViews : 0;
-      var cloudOrganic = (cloudData && cloudData.organicViews) ? cloudData.organicViews : 0;
+      // 3. 檢查是否有 reset 标记在流中
+      var lastResetIndex = -1;
+      for (var r = 0; r < streamEvents.length; r++) {
+        if (streamEvents[r].eventType === "reset") {
+          lastResetIndex = r;
+        }
+      }
+      if (lastResetIndex >= 0) {
+        streamEvents = streamEvents.slice(lastResetIndex + 1);
+      }
 
-      var totalClicks = Math.max(cloudTotal, localTotal);
-      var totalPageViews = Math.max(cloudPV, localPV);
-      var totalOrganicViews = Math.max(cloudOrganic, localOrganic);
+      // 4. 合并并去重所有日志（Snapshot Logs + Stream Events + LocalStorage Logs）
+      var snapshotLogs = (cachedSnapshotData && Array.isArray(cachedSnapshotData.recentLogs)) ? cachedSnapshotData.recentLogs : [];
+      var localLogs = JSON.parse(localStorage.getItem("link_click_logs_v1") || "[]");
 
-      var knownSum = ((cloudData && cloudData.link_rm10) || 0) +
-                     ((cloudData && cloudData.link_vworld) || 0) +
-                     ((cloudData && cloudData.link_usdt) || 0) +
-                     ((cloudData && cloudData.link_4d) || 0);
-      var inferredTelegram = (cloudData && typeof cloudData.link_telegram === "number")
-        ? cloudData.link_telegram
-        : Math.max(0, cloudTotal - knownSum);
+      var seenKeys = {};
+      var allLogs = [];
 
-      var linkCounts = {
-        "link-u2-rm10": Math.max((cloudData && cloudData.link_rm10) || 0, localCounts["link-u2-rm10"] || 0),
-        "link-vw-topup20": Math.max((cloudData && cloudData.link_vworld) || 0, localCounts["link-vw-topup20"] || 0),
-        "link-u2-usdt": Math.max((cloudData && cloudData.link_usdt) || 0, localCounts["link-u2-usdt"] || 0),
-        "link-u2-4d": Math.max((cloudData && cloudData.link_4d) || 0, localCounts["link-u2-4d"] || 0),
-        "link-telegram": Math.max(inferredTelegram, localCounts["link-telegram"] || 0)
+      function addUniqueLog(log) {
+        if (!log || typeof log !== "object") return;
+        if (log.eventType === "reset") return;
+        var dedupKey = log.id || ((log.time || "") + "|" + (log.ip || "") + "|" + (log.key || "") + "|" + (log.linkName || ""));
+        if (seenKeys[dedupKey]) return;
+        seenKeys[dedupKey] = true;
+        allLogs.push(log);
+      }
+
+      snapshotLogs.forEach(addUniqueLog);
+      streamEvents.forEach(addUniqueLog);
+      localLogs.forEach(addUniqueLog);
+
+      // 5. 从去重后的完整事件流和历史快照中精确计算各项指标
+      var logPV = 0;
+      var logOrganic = 0;
+      var logClicks = 0;
+      var logMobile = 0;
+      var logDesktop = 0;
+      var logLinks = {
+        "link-u2-rm10": 0,
+        "link-vw-topup20": 0,
+        "link-u2-usdt": 0,
+        "link-u2-4d": 0,
+        "link-telegram": 0
+      };
+      var logSources = {
+        google: 0,
+        bing: 0,
+        telegram: 0,
+        social: 0,
+        direct: 0
       };
 
-      var mobileClicks = Math.max((cloudData && cloudData.mobile) || 0, localData.mobileClicks || 0);
-      var desktopClicks = Math.max((cloudData && cloudData.desktop) || 0, localData.desktopClicks || 0);
+      allLogs.forEach(function (item) {
+        var isPV = item.eventType === "pv" || item.key === "page-view";
+        var isClick = item.eventType === "click" || (item.key && item.key.indexOf("link-") === 0);
 
+        if (isPV) {
+          logPV += 1;
+          var cat = inferSourceCategory(item);
+          logSources[cat] = (logSources[cat] || 0) + 1;
+          if (item.isOrganic || cat === "google" || cat === "bing") {
+            logOrganic += 1;
+          }
+        } else if (isClick) {
+          logClicks += 1;
+          if (item.key && typeof logLinks[item.key] === "number") {
+            logLinks[item.key] += 1;
+          }
+          if (item.isMobile) logMobile += 1;
+          else logDesktop += 1;
+        }
+      });
+
+      var localData = JSON.parse(localStorage.getItem("link_click_analytics_v1") || "{}");
+      var localCounts = localData.linkCounts || {};
+
+      var snapPV = (cachedSnapshotData && cachedSnapshotData.pageViews) || 0;
+      var snapOrganic = (cachedSnapshotData && cachedSnapshotData.organicViews) || 0;
+      var snapClicks = (cachedSnapshotData && cachedSnapshotData.totalClicks) || 0;
+
+      var totalPageViews = Math.max(logPV, snapPV, localData.pageViews || 0);
+      var totalOrganicViews = Math.max(logOrganic, snapOrganic, localData.organicViews || 0);
+
+      var linkCounts = {
+        "link-u2-rm10": Math.max(logLinks["link-u2-rm10"], (cachedSnapshotData && cachedSnapshotData.link_rm10) || 0, localCounts["link-u2-rm10"] || 0),
+        "link-vw-topup20": Math.max(logLinks["link-vw-topup20"], (cachedSnapshotData && cachedSnapshotData.link_vworld) || 0, localCounts["link-vw-topup20"] || 0),
+        "link-u2-usdt": Math.max(logLinks["link-u2-usdt"], (cachedSnapshotData && cachedSnapshotData.link_usdt) || 0, localCounts["link-u2-usdt"] || 0),
+        "link-u2-4d": Math.max(logLinks["link-u2-4d"], (cachedSnapshotData && cachedSnapshotData.link_4d) || 0, localCounts["link-u2-4d"] || 0),
+        "link-telegram": Math.max(logLinks["link-telegram"], (cachedSnapshotData && cachedSnapshotData.link_telegram) || 0, localCounts["link-telegram"] || 0)
+      };
+
+      var sumLinkClicks = linkCounts["link-u2-rm10"] + linkCounts["link-vw-topup20"] + linkCounts["link-u2-usdt"] + linkCounts["link-u2-4d"] + linkCounts["link-telegram"];
+      var totalClicks = Math.max(logClicks, snapClicks, localData.totalClicks || 0, sumLinkClicks);
+
+      var mobileClicks = Math.max(logMobile, (cachedSnapshotData && cachedSnapshotData.mobile) || 0, localData.mobileClicks || 0);
+      var desktopClicks = Math.max(logDesktop, (cachedSnapshotData && cachedSnapshotData.desktop) || 0, localData.desktopClicks || 0);
+      var totalDeviceEvents = mobileClicks + desktopClicks;
+
+      // 流量来源分类汇总
+      var snapSources = (cachedSnapshotData && cachedSnapshotData.sourceCounts) || {};
+      var localSources = localData.sourceCounts || {};
+      var sourceCounts = {
+        google: Math.max(logSources.google, snapSources.google || 0, localSources.google || 0),
+        bing: Math.max(logSources.bing, snapSources.bing || 0, localSources.bing || 0),
+        telegram: Math.max(logSources.telegram, snapSources.telegram || 0, localSources.telegram || 0),
+        social: Math.max(logSources.social, snapSources.social || 0, localSources.social || 0),
+        direct: Math.max(logSources.direct, snapSources.direct || 0, localSources.direct || 0)
+      };
+      var sumSources = sourceCounts.google + sourceCounts.bing + sourceCounts.telegram + sourceCounts.social + sourceCounts.direct;
+      if (totalPageViews > sumSources) {
+        sourceCounts.direct += (totalPageViews - sumSources);
+        sumSources = totalPageViews;
+      }
+      totalOrganicViews = Math.max(totalOrganicViews, sourceCounts.google + sourceCounts.bing);
+
+      // 6. 渲染顶部核心指标卡片
       document.getElementById("totalPageViews").innerText = totalPageViews;
       document.getElementById("totalClicks").innerText = totalClicks;
 
-      var organicPct = totalPageViews > 0 ? Math.round((totalOrganicViews / totalPageViews) * 100) : 0;
+      var organicPct = totalPageViews > 0 ? Math.min(100, Math.round((totalOrganicViews / totalPageViews) * 100)) : 0;
       document.getElementById("organicSearchViews").innerText = totalOrganicViews;
       document.getElementById("organicSub").innerText = organicPct + "% from Google/Bing Organic Search";
 
       var ctr = totalPageViews > 0 ? Math.round((totalClicks / totalPageViews) * 100) : 0;
       document.getElementById("ctrPercentage").innerText = ctr + "%";
 
-      var mobilePct = totalClicks > 0 ? Math.round((mobileClicks / totalClicks) * 100) : 0;
-      var desktopPct = totalClicks > 0 ? Math.round((desktopClicks / totalClicks) * 100) : 0;
+      var mobilePct = totalDeviceEvents > 0 ? Math.round((mobileClicks / totalDeviceEvents) * 100) : 0;
+      document.getElementById("mobilePercentage").innerText = mobilePct + "% Mobile";
+      document.getElementById("deviceCountSub").innerText = mobileClicks + " Mobile · " + desktopClicks + " Desktop clicks";
 
-      document.getElementById("mobilePercentage").innerText = mobilePct + "%";
-      document.getElementById("mobileCount").innerText = mobileClicks + " mobile clicks";
-
-      document.getElementById("desktopPercentage").innerText = desktopPct + "%";
-      document.getElementById("desktopCount").innerText = desktopClicks + " desktop clicks";
-
+      // 7. 渲染左栏：各推广按钮点击量进度条
       var topLinkKey = "";
       var maxClicks = -1;
       var linkLabels = {
-        "link-u2-rm10": "1. U2 RM10 Free Credit",
-        "link-vw-topup20": "2. VWorld Deposit 20 Get 20",
-        "link-u2-usdt": "3. U2 USDT Crypto",
-        "link-u2-4d": "4. U2 4D Lottery",
-        "link-telegram": "5. Official Telegram Channel"
+        "link-u2-rm10": "🎁 U2 RM10 Free Credit",
+        "link-vw-topup20": "💰 VWorld Deposit 20 Get 20",
+        "link-u2-usdt": "🪙 U2 USDT Crypto (20U+10U)",
+        "link-u2-4d": "🎲 U2 4D Lottery (1:8400)",
+        "link-telegram": "✈️ Official Telegram Channel"
       };
 
       for (var key in linkCounts) {
         var count = linkCounts[key] || 0;
-        var pct = totalClicks > 0 ? Math.round((count / totalClicks) * 100) : 0;
-        
+        var pct = totalClicks > 0 ? Math.min(100, Math.round((count / totalClicks) * 100)) : 0;
+
         var countElem = document.getElementById("count-" + key);
         var barElem = document.getElementById("bar-" + key);
 
@@ -513,57 +749,138 @@
         }
       }
 
-      if (totalClicks > 0 && topLinkKey) {
+      if (totalClicks > 0 && topLinkKey && maxClicks > 0) {
         document.getElementById("topOfferName").innerText = linkLabels[topLinkKey] || topLinkKey;
-        document.getElementById("topOfferClicks").innerText = maxClicks + " clicks (" + Math.round((maxClicks / totalClicks) * 100) + "%)";
+        document.getElementById("topOfferClicks").innerText = maxClicks + " clicks (" + Math.round((maxClicks / totalClicks) * 100) + "% share)";
       } else {
-        document.getElementById("topOfferName").innerText = "No Data Yet";
+        document.getElementById("topOfferName").innerText = "Waiting for Clicks";
         document.getElementById("topOfferClicks").innerText = "0 clicks";
       }
 
-      var cloudLogs = (cloudData && Array.isArray(cloudData.recentLogs)) ? cloudData.recentLogs : [];
-      var localLogs = JSON.parse(localStorage.getItem("link_click_logs_v1") || "[]");
-      var combinedLogs = cloudLogs.length > 0 ? cloudLogs : localLogs;
+      // 8. 渲染右栏：全网流量来源统计明细进度条
+      var srcKeys = ["google", "bing", "telegram", "social", "direct"];
+      srcKeys.forEach(function (sKey) {
+        var sCount = sourceCounts[sKey] || 0;
+        var sPct = sumSources > 0 ? Math.min(100, Math.round((sCount / sumSources) * 100)) : 0;
+        var sCountEl = document.getElementById("count-src-" + sKey);
+        var sBarEl = document.getElementById("bar-src-" + sKey);
+        if (sCountEl) sCountEl.innerText = sCount + " visits (" + sPct + "%)";
+        if (sBarEl) sBarEl.style.width = sPct + "%";
+      });
 
+      // 9. 渲染底部最新 80 条全网访客 IP 与动作明细表
       var tbody = document.getElementById("logsTableBody");
-      if (combinedLogs.length > 0) {
+      if (allLogs.length > 0) {
         tbody.innerHTML = "";
-        var recentLogs = combinedLogs.slice(-50).reverse();
-        recentLogs.forEach(function(log) {
+        var recentLogs = allLogs.slice(-80).reverse();
+        recentLogs.forEach(function (log) {
           var tr = document.createElement("tr");
-          var ipText = log.ip || "Unknown IP";
+          var ipText = log.ip || "Visitor IP";
           var locText = log.location || "🇲🇾 Malaysia";
           var srcText = log.source || "⚡ Direct / URL";
-          var srcColor = log.isOrganic ? "#fde047" : "#cbd5e1";
-          var srcBg = log.isOrganic ? "rgba(245, 158, 11, 0.25)" : "rgba(255, 255, 255, 0.08)";
-          tr.innerHTML = "<td style='white-space:nowrap;'>" + (log.time || "-") + "</td>" +
-                         "<td><span style='background:" + srcBg + "; color:" + srcColor + "; padding:4px 10px; border-radius:12px; font-weight:700; font-size:0.82rem; display:inline-block;'>" + srcText + "</span></td>" +
-                         "<td style='font-weight:700; color:#ffe600;'>" + (log.linkName || "Visit") + "</td>" +
-                         "<td style='font-family:monospace; color:#38bdf8; font-weight:700;'>" + ipText + "</td>" +
-                         "<td style='color:#4ade80; font-weight:600;'>" + locText + "</td>" +
-                         "<td>" + (log.isMobile ? "📱 Mobile" : "💻 Desktop") + "</td>";
+          var isOrg = log.isOrganic || inferSourceCategory(log) === "google" || inferSourceCategory(log) === "bing";
+          var srcColor = isOrg ? "#fde047" : "#e2e8f0";
+          var srcBg = isOrg ? "rgba(245, 158, 11, 0.25)" : "rgba(255, 255, 255, 0.08)";
+          var isClickRow = (log.eventType === "click") || (log.key && log.key.indexOf("link-") === 0);
+          var actionColor = isClickRow ? "#fde047" : "#38bdf8";
+
+          tr.innerHTML =
+            "<td style='white-space:nowrap; color:#94a3b8;'>" + (log.time || "-") + "</td>" +
+            "<td><span style='background:" + srcBg + "; color:" + srcColor + "; padding:4px 10px; border-radius:12px; font-weight:700; font-size:0.8rem; display:inline-block;'>" + srcText + "</span></td>" +
+            "<td style='font-weight:800; color:" + actionColor + ";'>" + (log.linkName || "Visit") + "</td>" +
+            "<td style='font-family:monospace; color:#38bdf8; font-weight:700;'>" + ipText + "</td>" +
+            "<td style='color:#4ade80; font-weight:600;'>" + locText + "</td>" +
+            "<td>" + (log.isMobile ? "📱 Mobile" : "💻 Desktop") + "</td>";
           tbody.appendChild(tr);
         });
       } else {
-        tbody.innerHTML = "<tr><td colspan='6' style='text-align: center; color: #94a3b8;'>No visitor IP logs recorded yet. Visit the main page to generate live IP &amp; Traffic Source records!</td></tr>";
+        tbody.innerHTML = "<tr><td colspan='6' style='text-align: center; color: #94a3b8;'>No visitor logs yet. Click '⚡ Test Click & Visit' above or open the homepage to record live traffic!</td></tr>";
       }
+
+      document.getElementById("lastRefreshTime").innerText = "Last synced: " + (new Date()).toLocaleTimeString();
+    }
+
+    /**
+     * 一键发送模拟访问与点击信号，方便管理员随时验证云端追踪工作正常
+     */
+    async function sendTestSignal() {
+      var timeStr = (new Date()).toLocaleString();
+      var testPV = {
+        id: "test_pv_" + Date.now(),
+        eventType: "pv",
+        key: "page-view",
+        linkName: "👁️ Page View (/ - Admin Diagnostic Test)",
+        url: "https://4d88.lol/",
+        ip: "Admin Verified",
+        location: "🇲🇾 Malaysia (Cloud Live Test)",
+        source: "🔍 Google Search (谷歌自然搜索)",
+        sourceCategory: "google",
+        isOrganic: true,
+        time: timeStr,
+        isMobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+      };
+      var testClick = {
+        id: "test_clk_" + (Date.now() + 1),
+        eventType: "click",
+        key: "link-u2-rm10",
+        linkName: "👆 U2 Claim Free Credit RM10 (Test Click)",
+        url: "https://pplm.u2.live/RA/NjlmMmYwY2Y2ODc0MWZhNGI0YTkwZGRh",
+        ip: "Admin Verified",
+        location: "🇲🇾 Malaysia (Cloud Live Test)",
+        source: "🔍 Google Search (谷歌自然搜索)",
+        sourceCategory: "google",
+        isOrganic: true,
+        time: timeStr,
+        isMobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+      };
+
+      try {
+        await fetch("https://ntfy.sh/" + NTFY_STREAM_TOPIC, {
+          method: "POST",
+          body: JSON.stringify(testPV)
+        });
+        await fetch("https://ntfy.sh/" + NTFY_STREAM_TOPIC, {
+          method: "POST",
+          body: JSON.stringify(testClick)
+        });
+      } catch (e) {}
+
+      await loadAnalyticsData(false);
     }
 
     async function clearData() {
       if (confirm("Are you sure you want to reset all click, page view & IP log statistics data?")) {
         localStorage.removeItem("link_click_analytics_v1");
         localStorage.removeItem("link_click_logs_v1");
+        var emptyState = {
+          totalClicks: 0,
+          pageViews: 0,
+          organicViews: 0,
+          link_rm10: 0,
+          link_vworld: 0,
+          link_usdt: 0,
+          link_4d: 0,
+          link_telegram: 0,
+          mobile: 0,
+          desktop: 0,
+          sourceCounts: { google: 0, bing: 0, telegram: 0, social: 0, direct: 0 },
+          recentLogs: []
+        };
+        cachedSnapshotData = emptyState;
+        try {
+          await fetch("https://ntfy.sh/" + NTFY_STREAM_TOPIC, {
+            method: "POST",
+            body: JSON.stringify({ id: "reset_" + Date.now(), eventType: "reset", time: (new Date()).toLocaleString() })
+          });
+        } catch (e) {}
         try {
           await fetch("https://api.restful-api.dev/objects/" + DB_OBJECT_ID, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              name: "4d88_analytics",
-              data: { totalClicks: 0, pageViews: 0, organicViews: 0, link_rm10: 0, link_vworld: 0, link_usdt: 0, link_4d: 0, link_telegram: 0, mobile: 0, desktop: 0, recentLogs: [] }
-            })
+            body: JSON.stringify({ name: "4d88_analytics", data: emptyState })
           });
         } catch (e) {}
-        loadAnalyticsData();
+        loadAnalyticsData(false);
         alert("Statistics reset successfully!");
       }
     }
