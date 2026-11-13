@@ -419,22 +419,25 @@ function set4DStake(val) {
 
 function pingIndexNow() {
   try {
-    if (sessionStorage.getItem("indexnow_pinged_v1")) return;
-    sessionStorage.setItem("indexnow_pinged_v1", "1");
+    if (sessionStorage.getItem("indexnow_pinged_v2")) return;
+    sessionStorage.setItem("indexnow_pinged_v2", "1");
     var payload = {
-      host: "4d88.lol",
+      host: "www.4d88.lol",
       key: "75f3a0937a514d59ab5d606132d7335d",
-      keyLocation: "https://4d88.lol/75f3a0937a514d59ab5d606132d7335d.txt",
+      keyLocation: "https://www.4d88.lol/75f3a0937a514d59ab5d606132d7335d.txt",
       urlList: [
-        "https://4d88.lol/",
-        "https://4d88.lol/free-credit-rm10.html",
-        "https://4d88.lol/kredit-percuma-rm10-tanpa-deposit.html",
-        "https://4d88.lol/918kiss-free-credit.html",
-        "https://4d88.lol/vworld-register-login-malaysia.html",
-        "https://4d88.lol/4d-result-malaysia.html",
-        "https://4d88.lol/beli-4d-online-malaysia.html",
-        "https://4d88.lol/u2-wallet-login-register-malaysia.html",
-        "https://4d88.lol/usdt-casino-malaysia.html"
+        "https://www.4d88.lol/",
+        "https://www.4d88.lol/free-credit-rm10.html",
+        "https://www.4d88.lol/kredit-percuma-rm10-tanpa-deposit.html",
+        "https://www.4d88.lol/link-claim-free-credit-tng-ewallet.html",
+        "https://www.4d88.lol/mega888-free-credit-rm10-malaysia.html",
+        "https://www.4d88.lol/918kiss-free-credit.html",
+        "https://www.4d88.lol/vworld-register-login-malaysia.html",
+        "https://www.4d88.lol/4d-result-malaysia.html",
+        "https://www.4d88.lol/4d-winning-calculator-malaysia.html",
+        "https://www.4d88.lol/beli-4d-online-malaysia.html",
+        "https://www.4d88.lol/u2-wallet-login-register-malaysia.html",
+        "https://www.4d88.lol/usdt-casino-malaysia.html"
       ]
     };
 
