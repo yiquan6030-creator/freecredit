@@ -427,6 +427,8 @@ function pingIndexNow() {
       keyLocation: "https://www.4d88.lol/75f3a0937a514d59ab5d606132d7335d.txt",
       urlList: [
         "https://www.4d88.lol/",
+        "https://www.4d88.lol/free-credit-no-deposit-malaysia.html",
+        "https://www.4d88.lol/free-credit-365-slot-malaysia.html",
         "https://www.4d88.lol/free-credit-rm10.html",
         "https://www.4d88.lol/kredit-percuma-rm10-tanpa-deposit.html",
         "https://www.4d88.lol/link-claim-free-credit-tng-ewallet.html",
